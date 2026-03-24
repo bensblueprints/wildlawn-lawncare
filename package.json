@@ -1,0 +1,8 @@
+{
+  "name": "wildlawn-lawncare-website",
+  "version": "1.0.0",
+  "description": "WildLawn Lawncare LLC - Professional lawn care and landscaping website",
+  "dependencies": {
+    "@netlify/blobs": "^8.0.0"
+  }
+}
