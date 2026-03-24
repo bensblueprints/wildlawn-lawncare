@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WildLawn Lawncare — Admin Dashboard</title>
+    <title>Wild Lawn Lawncare — Admin Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -12,35 +12,79 @@
 <body>
 
     <!-- ========== LOGIN SCREEN ========== -->
-    <div id="loginScreen" class="login-screen">
+    <div id="login-section" class="login-screen">
         <div class="login-card">
             <div class="login-logo">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                    <circle cx="24" cy="24" r="24" fill="#48BB78" opacity="0.15"/>
-                    <path d="M24 10c-2 4-8 10-8 18a8 8 0 0016 0c0-8-6-14-8-18z" fill="#48BB78"/>
-                    <path d="M24 18c-1 2-4 5-4 9a4 4 0 008 0c0-4-3-7-4-9z" fill="#68D391"/>
-                </svg>
+                <img src="images/logo.jpg" alt="Wild Lawn Lawncare" width="64" height="64" style="border-radius:12px;">
             </div>
-            <h1 class="login-title">WildLawn Lawncare</h1>
+            <h1 class="login-title">Wild Lawn Lawncare</h1>
             <p class="login-subtitle">Admin Dashboard</p>
-            <form id="loginForm" class="login-form">
-                <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter admin password" autocomplete="current-password" required>
+
+            <!-- Password Login Tab -->
+            <div id="passwordLoginTab">
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter admin password" autocomplete="current-password" required>
+                    </div>
+                    <div id="loginError" class="login-error" hidden>Incorrect password. Please try again.</div>
+                    <button type="submit" class="btn btn-primary btn-full">Log In</button>
+                </form>
+                <div style="text-align:center; margin-top:16px;">
+                    <button id="switchToMagicLink" class="link-btn" style="background:none; border:none; color:#48BB78; font-size:0.85rem; cursor:pointer; font-family:'DM Sans',sans-serif;">Use Magic Link instead</button>
                 </div>
-                <div id="loginError" class="login-error" hidden>Incorrect password. Please try again.</div>
-                <button type="submit" class="btn btn-primary btn-full">Log In</button>
-            </form>
+            </div>
+
+            <!-- Magic Link Login Tab -->
+            <div id="magicLinkTab" hidden>
+                <form id="magicLinkForm" class="login-form">
+                    <div class="form-group">
+                        <label for="magicEmail">Email Address</label>
+                        <input type="email" id="magicEmail" placeholder="Enter your admin email" autocomplete="email" required>
+                    </div>
+                    <div id="magicLinkMsg" class="login-success" hidden style="color:#48BB78; background:rgba(72,187,120,0.08); padding:12px; border-radius:8px; font-size:0.88rem; margin-bottom:12px;">Check your email for the login link!</div>
+                    <button type="submit" class="btn btn-primary btn-full">Send Magic Link</button>
+                </form>
+                <div style="text-align:center; margin-top:16px;">
+                    <button id="switchToPassword" class="link-btn" style="background:none; border:none; color:#48BB78; font-size:0.85rem; cursor:pointer; font-family:'DM Sans',sans-serif;">Use password instead</button>
+                </div>
+            </div>
+
+            <!-- Reset Password Section -->
+            <div style="text-align:center; margin-top:24px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.06);">
+                <button id="resetPasswordBtn" class="link-btn" style="background:none; border:none; color:#6b6965; font-size:0.8rem; cursor:pointer; font-family:'DM Sans',sans-serif;">Forgot password? Reset it</button>
+            </div>
+
+            <!-- Reset Password Form (hidden by default) -->
+            <div id="resetPasswordSection" hidden style="margin-top:16px;">
+                <form id="resetPasswordForm" class="login-form">
+                    <div class="form-group">
+                        <label for="resetEmail">Email Address</label>
+                        <input type="email" id="resetEmail" placeholder="Enter your admin email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" placeholder="Enter new password" minlength="8" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+                    </div>
+                    <div id="resetError" class="login-error" hidden></div>
+                    <div id="resetSuccess" class="login-success" hidden style="color:#48BB78; background:rgba(72,187,120,0.08); padding:12px; border-radius:8px; font-size:0.88rem; margin-bottom:12px;"></div>
+                    <button type="submit" class="btn btn-primary btn-full">Reset Password</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- ========== DASHBOARD ========== -->
-    <div id="dashboard" class="dashboard" hidden>
+    <div id="dashboard-section" class="dashboard" hidden>
 
         <!-- Top Bar -->
         <header class="topbar">
             <div class="topbar-left">
-                <h2 class="topbar-brand">WildLawn Lawncare</h2>
+                <h2 class="topbar-brand">Wild Lawn Lawncare</h2>
                 <span class="topbar-badge">Admin Panel</span>
             </div>
             <button id="logoutBtn" class="btn btn-outline btn-sm">Logout</button>

@@ -53,14 +53,18 @@
 
   /** Show login form, hide dashboard. */
   function showLogin() {
-    $('#login-section').classList.remove('hidden');
-    $('#dashboard-section').classList.add('hidden');
+    const login = $('#login-section');
+    const dash = $('#dashboard-section');
+    if (login) { login.removeAttribute('hidden'); login.style.display = ''; }
+    if (dash) { dash.setAttribute('hidden', ''); dash.style.display = 'none'; }
   }
 
   /** Show dashboard, hide login form. */
   function showDashboard() {
-    $('#login-section').classList.add('hidden');
-    $('#dashboard-section').classList.remove('hidden');
+    const login = $('#login-section');
+    const dash = $('#dashboard-section');
+    if (login) { login.setAttribute('hidden', ''); login.style.display = 'none'; }
+    if (dash) { dash.removeAttribute('hidden'); dash.style.display = ''; }
   }
 
   /** Attempt login by fetching leads with the provided password as Bearer token. */
@@ -264,8 +268,8 @@
 
   /** Render the leads table (desktop) and cards (mobile). */
   function renderLeads() {
-    const tbody = $('#leads-table-body');
-    const cardContainer = $('#leads-cards');
+    const tbody = $('#leadsTableBody');
+    const cardContainer = $('#leadsCards');
     if (tbody) tbody.innerHTML = '';
     if (cardContainer) cardContainer.innerHTML = '';
 
@@ -300,8 +304,8 @@
 
   /** Apply the current status filter and search query to allLeads. */
   function applyFilters() {
-    const statusFilter = ($('#filter-status') || {}).value || 'all';
-    const searchQuery = (($('#search-input') || {}).value || '').toLowerCase().trim();
+    const statusFilter = ($('#filterStatus') || {}).value || 'all';
+    const searchQuery = (($('#filterSearch') || {}).value || '').toLowerCase().trim();
 
     filteredLeads = allLeads.filter((lead) => {
       // Status filter
@@ -325,22 +329,22 @@
 
   /** Open the detail modal for a given lead. */
   function openModal(lead) {
-    const modal = $('#lead-modal');
+    const modal = $('#leadModal');
     if (!modal) return;
 
     // Populate fields
-    $('#modal-name').textContent = lead.name || '—';
-    $('#modal-email').innerHTML = lead.email
+    $('#modalName').textContent = lead.name || '—';
+    $('#modalEmail').innerHTML = lead.email
       ? `<a href="mailto:${lead.email}">${lead.email}</a>`
       : '—';
-    $('#modal-phone').innerHTML = lead.phone
+    $('#modalPhone').innerHTML = lead.phone
       ? `<a href="tel:${lead.phone.replace(/\D/g, '')}">${lead.phone}</a>`
       : '—';
-    $('#modal-service').textContent = lead.service || '—';
-    $('#modal-message').textContent = lead.message || '—';
-    $('#modal-status').innerHTML = `<span class="badge ${statusClass(lead.status)}">${lead.status || 'new'}</span>`;
-    $('#modal-date').textContent = formatDate(lead.createdAt || lead.date);
-    $('#modal-notes').value = lead.notes || '';
+    $('#modalService').textContent = lead.service || '—';
+    $('#modalMessage').textContent = lead.message || '—';
+    $('#modalStatus').innerHTML = `<span class="badge ${statusClass(lead.status)}">${lead.status || 'new'}</span>`;
+    $('#modalDate').textContent = formatDate(lead.createdAt || lead.date);
+    $('#modalNotes').value = lead.notes || '';
 
     // Store current lead id on the modal for later use
     modal.dataset.leadId = lead.id;
@@ -352,7 +356,7 @@
 
   /** Close the detail modal. */
   function closeModal() {
-    const modal = $('#lead-modal');
+    const modal = $('#leadModal');
     if (!modal) return;
     modal.classList.remove('active');
     document.body.classList.remove('modal-open');
@@ -384,9 +388,9 @@
 
   /** Save notes from the modal. */
   async function saveNotes() {
-    const modal = $('#lead-modal');
+    const modal = $('#leadModal');
     const id = modal ? modal.dataset.leadId : null;
-    const notes = $('#modal-notes') ? $('#modal-notes').value : '';
+    const notes = $('#modalNotes') ? $('#modalNotes').value : '';
     if (!id) return;
 
     try {
@@ -401,7 +405,7 @@
 
   /** Change status from inside the modal. */
   async function modalStatusChange(newStatus) {
-    const modal = $('#lead-modal');
+    const modal = $('#leadModal');
     const id = modal ? modal.dataset.leadId : null;
     if (!id) return;
 
@@ -532,21 +536,100 @@
 
   function bindEvents() {
     // --- Login form ---
-    const loginForm = $('#login-form');
+    const loginForm = $('#loginForm');
     if (loginForm) {
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const pw = $('#login-password');
+        const pw = $('#loginPassword');
         if (pw && pw.value.trim()) login(pw.value.trim());
       });
     }
 
+    // --- Magic Link toggle ---
+    const switchToMagic = $('#switchToMagicLink');
+    if (switchToMagic) {
+      switchToMagic.addEventListener('click', () => {
+        $('#passwordLoginTab').setAttribute('hidden', '');
+        $('#magicLinkTab').removeAttribute('hidden');
+      });
+    }
+    const switchToPass = $('#switchToPassword');
+    if (switchToPass) {
+      switchToPass.addEventListener('click', () => {
+        $('#magicLinkTab').setAttribute('hidden', '');
+        $('#passwordLoginTab').removeAttribute('hidden');
+      });
+    }
+
+    // --- Magic Link form ---
+    const magicForm = $('#magicLinkForm');
+    if (magicForm) {
+      magicForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = $('#magicEmail').value.trim();
+        if (!email) return;
+        try {
+          await fetch('/.netlify/functions/send-notification', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'magic-link', email }),
+          });
+          const msg = $('#magicLinkMsg');
+          if (msg) { msg.removeAttribute('hidden'); msg.textContent = 'Check your email for the login link! (If configured)'; }
+        } catch {
+          showToast('Failed to send magic link', 'error');
+        }
+      });
+    }
+
+    // --- Reset Password toggle ---
+    const resetBtn = $('#resetPasswordBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const section = $('#resetPasswordSection');
+        if (section) section.toggleAttribute('hidden');
+      });
+    }
+
+    // --- Reset Password form ---
+    const resetForm = $('#resetPasswordForm');
+    if (resetForm) {
+      resetForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const newPw = $('#newPassword').value;
+        const confirmPw = $('#confirmPassword').value;
+        const resetError = $('#resetError');
+        const resetSuccess = $('#resetSuccess');
+        if (resetError) resetError.setAttribute('hidden', '');
+        if (resetSuccess) resetSuccess.setAttribute('hidden', '');
+
+        if (newPw !== confirmPw) {
+          if (resetError) { resetError.removeAttribute('hidden'); resetError.textContent = 'Passwords do not match.'; }
+          return;
+        }
+        if (newPw.length < 8) {
+          if (resetError) { resetError.removeAttribute('hidden'); resetError.textContent = 'Password must be at least 8 characters.'; }
+          return;
+        }
+        try {
+          await fetch('/.netlify/functions/send-notification', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'password-reset', email: $('#resetEmail').value, newPassword: newPw }),
+          });
+          if (resetSuccess) { resetSuccess.removeAttribute('hidden'); resetSuccess.textContent = 'Password reset request sent. Update ADMIN_PASSWORD in Netlify environment variables to complete the change.'; }
+        } catch {
+          if (resetError) { resetError.removeAttribute('hidden'); resetError.textContent = 'Reset failed. Please try again.'; }
+        }
+      });
+    }
+
     // --- Logout button ---
-    const logoutBtn = $('#logout-btn');
+    const logoutBtn = $('#logoutBtn');
     if (logoutBtn) logoutBtn.addEventListener('click', logout);
 
     // --- Status filter dropdown ---
-    const filterStatus = $('#filter-status');
+    const filterStatus = $('#filterStatus');
     if (filterStatus) {
       filterStatus.addEventListener('change', () => {
         applyFilters();
@@ -555,7 +638,7 @@
     }
 
     // --- Search input ---
-    const searchInput = $('#search-input');
+    const searchInput = $('#filterSearch');
     if (searchInput) {
       searchInput.addEventListener('input', () => {
         applyFilters();
@@ -573,11 +656,11 @@
     });
 
     // --- Modal close button ---
-    const modalClose = $('#modal-close');
+    const modalClose = $('#modalCloseBtn');
     if (modalClose) modalClose.addEventListener('click', closeModal);
 
     // --- Modal overlay click ---
-    const modal = $('#lead-modal');
+    const modal = $('#leadModal');
     if (modal) {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
@@ -590,7 +673,7 @@
     });
 
     // --- Modal save notes ---
-    const saveNotesBtn = $('#modal-save-notes');
+    const saveNotesBtn = $('#saveNotesBtn');
     if (saveNotesBtn) saveNotesBtn.addEventListener('click', saveNotes);
 
     // --- Modal status change buttons ---
@@ -601,11 +684,11 @@
     });
 
     // --- Export CSV ---
-    const exportBtn = $('#export-csv-btn');
+    const exportBtn = $('#exportCsvBtn');
     if (exportBtn) exportBtn.addEventListener('click', exportCSV);
 
     // --- Refresh button (manual) ---
-    const refreshBtn = $('#refresh-btn');
+    const refreshBtn = $('#refreshBtn');
     if (refreshBtn) {
       refreshBtn.addEventListener('click', async () => {
         try {
