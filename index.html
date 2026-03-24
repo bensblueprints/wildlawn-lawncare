@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WildLawn Lawncare LLC | Quality Lawn Care for Every Budget | Metro Atlanta, GA</title>
+  <title>Wild Lawn Lawncare LLC | Quality Lawn Care for Every Budget | Metro Atlanta, GA</title>
   <meta name="description" content="WildLawn Lawncare LLC provides professional lawn care and landscaping services in Metro Atlanta. Mowing, mulching, landscaping, pressure washing &amp; more. Licensed &amp; Insured. Call (770) 490-2542.">
   <meta name="keywords" content="lawn care Atlanta, landscaping Marietta, lawn mowing Kennesaw, lawn service Roswell, Alpharetta landscaping, pressure washing Atlanta, WildLawn">
   <meta name="author" content="WildLawn Lawncare LLC">
@@ -13,7 +13,7 @@
   <!-- Open Graph -->
   <meta property="og:title" content="WildLawn Lawncare LLC | Quality Lawn Care for Every Budget">
   <meta property="og:description" content="Professional lawn care and landscaping services in Metro Atlanta, GA. Licensed, Insured, Reliable. Call (770) 490-2542 for a free estimate.">
-  <meta property="og:image" content="images/hero-lawn.png">
+  <meta property="og:image" content="images/hero-lawn.jpg">
   <meta property="og:url" content="https://wildlawnlawncare.com/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="WildLawn Lawncare LLC | Quality Lawn Care for Every Budget">
   <meta name="twitter:description" content="Professional lawn care and landscaping services in Metro Atlanta, GA. Licensed, Insured, Reliable.">
-  <meta name="twitter:image" content="images/hero-lawn.png">
+  <meta name="twitter:image" content="images/hero-lawn.jpg">
 
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,8 @@
     "url": "https://wildlawnlawncare.com",
     "telephone": "+17704902542",
     "email": "wildlawncare43@gmail.com",
-    "image": "images/logo.png",
-    "logo": "images/logo.png",
+    "image": "images/logo.jpg",
+    "logo": "images/logo.jpg",
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
@@ -188,10 +188,10 @@
       justify-content: space-between;
     }
     .nav-logo { display: flex; align-items: center; gap: 10px; }
-    .nav-logo img { height: 40px; width: auto; }
+    .nav-logo img { height: 56px; width: auto; }
     .nav-logo span {
       font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 700;
     }
     .nav-links {
@@ -259,6 +259,14 @@
       padding-top: 80px;
       position: relative;
       overflow: hidden;
+      background: url('images/hero-bg.jpg') center/cover no-repeat;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(13,13,13,0.92) 0%, rgba(13,13,13,0.75) 50%, rgba(13,13,13,0.88) 100%);
+      z-index: 0;
     }
     #hero::before {
       content: '';
@@ -267,9 +275,9 @@
       left: 30%;
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, rgba(72,187,120,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(72,187,120,0.15) 0%, transparent 70%);
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
     }
     .hero-grid {
       display: grid;
@@ -277,7 +285,7 @@
       gap: 60px;
       align-items: center;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
     .hero-content h1 {
       font-size: clamp(2.5rem, 5vw, 3.75rem);
@@ -954,8 +962,8 @@
   <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="container">
       <a href="#hero" class="nav-logo" aria-label="WildLawn Lawncare home">
-        <img src="images/logo.png" alt="WildLawn Lawncare LLC logo" width="40" height="40">
-        <span>Wild<span class="accent">Lawn</span></span>
+        <img src="images/logo.jpg" alt="Wild Lawn Lawncare LLC logo" width="56" height="56" style="border-radius:8px;">
+        <span>Wild <span class="accent">Lawn</span></span>
       </a>
       <div class="nav-links">
         <a href="#services">Services</a>
@@ -1020,7 +1028,7 @@
           </div>
         </div>
         <div class="hero-image fadeUp">
-          <img src="images/hero-lawn.png" alt="Beautiful maintained lawn by WildLawn Lawncare in Metro Atlanta" width="560" height="420" loading="eager">
+          <img src="images/hero-lawn.jpg" alt="Beautiful maintained lawn by WildLawn Lawncare in Metro Atlanta" width="560" height="420" loading="eager">
         </div>
       </div>
     </div>
@@ -1196,6 +1204,7 @@
           </div>
         </div>
         <div class="why-image-wrap fadeUp">
+          <img src="images/about-team.jpg" alt="Wild Lawn professional lawn care team" loading="lazy" style="width:100%; border-radius:12px; margin-bottom:24px; object-fit:cover; max-height:280px;">
           <div style="margin-bottom:32px;">
             <h3 style="font-size:1.5rem; margin-bottom:8px;">Quality Lawn Care<br>for <span class="accent">Every Budget</span></h3>
             <p style="color:#a8a5a0; font-size:0.9rem;">Serving Metro Atlanta with pride since day one.</p>
@@ -1313,6 +1322,61 @@
           <div class="step-number">4</div>
           <h3>Beautiful Results</h3>
           <p>Sit back and enjoy a stunning, healthy lawn that's the envy of the neighborhood.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALLERY ========== -->
+  <section id="gallery" aria-label="Our work gallery" style="padding:100px 0;">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
+        <p class="section-label">Our Work</p>
+        <h2 class="section-title">See the <span class="accent">Wild Lawn</span> Difference</h2>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Real results from real properties across Metro Atlanta.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;">
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
+          <img src="images/hero-lawn.jpg" alt="Freshly mowed residential lawn in Roswell GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
+            <p style="font-weight:600; font-size:0.95rem;">Residential Lawn Care</p>
+            <p style="color:#a8a5a0; font-size:0.8rem;">Roswell, GA</p>
+          </div>
+        </div>
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
+          <img src="images/gallery-1.jpg" alt="Professional landscaping project in Marietta GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
+            <p style="font-weight:600; font-size:0.95rem;">Landscape Design</p>
+            <p style="color:#a8a5a0; font-size:0.8rem;">Marietta, GA</p>
+          </div>
+        </div>
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
+          <img src="images/gallery-2.jpg" alt="Beautiful home exterior with maintained lawn in Alpharetta" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
+            <p style="font-weight:600; font-size:0.95rem;">Full Property Maintenance</p>
+            <p style="color:#a8a5a0; font-size:0.8rem;">Alpharetta, GA</p>
+          </div>
+        </div>
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
+          <img src="images/gallery-3.jpg" alt="Modern home with professional landscaping" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
+            <p style="font-weight:600; font-size:0.95rem;">Premium Package Results</p>
+            <p style="color:#a8a5a0; font-size:0.8rem;">Kennesaw, GA</p>
+          </div>
+        </div>
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
+          <img src="images/service-landscaping.jpg" alt="Professional mulching and bed maintenance" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
+            <p style="font-weight:600; font-size:0.95rem;">Mulching & Bed Work</p>
+            <p style="color:#a8a5a0; font-size:0.8rem;">Woodstock, GA</p>
+          </div>
+        </div>
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
+          <img src="images/service-mowing.jpg" alt="Commercial lawn maintenance" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
+            <p style="font-weight:600; font-size:0.95rem;">Commercial Grounds</p>
+            <p style="color:#a8a5a0; font-size:0.8rem;">Smyrna, GA</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1566,8 +1630,8 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#hero" class="nav-logo" aria-label="WildLawn Lawncare home">
-            <img src="images/logo.png" alt="WildLawn Lawncare LLC logo" width="40" height="40">
-            <span style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700;">Wild<span class="accent">Lawn</span></span>
+            <img src="images/logo.jpg" alt="Wild Lawn Lawncare LLC logo" width="56" height="56" style="border-radius:8px;">
+            <span style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700;">Wild <span class="accent">Lawn</span></span>
           </a>
           <p>Quality Lawn Care for Every Budget. Proudly serving Metro Atlanta with professional lawn care and landscaping services.</p>
         </div>
