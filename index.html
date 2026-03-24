@@ -381,7 +381,7 @@
       background: #141414;
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 12px;
-      padding: 32px;
+      padding: 0;
       transition: all 0.35s ease;
       position: relative;
       overflow: hidden;
@@ -403,6 +403,42 @@
       border-color: rgba(72,187,120,0.15);
     }
     .service-card:hover::before { transform: scaleX(1); }
+    .service-card-img {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+    .service-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .service-card:hover .service-card-img img {
+      transform: scale(1.08);
+    }
+    .service-card-body {
+      padding: 24px;
+    }
+    .service-card-body h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+    .service-card-body p {
+      color: #a8a5a0;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    .service-link {
+      color: #48BB78;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.3s ease;
+    }
+    .service-link:hover { gap: 10px; }
     .service-icon {
       width: 52px;
       height: 52px;
@@ -1085,59 +1121,80 @@
       <div class="services-grid">
         <!-- Lawn Maintenance -->
         <div class="service-card fadeUp">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <div class="service-card-img">
+            <img src="images/service-mowing.jpg" alt="Professional lawn mowing service in Atlanta" loading="lazy">
           </div>
-          <h3>Lawn Maintenance</h3>
-          <p>Professional mowing, trimming, edging, and blowing to keep your lawn pristine all season long.</p>
+          <div class="service-card-body">
+            <h3>Lawn Maintenance</h3>
+            <p>Professional mowing, trimming, edging, and blowing to keep your lawn pristine all season long.</p>
+            <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
+          </div>
         </div>
         <!-- Mulching -->
         <div class="service-card fadeUp">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M2 22h20"/><path d="M6.36 17.4L4 22h16l-2.36-4.6"/><path d="M12 2a5 5 0 0 1 5 5c0 4-5 7-5 7s-5-3-5-7a5 5 0 0 1 5-5z"/></svg>
+          <div class="service-card-img">
+            <img src="images/service-mulching.jpg" alt="Mulch installation and bed maintenance" loading="lazy">
           </div>
-          <h3>Mulching &amp; Bed Maintenance</h3>
-          <p>Fresh mulch installation, bed edging, and weed removal to enhance your landscape beds.</p>
+          <div class="service-card-body">
+            <h3>Mulching &amp; Bed Maintenance</h3>
+            <p>Fresh mulch installation, bed edging, and weed removal to enhance your landscape beds.</p>
+            <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
+          </div>
         </div>
         <!-- Bush & Shrub -->
         <div class="service-card fadeUp">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 14c.3-.6.5-1.3.5-2a5.5 5.5 0 0 0-11 0c0 .7.2 1.4.5 2"/><path d="M12 14V22"/><path d="M8 18h8"/><path d="M12 2v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+          <div class="service-card-img">
+            <img src="images/service-shrub.jpg" alt="Bush and shrub trimming and shaping" loading="lazy">
           </div>
-          <h3>Bush &amp; Shrub Care</h3>
-          <p>Expert trimming, shaping, and health care for your bushes and shrubs year-round.</p>
+          <div class="service-card-body">
+            <h3>Bush &amp; Shrub Care</h3>
+            <p>Expert trimming, shaping, and health care for your bushes and shrubs year-round.</p>
+            <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
+          </div>
         </div>
         <!-- Seasonal Cleanups -->
         <div class="service-card fadeUp">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M11 4a4 4 0 0 1 0 8H2"/><path d="M16 12a4 4 0 0 1 0 8H4"/><path d="M19 8a3 3 0 0 1 0 6h-2"/></svg>
+          <div class="service-card-img">
+            <img src="images/service-cleanup.jpg" alt="Fall and spring yard cleanup service" loading="lazy">
           </div>
-          <h3>Seasonal Cleanups</h3>
-          <p>Complete leaf removal, debris hauling, and property cleanup for fall, winter, and spring transitions.</p>
+          <div class="service-card-body">
+            <h3>Seasonal Cleanups</h3>
+            <p>Complete leaf removal, debris hauling, and property cleanup for fall, winter, and spring transitions.</p>
+            <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
+          </div>
         </div>
         <!-- Fertilization -->
         <div class="service-card fadeUp">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M7 21h10"/><path d="M12 21V3"/><path d="M3 7l4-4 4 4"/><path d="M13 7l4-4 4 4"/><path d="M3 11h4"/><path d="M17 11h4"/></svg>
+          <div class="service-card-img">
+            <img src="images/service-fertilization.jpg" alt="Lawn fertilization and weed control treatment" loading="lazy">
           </div>
-          <h3>Fertilization &amp; Weed Control</h3>
-          <p>Science-based fertilization programs and targeted weed control for a thick, healthy lawn.</p>
+          <div class="service-card-body">
+            <h3>Fertilization &amp; Weed Control</h3>
+            <p>Science-based fertilization programs and targeted weed control for a thick, healthy lawn.</p>
+            <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
+          </div>
         </div>
         <!-- Landscape Design -->
         <div class="service-card fadeUp">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <div class="service-card-img">
+            <img src="images/service-landscape-design.jpg" alt="Custom landscape design and installation" loading="lazy">
           </div>
-          <h3>Landscape Design</h3>
-          <p>Custom landscape design and installation to transform your outdoor spaces into stunning retreats.</p>
+          <div class="service-card-body">
+            <h3>Landscape Design</h3>
+            <p>Custom landscape design and installation to transform your outdoor spaces into stunning retreats.</p>
+            <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
+          </div>
         </div>
         <!-- Pressure Washing -->
         <div class="service-card fadeUp">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2v6"/><path d="M12 12v2"/><path d="M12 18v4"/><circle cx="12" cy="12" r="2"/><path d="M4.93 4.93l4.24 4.24"/><path d="M14.83 14.83l4.24 4.24"/><path d="M19.07 4.93l-4.24 4.24"/><path d="M9.17 14.83l-4.24 4.24"/></svg>
+          <div class="service-card-img">
+            <img src="images/service-pressure-washing.jpg" alt="Professional pressure washing for driveways and homes" loading="lazy">
           </div>
-          <h3>Pressure Washing</h3>
-          <p>Professional pressure washing for houses, driveways, patios, and fences to restore their original shine.</p>
+          <div class="service-card-body">
+            <h3>Pressure Washing</h3>
+            <p>Professional pressure washing for houses, driveways, patios, and fences to restore their original shine.</p>
+            <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
+          </div>
         </div>
       </div>
     </div>
@@ -1336,45 +1393,45 @@
         <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Real results from real properties across Metro Atlanta.</p>
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;">
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
-          <img src="images/hero-lawn.jpg" alt="Freshly mowed residential lawn in Roswell GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Lush Green Lawn Maintenance — Roswell, GA">
+          <img src="images/gallery-1.jpg" alt="Lush green lawn freshly maintained by Wild Lawn in Roswell GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
           <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
             <p style="font-weight:600; font-size:0.95rem;">Residential Lawn Care</p>
             <p style="color:#a8a5a0; font-size:0.8rem;">Roswell, GA</p>
           </div>
         </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
-          <img src="images/gallery-1.jpg" alt="Professional landscaping project in Marietta GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Beautiful Garden Landscaping — Marietta, GA">
+          <img src="images/gallery-2.jpg" alt="Professional landscaping with garden beds in Marietta GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
           <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
             <p style="font-weight:600; font-size:0.95rem;">Landscape Design</p>
             <p style="color:#a8a5a0; font-size:0.8rem;">Marietta, GA</p>
           </div>
         </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
-          <img src="images/gallery-2.jpg" alt="Beautiful home exterior with maintained lawn in Alpharetta" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Full Property Maintenance — Alpharetta, GA">
+          <img src="images/gallery-3.jpg" alt="Manicured property with trimmed hedges in Alpharetta GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
           <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
             <p style="font-weight:600; font-size:0.95rem;">Full Property Maintenance</p>
             <p style="color:#a8a5a0; font-size:0.8rem;">Alpharetta, GA</p>
           </div>
         </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
-          <img src="images/gallery-3.jpg" alt="Modern home with professional landscaping" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Beautiful Home with Maintained Lawn — Kennesaw, GA">
+          <img src="images/gallery-4.jpg" alt="Beautiful home exterior with professionally maintained lawn in Kennesaw GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
           <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
             <p style="font-weight:600; font-size:0.95rem;">Premium Package Results</p>
             <p style="color:#a8a5a0; font-size:0.8rem;">Kennesaw, GA</p>
           </div>
         </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
-          <img src="images/service-landscaping.jpg" alt="Professional mulching and bed maintenance" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Spring Planting & Bed Preparation — Woodstock, GA">
+          <img src="images/gallery-5.jpg" alt="Spring planting and mulch bed preparation in Woodstock GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
           <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
-            <p style="font-weight:600; font-size:0.95rem;">Mulching & Bed Work</p>
+            <p style="font-weight:600; font-size:0.95rem;">Mulching &amp; Bed Work</p>
             <p style="color:#a8a5a0; font-size:0.8rem;">Woodstock, GA</p>
           </div>
         </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3;">
-          <img src="images/service-mowing.jpg" alt="Commercial lawn maintenance" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
+        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Luxury Home Curb Appeal — Smyrna, GA">
+          <img src="images/gallery-6.jpg" alt="Luxury home with perfect curb appeal and maintained lawn in Smyrna GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
           <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
-            <p style="font-weight:600; font-size:0.95rem;">Commercial Grounds</p>
+            <p style="font-weight:600; font-size:0.95rem;">Curb Appeal Enhancement</p>
             <p style="color:#a8a5a0; font-size:0.8rem;">Smyrna, GA</p>
           </div>
         </div>
