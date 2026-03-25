@@ -1,4 +1,4 @@
-const { getStore } = require("@netlify/blobs");
+const { getStore, connectLambda } = require("@netlify/blobs");
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
@@ -21,6 +21,7 @@ exports.handler = async function (event, context) {
   }
 
   try {
+    connectLambda(event);
     const body = JSON.parse(event.body || "{}");
 
     // Honeypot check
