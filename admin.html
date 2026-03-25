@@ -177,6 +177,50 @@
                 </div>
             </section>
 
+            <!-- ========== FLEET MANAGEMENT ========== -->
+            <section class="settings-section" style="margin-top:32px; padding:32px; background:#141414; border:1px solid rgba(255,255,255,0.06); border-radius:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <div>
+                        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:4px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#48BB78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                            Fleet Management
+                        </h3>
+                        <p style="color:#6b6965; font-size:0.85rem;">Manage trucks and connect Google Calendars for scheduling.</p>
+                    </div>
+                    <button id="addTruckBtn" class="btn btn-primary btn-sm" style="padding:8px 16px;">+ Add Truck</button>
+                </div>
+                <div id="trucksList">
+                    <div class="empty-hint" style="text-align:center; padding:32px; color:#6b6965; font-size:0.9rem;">
+                        <p>No trucks configured yet. Click "Add Truck" to get started.</p>
+                    </div>
+                </div>
+                <div style="margin-top:20px; display:flex; gap:12px;">
+                    <button id="saveTrucksBtn" class="btn btn-primary btn-sm" style="padding:10px 24px;">Save Fleet</button>
+                </div>
+            </section>
+
+            <!-- ========== SERVICES & PRICING ========== -->
+            <section class="settings-section" style="margin-top:32px; padding:32px; background:#141414; border:1px solid rgba(255,255,255,0.06); border-radius:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <div>
+                        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:4px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#48BB78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            Services & Pricing
+                        </h3>
+                        <p style="color:#6b6965; font-size:0.85rem;">Configure services and pricing. The AI booking agent uses this data when talking to customers.</p>
+                    </div>
+                    <button id="addServiceBtn" class="btn btn-primary btn-sm" style="padding:8px 16px;">+ Add Service</button>
+                </div>
+                <div id="servicesList">
+                    <div class="empty-hint" style="text-align:center; padding:32px; color:#6b6965; font-size:0.9rem;">
+                        <p>No services configured yet. Click "Add Service" to get started.</p>
+                    </div>
+                </div>
+                <div style="margin-top:20px; display:flex; gap:12px;">
+                    <button id="saveServicesBtn" class="btn btn-primary btn-sm" style="padding:10px 24px;">Save Services</button>
+                </div>
+            </section>
+
             <!-- ========== AI RECEPTIONIST SETTINGS ========== -->
             <section class="settings-section" style="margin-top:32px; padding:32px; background:#141414; border:1px solid rgba(255,255,255,0.06); border-radius:12px;">
                 <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:8px;">

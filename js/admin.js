@@ -13,6 +13,8 @@
     GET_LEADS: '/.netlify/functions/get-leads',
     UPDATE_LEAD: '/.netlify/functions/update-lead',
     DELETE_LEAD: '/.netlify/functions/delete-lead',
+    GET_SETTINGS: '/.netlify/functions/get-settings',
+    UPDATE_SETTINGS: '/.netlify/functions/update-settings',
   };
 
   const AUTO_REFRESH_MS = 60000; // 60 seconds
@@ -23,6 +25,8 @@
   let allLeads = [];        // master list from API
   let filteredLeads = [];   // after search / filter
   let refreshTimer = null;  // setInterval id
+  let trucksData = [];
+  let servicesData = [];
 
   // ---------------------------------------------------------------------------
   // DOM helpers
@@ -82,6 +86,7 @@
       showDashboard();
       renderAll();
       startAutoRefresh();
+      fetchSettings();
       showToast('Logged in successfully', 'success');
     } catch (err) {
       showToast(err.message || 'Login failed', 'error');
@@ -102,6 +107,7 @@
       showDashboard();
       renderAll();
       startAutoRefresh();
+      fetchSettings();
     } catch {
       // Token expired / invalid — clear it and show login
       sessionStorage.removeItem('adminToken');
@@ -687,6 +693,24 @@
     const exportBtn = $('#exportCsvBtn');
     if (exportBtn) exportBtn.addEventListener('click', exportCSV);
 
+    // --- Fleet & Services ---
+    const addTruckBtn = $('#addTruckBtn');
+    if (addTruckBtn) addTruckBtn.addEventListener('click', addTruck);
+    const saveTrucksBtn = $('#saveTrucksBtn');
+    if (saveTrucksBtn) saveTrucksBtn.addEventListener('click', saveTrucks);
+    const addServiceBtn = $('#addServiceBtn');
+    if (addServiceBtn) addServiceBtn.addEventListener('click', addService);
+    const saveServicesBtn = $('#saveServicesBtn');
+    if (saveServicesBtn) saveServicesBtn.addEventListener('click', saveServices);
+
+    // Delegated delete for trucks and services
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-action="delete-truck"]');
+      if (btn) { trucksData = trucksData.filter(t => t.id !== btn.dataset.id); renderTrucks(); return; }
+      const btn2 = e.target.closest('[data-action="delete-service"]');
+      if (btn2) { servicesData = servicesData.filter(s => s.id !== btn2.dataset.id); renderServices(); }
+    });
+
     // --- Refresh button (manual) ---
     const refreshBtn = $('#refreshBtn');
     if (refreshBtn) {
@@ -699,6 +723,257 @@
           showToast('Refresh failed', 'error');
         }
       });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 12. FLEET & SERVICES MANAGEMENT
+  // ---------------------------------------------------------------------------
+
+  /** Generate a unique ID with a given prefix. */
+  function generateId(prefix) {
+    return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+  }
+
+  /** Fetch fleet and services settings from the API. */
+  async function fetchSettings() {
+    try {
+      const res = await fetch(API.GET_SETTINGS, {
+        headers: authHeaders(),
+      });
+      if (!res.ok) throw new Error('Failed to fetch settings');
+      const data = await res.json();
+      trucksData = Array.isArray(data.trucks) ? data.trucks : [];
+      servicesData = Array.isArray(data.services) ? data.services : [];
+    } catch (err) {
+      // Gracefully handle — keep existing data
+      console.warn('fetchSettings:', err.message);
+    }
+    renderTrucks();
+    renderServices();
+  }
+
+  const inputStyle = "background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px 14px; color:#f7f5f2; font-family:'DM Sans',sans-serif; font-size:0.9rem; width:100%;";
+
+  /** Render truck cards into #trucksList. */
+  function renderTrucks() {
+    const container = $('#trucksList');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (trucksData.length === 0) {
+      container.innerHTML = `<div class="empty-hint" style="text-align:center; padding:32px; color:#6b6965; font-size:0.9rem;">
+        <p>No trucks configured yet. Click "Add Truck" to get started.</p>
+      </div>`;
+      return;
+    }
+
+    trucksData.forEach((truck) => {
+      const card = document.createElement('div');
+      card.className = 'truck-card';
+      card.dataset.id = truck.id;
+      card.style.cssText = 'background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px; margin-bottom:12px;';
+      card.innerHTML = `
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+          <div style="flex:1; min-width:180px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Truck Name</label>
+            <input type="text" data-field="name" value="${(truck.name || '').replace(/"/g, '&quot;')}" placeholder="e.g. Truck 1" style="${inputStyle}">
+          </div>
+          <div style="flex:2; min-width:240px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Google Calendar ID</label>
+            <input type="text" data-field="calendarId" value="${(truck.calendarId || '').replace(/"/g, '&quot;')}" placeholder="e.g. abc123@group.calendar.google.com" style="${inputStyle}">
+          </div>
+          <div style="min-width:120px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Status</label>
+            <select data-field="status" style="${inputStyle}">
+              <option value="active"${truck.status === 'active' ? ' selected' : ''}>Active</option>
+              <option value="inactive"${truck.status === 'inactive' ? ' selected' : ''}>Inactive</option>
+            </select>
+          </div>
+          <div style="display:flex; align-items:flex-end; padding-bottom:2px;">
+            <button data-action="delete-truck" data-id="${truck.id}" class="btn btn-sm" style="background:rgba(255,0,0,0.1); color:#ff6b6b; border:1px solid rgba(255,0,0,0.2); border-radius:8px; padding:8px 14px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem;">Delete</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  /** Render service cards into #servicesList. */
+  function renderServices() {
+    const container = $('#servicesList');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (servicesData.length === 0) {
+      container.innerHTML = `<div class="empty-hint" style="text-align:center; padding:32px; color:#6b6965; font-size:0.9rem;">
+        <p>No services configured yet. Click "Add Service" to get started.</p>
+      </div>`;
+      return;
+    }
+
+    servicesData.forEach((svc) => {
+      const card = document.createElement('div');
+      card.className = 'service-card';
+      card.dataset.id = svc.id;
+      card.style.cssText = 'background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px; margin-bottom:12px;';
+      card.innerHTML = `
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+          <div style="flex:1; min-width:180px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Service Name</label>
+            <input type="text" data-field="name" value="${(svc.name || '').replace(/"/g, '&quot;')}" placeholder="e.g. Weekly Mowing" style="${inputStyle}">
+          </div>
+          <div style="flex:2; min-width:240px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Description</label>
+            <textarea data-field="description" rows="2" placeholder="Describe the service..." style="${inputStyle} resize:vertical;">${(svc.description || '').replace(/</g, '&lt;')}</textarea>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; margin-top:12px;">
+          <div style="flex:1; min-width:140px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Price Display</label>
+            <input type="text" data-field="priceDisplay" value="${(svc.priceDisplay || '').replace(/"/g, '&quot;')}" placeholder="$45 - $75" style="${inputStyle}">
+          </div>
+          <div style="min-width:100px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Price Min</label>
+            <input type="number" data-field="priceMin" value="${svc.priceMin || ''}" placeholder="45" style="${inputStyle}">
+          </div>
+          <div style="min-width:100px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Price Max</label>
+            <input type="number" data-field="priceMax" value="${svc.priceMax || ''}" placeholder="75" style="${inputStyle}">
+          </div>
+          <div style="min-width:120px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Duration (min)</label>
+            <input type="number" data-field="durationMinutes" value="${svc.durationMinutes || 60}" placeholder="60" style="${inputStyle}">
+          </div>
+          <div style="min-width:120px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Status</label>
+            <select data-field="status" style="${inputStyle}">
+              <option value="active"${svc.status === 'active' ? ' selected' : ''}>Active</option>
+              <option value="inactive"${svc.status === 'inactive' ? ' selected' : ''}>Inactive</option>
+            </select>
+          </div>
+          <div style="display:flex; align-items:flex-end; padding-bottom:2px;">
+            <button data-action="delete-service" data-id="${svc.id}" class="btn btn-sm" style="background:rgba(255,0,0,0.1); color:#ff6b6b; border:1px solid rgba(255,0,0,0.2); border-radius:8px; padding:8px 14px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem;">Delete</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  /** Add a new truck to the fleet. */
+  function addTruck() {
+    trucksData.push({
+      id: generateId('truck'),
+      name: '',
+      calendarId: '',
+      status: 'active',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    renderTrucks();
+  }
+
+  /** Add a new service. */
+  function addService() {
+    servicesData.push({
+      id: generateId('service'),
+      name: '',
+      description: '',
+      priceDisplay: '',
+      priceMin: null,
+      priceMax: null,
+      durationMinutes: 60,
+      status: 'active',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    renderServices();
+  }
+
+  /** Generic function to collect data from cards in a container by data-field attributes. */
+  function collectFromCards(containerSelector, fields) {
+    const cards = $$(containerSelector);
+    return cards.map((card) => {
+      const obj = { id: card.dataset.id };
+      fields.forEach((field) => {
+        const el = card.querySelector(`[data-field="${field}"]`);
+        if (el) {
+          obj[field] = el.tagName === 'TEXTAREA' ? el.value : el.value;
+        }
+      });
+      return obj;
+    });
+  }
+
+  /** Save fleet trucks to the API. */
+  async function saveTrucks() {
+    try {
+      const collected = collectFromCards('.truck-card', ['name', 'calendarId', 'status']);
+      // Merge collected values back into trucksData
+      trucksData = trucksData.map((truck) => {
+        const updated = collected.find((c) => c.id === truck.id);
+        if (updated) {
+          return { ...truck, ...updated, updatedAt: new Date().toISOString() };
+        }
+        return truck;
+      });
+
+      // Validate
+      const invalid = trucksData.find((t) => !t.name || !t.name.trim());
+      if (invalid) {
+        showToast('Each truck must have a name', 'error');
+        return;
+      }
+
+      const res = await fetch(API.UPDATE_SETTINGS, {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify({ trucks: trucksData }),
+      });
+      if (!res.ok) throw new Error('Failed to save fleet');
+      showToast('Fleet saved successfully', 'success');
+    } catch (err) {
+      showToast(err.message || 'Failed to save fleet', 'error');
+    }
+  }
+
+  /** Save services to the API. */
+  async function saveServices() {
+    try {
+      const collected = collectFromCards('.service-card', ['name', 'description', 'priceDisplay', 'priceMin', 'priceMax', 'durationMinutes', 'status']);
+      // Merge collected values back into servicesData
+      servicesData = servicesData.map((svc) => {
+        const updated = collected.find((c) => c.id === svc.id);
+        if (updated) {
+          return {
+            ...svc,
+            ...updated,
+            priceMin: updated.priceMin ? Number(updated.priceMin) : null,
+            priceMax: updated.priceMax ? Number(updated.priceMax) : null,
+            durationMinutes: updated.durationMinutes ? Number(updated.durationMinutes) : 60,
+            updatedAt: new Date().toISOString(),
+          };
+        }
+        return svc;
+      });
+
+      // Validate
+      const invalid = servicesData.find((s) => !s.name || !s.name.trim());
+      if (invalid) {
+        showToast('Each service must have a name', 'error');
+        return;
+      }
+
+      const res = await fetch(API.UPDATE_SETTINGS, {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify({ services: servicesData }),
+      });
+      if (!res.ok) throw new Error('Failed to save services');
+      showToast('Services saved successfully', 'success');
+    } catch (err) {
+      showToast(err.message || 'Failed to save services', 'error');
     }
   }
 

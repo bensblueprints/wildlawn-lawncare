@@ -1,87 +1,81 @@
-import { getStore } from "@netlify/blobs";
+const { getStore } = require("@netlify/blobs");
 
-const corsHeaders = {
+const headers = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
   "Access-Control-Allow-Methods": "PUT, OPTIONS",
+  "Content-Type": "application/json",
 };
 
-export async function handler(event) {
+function checkAuth(event) {
+  const authHeader = event.headers.authorization || event.headers.Authorization || "";
+  const token = authHeader.replace("Bearer ", "");
+  return token === process.env.ADMIN_PASSWORD;
+}
+
+exports.handler = async function (event) {
   if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 204, headers: corsHeaders, body: "" };
+    return { statusCode: 204, headers, body: "" };
   }
 
   if (event.httpMethod !== "PUT") {
     return {
       statusCode: 405,
-      headers: corsHeaders,
+      headers,
       body: JSON.stringify({ success: false, error: "Method not allowed" }),
     };
   }
 
+  if (!checkAuth(event)) {
+    return {
+      statusCode: 401,
+      headers,
+      body: JSON.stringify({ success: false, error: "Unauthorized" }),
+    };
+  }
+
   try {
-    // Auth check
-    const authHeader = event.headers.authorization || "";
-    const token = authHeader.replace("Bearer ", "");
-    if (!token || token !== process.env.ADMIN_PASSWORD) {
-      return {
-        statusCode: 401,
-        headers: corsHeaders,
-        body: JSON.stringify({ success: false, error: "Unauthorized" }),
-      };
-    }
+    const body = JSON.parse(event.body || "{}");
 
-    const { id, status, notes } = JSON.parse(event.body);
-
-    if (!id) {
+    if (!body.id) {
       return {
         statusCode: 400,
-        headers: corsHeaders,
+        headers,
         body: JSON.stringify({ success: false, error: "Lead ID is required" }),
       };
     }
 
     const store = getStore("leads");
-    const lead = await store.get(id, { type: "json" });
+    const existing = await store.get(body.id, { type: "json" });
 
-    if (!lead) {
+    if (!existing) {
       return {
         statusCode: 404,
-        headers: corsHeaders,
+        headers,
         body: JSON.stringify({ success: false, error: "Lead not found" }),
       };
     }
 
-    // Update status if provided
-    if (status) {
-      lead.status = status;
-    }
+    const updated = {
+      ...existing,
+      status: body.status || existing.status,
+      notes: body.notes || existing.notes,
+      updatedAt: new Date().toISOString(),
+    };
 
-    // Append to notes array if provided
-    if (notes) {
-      lead.notes = lead.notes || [];
-      lead.notes.push({
-        text: notes,
-        addedAt: new Date().toISOString(),
-      });
-    }
-
-    lead.updatedAt = new Date().toISOString();
-
-    // Save back to Blobs
-    await store.setJSON(id, lead);
+    await store.setJSON(body.id, updated);
 
     return {
       statusCode: 200,
-      headers: corsHeaders,
-      body: JSON.stringify({ success: true, lead }),
+      headers,
+      body: JSON.stringify({ success: true, lead: updated }),
     };
-  } catch (error) {
-    console.error("update-lead error:", error);
+  } catch (err) {
+    console.error("update-lead error:", err);
     return {
       statusCode: 500,
-      headers: corsHeaders,
+      headers,
       body: JSON.stringify({ success: false, error: "Internal server error" }),
     };
   }
-}
+};

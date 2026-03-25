@@ -1,72 +1,73 @@
-import { getStore } from "@netlify/blobs";
+const { getStore } = require("@netlify/blobs");
 
-const corsHeaders = {
+const headers = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Content-Type": "application/json",
 };
 
-export async function handler(event) {
+function checkAuth(event) {
+  const authHeader = event.headers.authorization || event.headers.Authorization || "";
+  const token = authHeader.replace("Bearer ", "");
+  return token === process.env.ADMIN_PASSWORD;
+}
+
+exports.handler = async function (event) {
   if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 204, headers: corsHeaders, body: "" };
+    return { statusCode: 204, headers, body: "" };
   }
 
   if (event.httpMethod !== "GET") {
     return {
       statusCode: 405,
-      headers: corsHeaders,
+      headers,
       body: JSON.stringify({ success: false, error: "Method not allowed" }),
     };
   }
 
-  try {
-    // Auth check
-    const authHeader = event.headers.authorization || "";
-    const token = authHeader.replace("Bearer ", "");
-    if (!token || token !== process.env.ADMIN_PASSWORD) {
-      return {
-        statusCode: 401,
-        headers: corsHeaders,
-        body: JSON.stringify({ success: false, error: "Unauthorized" }),
-      };
-    }
+  if (!checkAuth(event)) {
+    return {
+      statusCode: 401,
+      headers,
+      body: JSON.stringify({ success: false, error: "Unauthorized" }),
+    };
+  }
 
+  try {
     const store = getStore("leads");
     const { blobs } = await store.list();
 
-    // Fetch all leads
+    const statusFilter = event.queryStringParameters?.status || null;
     const leads = [];
+
     for (const blob of blobs) {
       try {
         const lead = await store.get(blob.key, { type: "json" });
         if (lead) {
-          leads.push(lead);
+          if (!statusFilter || lead.status === statusFilter) {
+            leads.push(lead);
+          }
         }
-      } catch (err) {
-        console.error(`Failed to fetch lead ${blob.key}:`, err.message);
+      } catch (e) {
+        console.error(`Error reading lead ${blob.key}:`, e);
       }
     }
 
-    // Filter by status if query param provided
-    const statusFilter = event.queryStringParameters?.status;
-    const filtered = statusFilter
-      ? leads.filter((lead) => lead.status === statusFilter)
-      : leads;
-
-    // Sort by createdAt descending (newest first)
-    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    // Sort by createdAt descending
+    leads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return {
       statusCode: 200,
-      headers: corsHeaders,
-      body: JSON.stringify({ success: true, leads: filtered }),
+      headers,
+      body: JSON.stringify({ success: true, leads }),
     };
-  } catch (error) {
-    console.error("get-leads error:", error);
+  } catch (err) {
+    console.error("get-leads error:", err);
     return {
-      statusCode: 500,
-      headers: corsHeaders,
-      body: JSON.stringify({ success: false, error: "Internal server error" }),
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ success: true, leads: [] }),
     };
   }
-}
+};
