@@ -43,6 +43,9 @@ exports.handler = async function (event) {
 
     let trucks = [];
     let services = [];
+    let customers = [];
+    let packages = [];
+    let contracts = [];
 
     try {
       const trucksData = await store.get("trucks", { type: "json" });
@@ -58,8 +61,30 @@ exports.handler = async function (event) {
       // Empty store, return defaults
     }
 
+    try {
+      const customersData = await store.get("customers", { type: "json" });
+      if (customersData) customers = customersData;
+    } catch (e) {
+      // Empty store, return defaults
+    }
+
+    try {
+      const packagesData = await store.get("packages", { type: "json" });
+      if (packagesData) packages = packagesData;
+    } catch (e) {
+      // Empty store, return defaults
+    }
+
+    try {
+      const contractsData = await store.get("contracts", { type: "json" });
+      if (contractsData) contracts = contractsData;
+    } catch (e) {
+      // Empty store, return defaults
+    }
+
     if (isPublic) {
       // Public mode: return only active services (limited fields) and active truck count
+      // Do NOT expose customer data in public mode
       const activeServices = services
         .filter((s) => s.status === "active")
         .map((s) => ({
@@ -71,6 +96,17 @@ exports.handler = async function (event) {
 
       const activeTruckCount = trucks.filter((t) => t.status === "active").length;
 
+      const activePackages = packages
+        .filter((p) => p.status === "active")
+        .map((p) => ({
+          name: p.name,
+          description: p.description,
+          monthlyPrice: p.monthlyPrice,
+          frequency: p.frequency,
+          servicesIncluded: p.servicesIncluded,
+          contractLength: p.contractLength,
+        }));
+
       return {
         statusCode: 200,
         headers,
@@ -78,6 +114,7 @@ exports.handler = async function (event) {
           success: true,
           services: activeServices,
           activeTruckCount,
+          packages: activePackages,
         }),
       };
     }
@@ -86,14 +123,14 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ success: true, trucks, services }),
+      body: JSON.stringify({ success: true, trucks, services, customers, packages, contracts }),
     };
   } catch (err) {
     console.error("get-settings error:", err);
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ success: true, trucks: [], services: [] }),
+      body: JSON.stringify({ success: true, trucks: [], services: [], customers: [], packages: [], contracts: [] }),
     };
   }
 };

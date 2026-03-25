@@ -91,6 +91,81 @@ exports.handler = async function (event) {
       await store.setJSON("services", body.services);
     }
 
+    if (body.customers) {
+      if (!Array.isArray(body.customers)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ success: false, error: "customers must be an array" }),
+        };
+      }
+
+      for (const customer of body.customers) {
+        if (!customer.id || !customer.name) {
+          return {
+            statusCode: 400,
+            headers,
+            body: JSON.stringify({
+              success: false,
+              error: "Each customer must have id and name",
+            }),
+          };
+        }
+      }
+
+      await store.setJSON("customers", body.customers);
+    }
+
+    if (body.packages) {
+      if (!Array.isArray(body.packages)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ success: false, error: "packages must be an array" }),
+        };
+      }
+
+      for (const pkg of body.packages) {
+        if (!pkg.id || !pkg.name) {
+          return {
+            statusCode: 400,
+            headers,
+            body: JSON.stringify({
+              success: false,
+              error: "Each package must have id and name",
+            }),
+          };
+        }
+      }
+
+      await store.setJSON("packages", body.packages);
+    }
+
+    if (body.contracts) {
+      if (!Array.isArray(body.contracts)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ success: false, error: "contracts must be an array" }),
+        };
+      }
+
+      for (const contract of body.contracts) {
+        if (!contract.id) {
+          return {
+            statusCode: 400,
+            headers,
+            body: JSON.stringify({
+              success: false,
+              error: "Each contract must have an id",
+            }),
+          };
+        }
+      }
+
+      await store.setJSON("contracts", body.contracts);
+    }
+
     return {
       statusCode: 200,
       headers,

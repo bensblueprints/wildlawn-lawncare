@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pressure Washing in Metro Atlanta | Wild Lawn Lawncare LLC</title>
+  <meta name="description" content="Professional pressure washing services in Metro Atlanta. House washing, driveway cleaning, deck restoration, and fence cleaning by Wild Lawn Lawncare LLC.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #e0e0e0; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; color: #fff; }
+    a { color: #48BB78; text-decoration: none; }
+    .accent { color: #48BB78; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a1a1a; }
+    nav .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; font-weight: 700; }
+    nav .logo span { color: #48BB78; }
+    nav .nav-links { display: flex; gap: 24px; align-items: center; }
+    nav .nav-links a { color: #ccc; font-size: 0.95rem; transition: color 0.3s; }
+    nav .nav-links a:hover { color: #48BB78; }
+    .btn { display: inline-block; background: #48BB78; color: #0d0d0d; padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+    .btn:hover { background: #38a169; transform: translateY(-1px); }
+    .hero { position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 80px; background: url('../images/service-pressure-washing.jpg') center/cover no-repeat; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(13,13,13,0.8), rgba(13,13,13,0.95)); }
+    .hero-content { position: relative; z-index: 2; max-width: 700px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 16px; }
+    .hero p { font-size: 1.15rem; color: #b0b0b0; margin-bottom: 28px; }
+    section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 32px; }
+    .service-card { background: #141414; border-radius: 12px; padding: 28px; border: 1px solid #1a1a1a; text-align: center; transition: border-color 0.3s; }
+    .service-card:hover { border-color: #48BB78; }
+    .service-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .service-card p { color: #999; font-size: 0.9rem; margin-bottom: 12px; }
+    .service-card .price { color: #48BB78; font-weight: 700; font-size: 1.1rem; }
+    .benefits-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 32px; }
+    .benefit-item { background: #1a1a1a; border-radius: 12px; padding: 24px; text-align: center; }
+    .benefit-item h3 { font-size: 1rem; margin-bottom: 6px; }
+    .benefit-item p { color: #999; font-size: 0.85rem; }
+    .before-after { background: #141414; border-radius: 12px; padding: 40px; border: 1px solid #1a1a1a; margin-top: 32px; text-align: center; }
+    .before-after h2 { margin-bottom: 16px; }
+    .before-after p { color: #999; max-width: 600px; margin: 0 auto; }
+    .form-section { background: #141414; border-radius: 12px; padding: 40px; border: 1px solid #1a1a1a; margin-top: 40px; }
+    .form-section h2 { margin-bottom: 24px; text-align: center; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; margin-bottom: 16px; }
+    .form-group label { font-size: 0.85rem; color: #aaa; margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 12px 16px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.3s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #48BB78; }
+    .hp-field { position: absolute; left: -9999px; }
+    .form-msg { text-align: center; margin-top: 16px; padding: 12px; border-radius: 12px; display: none; }
+    .form-msg.success { display: block; background: rgba(72,187,120,0.15); color: #48BB78; }
+    .form-msg.error { display: block; background: rgba(245,101,101,0.15); color: #f56565; }
+    .btn-loading { opacity: 0.7; pointer-events: none; }
+    .faqs { margin-top: 40px; }
+    .faq { background: #141414; border-radius: 12px; padding: 24px; border: 1px solid #1a1a1a; margin-bottom: 12px; }
+    .faq h3 { font-size: 1rem; margin-bottom: 8px; }
+    .faq p { color: #999; font-size: 0.92rem; }
+    .cta-section { text-align: center; padding: 60px 20px; background: #141414; border-radius: 12px; margin: 40px auto; max-width: 1000px; border: 1px solid #1a1a1a; }
+    .cta-section h2 { margin-bottom: 12px; }
+    .cta-section p { color: #999; margin-bottom: 24px; }
+    footer { text-align: center; padding: 40px 20px; border-top: 1px solid #1a1a1a; color: #666; font-size: 0.85rem; }
+    footer a { color: #48BB78; }
+    @media (max-width: 640px) {
+      nav { padding: 12px 20px; } .nav-links { display: none; } .form-row { grid-template-columns: 1fr; } .hero { min-height: 50vh; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html" class="logo">Wild <span>Lawn</span></a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="tel:7704902542" class="btn">Call (770) 490-2542</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Pressure <span class="accent">Washing</span></h1>
+      <p>Restore your home's exterior to like-new condition. Our professional pressure washing removes years of dirt, mold, mildew, and grime from any surface.</p>
+      <a href="#booking" class="btn">Get a Free Quote</a>
+    </div>
+  </section>
+
+  <section>
+    <h2 style="text-align:center;">What We Clean</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>House Washing</h3>
+        <p>Soft-wash technique safely removes dirt, algae, mold, and mildew from vinyl, brick, stucco, and painted surfaces without damage.</p>
+        <div class="price">From $199</div>
+      </div>
+      <div class="service-card">
+        <h3>Driveway & Walkway</h3>
+        <p>High-pressure surface cleaning blasts away oil stains, tire marks, algae, and embedded grime. Your concrete will look brand new.</p>
+        <div class="price">From $99</div>
+      </div>
+      <div class="service-card">
+        <h3>Deck & Patio</h3>
+        <p>Careful pressure washing restores wood and composite decks to their original beauty. Includes prep for staining or sealing if desired.</p>
+        <div class="price">From $149</div>
+      </div>
+      <div class="service-card">
+        <h3>Fence Cleaning</h3>
+        <p>Remove green algae, dirt buildup, and weathering from wood, vinyl, or metal fences. Extend the life of your fence while improving curb appeal.</p>
+        <div class="price">From $129</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 style="text-align:center;">Why Pressure Wash Your Property?</h2>
+    <div class="benefits-row">
+      <div class="benefit-item"><h3>Curb Appeal</h3><p>Instantly make your home look newer, cleaner, and more inviting. Great before selling or hosting events.</p></div>
+      <div class="benefit-item"><h3>Prevent Damage</h3><p>Mold, mildew, and algae gradually deteriorate surfaces. Regular cleaning extends the life of your siding, deck, and concrete.</p></div>
+      <div class="benefit-item"><h3>Health & Safety</h3><p>Remove allergens, mold spores, and slippery algae that can cause health issues and slip hazards.</p></div>
+      <div class="benefit-item"><h3>Property Value</h3><p>A clean exterior can increase perceived property value by 5-10%. One of the highest ROI home improvements.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="before-after">
+      <h2>The <span class="accent">Wild Lawn</span> Difference</h2>
+      <p>We use commercial-grade equipment with adjustable pressure settings to safely clean every surface type. Our soft-wash system uses eco-friendly detergents for delicate surfaces, while our surface cleaners provide streak-free results on flatwork. Every job comes with a satisfaction guarantee.</p>
+    </div>
+  </section>
+
+  <section id="booking">
+    <div class="form-section">
+      <h2>Book <span class="accent">Pressure Washing</span></h2>
+      <form id="leadForm">
+        <div class="hp-field"><label>Leave blank<input type="text" name="honeypot" tabindex="-1" autocomplete="off"></label></div>
+        <div class="form-row">
+          <div class="form-group"><label for="name">Full Name *</label><input type="text" id="name" name="name" required></div>
+          <div class="form-group"><label for="email">Email *</label><input type="email" id="email" name="email" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="phone">Phone *</label><input type="tel" id="phone" name="phone" required></div>
+          <div class="form-group"><label for="address">Address</label><input type="text" id="address" name="address"></div>
+        </div>
+        <div class="form-group">
+          <label for="service">What Needs Cleaning?</label>
+          <select id="service" name="service">
+            <option value="Pressure Washing - House" selected>House Washing</option>
+            <option value="Pressure Washing - Driveway">Driveway & Walkway</option>
+            <option value="Pressure Washing - Deck">Deck & Patio</option>
+            <option value="Pressure Washing - Fence">Fence Cleaning</option>
+            <option value="Pressure Washing - Full Property">Full Property Package</option>
+          </select>
+        </div>
+        <div class="form-group"><label for="message">Additional Details</label><textarea id="message" name="message" rows="3" placeholder="Surface type, approximate area, specific stains or concerns..."></textarea></div>
+        <button type="submit" class="btn" id="submitBtn" style="width:100%;text-align:center;padding:16px;">Get My Free Quote</button>
+        <div id="formMsg" class="form-msg"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="faqs">
+    <h2 style="text-align:center;margin-bottom:24px;">Frequently Asked Questions</h2>
+    <div class="faq"><h3>Will pressure washing damage my siding?</h3><p>No. We use a soft-wash technique for all siding types, which uses low pressure combined with specialized cleaning solutions. It's safe for vinyl, brick, stucco, Hardie board, and painted surfaces.</p></div>
+    <div class="faq"><h3>How often should I pressure wash my home?</h3><p>In Metro Atlanta's humid climate, we recommend annual house washing and driveway cleaning. Decks and fences may need cleaning every 1-2 years depending on sun exposure and shade.</p></div>
+    <div class="faq"><h3>Do I need to be home during the service?</h3><p>Not necessarily. As long as we have access to the areas being cleaned and a working outdoor water spigot, we can complete the work while you're away.</p></div>
+    <div class="faq"><h3>Are your cleaning solutions safe for plants and pets?</h3><p>Yes. We use biodegradable, eco-friendly cleaning solutions and take care to pre-wet and protect landscaping around work areas.</p></div>
+  </section>
+
+  <div class="cta-section">
+    <h2>Make Your Property <span class="accent">Shine Again</span></h2>
+    <p>Book your pressure washing service today and see the dramatic difference a professional clean can make.</p>
+    <a href="tel:7704902542" class="btn">Call (770) 490-2542</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Wild Lawn Lawncare LLC. All rights reserved. Metro Atlanta, GA</p>
+    <p style="margin-top:8px;"><a href="mailto:wildlawncare43@gmail.com">wildlawncare43@gmail.com</a> | <a href="tel:7704902542">(770) 490-2542</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('leadForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn'), msg = document.getElementById('formMsg');
+      if (this.honeypot && this.honeypot.value) return;
+      const name = this.name.value.trim(), email = this.email.value.trim(), phone = this.phone.value.trim();
+      if (!name || !email || !phone) { msg.className = 'form-msg error'; msg.textContent = 'Please fill in all required fields.'; return; }
+      btn.classList.add('btn-loading'); btn.textContent = 'Sending...'; msg.className = 'form-msg'; msg.style.display = 'none';
+      try {
+        const res = await fetch('/.netlify/functions/submit-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, phone, address: this.address.value, service: this.service.value, message: this.message.value, source: 'pressure-washing' }) });
+        if (!res.ok) throw new Error('Server error');
+        msg.className = 'form-msg success'; msg.textContent = 'Thanks! We\'ll be in touch within 24 hours.'; this.reset();
+      } catch (err) { msg.className = 'form-msg error'; msg.textContent = 'Something went wrong. Please call us at (770) 490-2542.'; }
+      finally { btn.classList.remove('btn-loading'); btn.textContent = 'Get My Free Quote'; }
+    });
+  </script>
+</body>
+</html>

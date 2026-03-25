@@ -27,6 +27,9 @@
   let refreshTimer = null;  // setInterval id
   let trucksData = [];
   let servicesData = [];
+  let customersData = [];
+  let packagesData = [];
+  let contractsData = [];
 
   // ---------------------------------------------------------------------------
   // DOM helpers
@@ -703,12 +706,50 @@
     const saveServicesBtn = $('#saveServicesBtn');
     if (saveServicesBtn) saveServicesBtn.addEventListener('click', saveServices);
 
+    // --- Customers, Packages & Contracts ---
+    const addCustomerBtn = $('#addCustomerBtn');
+    if (addCustomerBtn) addCustomerBtn.addEventListener('click', addCustomer);
+    const saveCustomersBtn = $('#saveCustomersBtn');
+    if (saveCustomersBtn) saveCustomersBtn.addEventListener('click', saveCustomers);
+    const addPackageBtn = $('#addPackageBtn');
+    if (addPackageBtn) addPackageBtn.addEventListener('click', addPackage);
+    const savePackagesBtn = $('#savePackagesBtn');
+    if (savePackagesBtn) savePackagesBtn.addEventListener('click', savePackages);
+    const addContractBtn = $('#addContractBtn');
+    if (addContractBtn) addContractBtn.addEventListener('click', addContract);
+    const saveContractsBtn = $('#saveContractsBtn');
+    if (saveContractsBtn) saveContractsBtn.addEventListener('click', saveContracts);
+
     // Delegated delete for trucks and services
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-action="delete-truck"]');
       if (btn) { trucksData = trucksData.filter(t => t.id !== btn.dataset.id); renderTrucks(); return; }
       const btn2 = e.target.closest('[data-action="delete-service"]');
-      if (btn2) { servicesData = servicesData.filter(s => s.id !== btn2.dataset.id); renderServices(); }
+      if (btn2) { servicesData = servicesData.filter(s => s.id !== btn2.dataset.id); renderServices(); return; }
+      const btn3 = e.target.closest('[data-action="delete-customer"]');
+      if (btn3) { customersData = customersData.filter(c => c.id !== btn3.dataset.id); renderCustomers(); return; }
+      const btn4 = e.target.closest('[data-action="delete-package"]');
+      if (btn4) { packagesData = packagesData.filter(p => p.id !== btn4.dataset.id); renderPackages(); return; }
+      const btn5 = e.target.closest('[data-action="delete-contract"]');
+      if (btn5) { contractsData = contractsData.filter(c => c.id !== btn5.dataset.id); renderContracts(); return; }
+      const btn6 = e.target.closest('[data-action="send-signature"]');
+      if (btn6) {
+        const card = btn6.closest('.contract-card');
+        if (card) {
+          const contract = contractsData.find(c => c.id === card.dataset.id);
+          if (contract) { contract.status = 'sent'; renderContracts(); showToast('Contract sent for signature', 'success'); }
+        }
+        return;
+      }
+      const btn7 = e.target.closest('[data-action="mark-signed"]');
+      if (btn7) {
+        const card = btn7.closest('.contract-card');
+        if (card) {
+          const contract = contractsData.find(c => c.id === card.dataset.id);
+          if (contract) { contract.signedAt = new Date().toISOString(); contract.status = 'signed'; renderContracts(); showToast('Contract marked as signed', 'success'); }
+        }
+        return;
+      }
     });
 
     // --- Refresh button (manual) ---
@@ -745,12 +786,18 @@
       const data = await res.json();
       trucksData = Array.isArray(data.trucks) ? data.trucks : [];
       servicesData = Array.isArray(data.services) ? data.services : [];
+      customersData = Array.isArray(data.customers) ? data.customers : [];
+      packagesData = Array.isArray(data.packages) ? data.packages : [];
+      contractsData = Array.isArray(data.contracts) ? data.contracts : [];
     } catch (err) {
       // Gracefully handle — keep existing data
       console.warn('fetchSettings:', err.message);
     }
     renderTrucks();
     renderServices();
+    renderCustomers();
+    renderPackages();
+    renderContracts();
   }
 
   const inputStyle = "background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px 14px; color:#f7f5f2; font-family:'DM Sans',sans-serif; font-size:0.9rem; width:100%;";
@@ -974,6 +1021,362 @@
       showToast('Services saved successfully', 'success');
     } catch (err) {
       showToast(err.message || 'Failed to save services', 'error');
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 13. CUSTOMERS, PACKAGES & CONTRACTS
+  // ---------------------------------------------------------------------------
+
+  /** Render customer cards into #customersList. */
+  function renderCustomers() {
+    const container = $('#customersList');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (customersData.length === 0) {
+      container.innerHTML = '<div class="empty-hint" style="text-align:center; padding:32px; color:#6b6965; font-size:0.9rem;">No customers yet.</div>';
+      return;
+    }
+
+    const packageOptions = packagesData.map(p => `<option value="${p.id}">${(p.name || 'Unnamed Package').replace(/</g, '&lt;')}</option>`).join('');
+
+    customersData.forEach((cust) => {
+      const card = document.createElement('div');
+      card.className = 'customer-card';
+      card.dataset.id = cust.id;
+      card.style.cssText = 'background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px; margin-bottom:12px;';
+      card.innerHTML = `
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+          <div style="flex:1; min-width:160px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Name</label>
+            <input type="text" data-field="name" value="${(cust.name || '').replace(/"/g, '&quot;')}" placeholder="Customer name" style="${inputStyle}">
+          </div>
+          <div style="flex:1; min-width:160px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Email</label>
+            <input type="email" data-field="email" value="${(cust.email || '').replace(/"/g, '&quot;')}" placeholder="email@example.com" style="${inputStyle}">
+          </div>
+          <div style="flex:1; min-width:140px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Phone</label>
+            <input type="tel" data-field="phone" value="${(cust.phone || '').replace(/"/g, '&quot;')}" placeholder="(555) 123-4567" style="${inputStyle}">
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; margin-top:12px;">
+          <div style="flex:2; min-width:240px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Address</label>
+            <textarea data-field="address" rows="1" placeholder="Street address, city, state, zip" style="${inputStyle} resize:vertical;">${(cust.address || '').replace(/</g, '&lt;')}</textarea>
+          </div>
+          <div style="flex:1; min-width:160px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Assigned Package</label>
+            <select data-field="packageId" style="${inputStyle}">
+              <option value="">— None —</option>
+              ${packageOptions.replace(new RegExp(`value="${cust.packageId}"`), `value="${cust.packageId}" selected`)}
+            </select>
+          </div>
+          <div style="min-width:120px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Status</label>
+            <select data-field="status" style="${inputStyle}">
+              <option value="active"${cust.status === 'active' ? ' selected' : ''}>Active</option>
+              <option value="inactive"${cust.status === 'inactive' ? ' selected' : ''}>Inactive</option>
+              <option value="paused"${cust.status === 'paused' ? ' selected' : ''}>Paused</option>
+            </select>
+          </div>
+          <div style="display:flex; align-items:flex-end; padding-bottom:2px;">
+            <button data-action="delete-customer" data-id="${cust.id}" class="btn btn-sm" style="background:rgba(255,0,0,0.1); color:#ff6b6b; border:1px solid rgba(255,0,0,0.2); border-radius:8px; padding:8px 14px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem;">Delete</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  /** Render package cards into #packagesList. */
+  function renderPackages() {
+    const container = $('#packagesList');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (packagesData.length === 0) {
+      container.innerHTML = '<div class="empty-hint" style="text-align:center; padding:32px; color:#6b6965; font-size:0.9rem;">No packages defined yet.</div>';
+      return;
+    }
+
+    packagesData.forEach((pkg) => {
+      const card = document.createElement('div');
+      card.className = 'package-card';
+      card.dataset.id = pkg.id;
+      card.style.cssText = 'background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px; margin-bottom:12px;';
+      card.innerHTML = `
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+          <div style="flex:1; min-width:180px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Package Name</label>
+            <input type="text" data-field="name" value="${(pkg.name || '').replace(/"/g, '&quot;')}" placeholder="e.g. Basic Lawn Care" style="${inputStyle}">
+          </div>
+          <div style="flex:2; min-width:240px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Description</label>
+            <textarea data-field="description" rows="2" placeholder="Describe the package..." style="${inputStyle} resize:vertical;">${(pkg.description || '').replace(/</g, '&lt;')}</textarea>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; margin-top:12px;">
+          <div style="min-width:120px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Monthly Price</label>
+            <input type="number" data-field="monthlyPrice" value="${pkg.monthlyPrice || ''}" placeholder="99" style="${inputStyle}">
+          </div>
+          <div style="min-width:140px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Frequency</label>
+            <select data-field="frequency" style="${inputStyle}">
+              <option value="weekly"${pkg.frequency === 'weekly' ? ' selected' : ''}>Weekly</option>
+              <option value="biweekly"${pkg.frequency === 'biweekly' ? ' selected' : ''}>Biweekly</option>
+              <option value="monthly"${pkg.frequency === 'monthly' ? ' selected' : ''}>Monthly</option>
+            </select>
+          </div>
+          <div style="flex:1; min-width:200px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Services Included (comma separated)</label>
+            <textarea data-field="servicesIncluded" rows="1" placeholder="Mowing, Edging, Blowing" style="${inputStyle} resize:vertical;">${(pkg.servicesIncluded || '').replace(/</g, '&lt;')}</textarea>
+          </div>
+          <div style="min-width:160px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Contract Length</label>
+            <select data-field="contractLength" style="${inputStyle}">
+              <option value="month-to-month"${pkg.contractLength === 'month-to-month' ? ' selected' : ''}>Month-to-Month</option>
+              <option value="6-month"${pkg.contractLength === '6-month' ? ' selected' : ''}>6-Month</option>
+              <option value="1-year"${pkg.contractLength === '1-year' ? ' selected' : ''}>1-Year</option>
+            </select>
+          </div>
+          <div style="min-width:120px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Status</label>
+            <select data-field="status" style="${inputStyle}">
+              <option value="active"${pkg.status === 'active' ? ' selected' : ''}>Active</option>
+              <option value="inactive"${pkg.status === 'inactive' ? ' selected' : ''}>Inactive</option>
+            </select>
+          </div>
+          <div style="display:flex; align-items:flex-end; padding-bottom:2px;">
+            <button data-action="delete-package" data-id="${pkg.id}" class="btn btn-sm" style="background:rgba(255,0,0,0.1); color:#ff6b6b; border:1px solid rgba(255,0,0,0.2); border-radius:8px; padding:8px 14px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem;">Delete</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  /** Render contract cards into #contractsList. */
+  function renderContracts() {
+    const container = $('#contractsList');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (contractsData.length === 0) {
+      container.innerHTML = '<div class="empty-hint" style="text-align:center; padding:32px; color:#6b6965; font-size:0.9rem;">No contracts yet.</div>';
+      return;
+    }
+
+    const customerOptions = customersData.map(c => `<option value="${c.id}">${(c.name || 'Unnamed Customer').replace(/</g, '&lt;')}</option>`).join('');
+    const packageOptions = packagesData.map(p => `<option value="${p.id}">${(p.name || 'Unnamed Package').replace(/</g, '&lt;')}</option>`).join('');
+
+    contractsData.forEach((contract) => {
+      const signatureStatus = contract.signedAt
+        ? `<span style="color:#48BB78; font-size:0.85rem;">Signed ${formatDate(contract.signedAt)}</span>`
+        : `<span style="color:#ff6b6b; font-size:0.85rem;">Unsigned</span>`;
+
+      const card = document.createElement('div');
+      card.className = 'contract-card';
+      card.dataset.id = contract.id;
+      card.style.cssText = 'background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px; margin-bottom:12px;';
+      card.innerHTML = `
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+          <div style="flex:1; min-width:180px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Customer</label>
+            <select data-field="customerId" style="${inputStyle}">
+              <option value="">— Select Customer —</option>
+              ${customerOptions.replace(new RegExp(`value="${contract.customerId}"`), `value="${contract.customerId}" selected`)}
+            </select>
+          </div>
+          <div style="flex:1; min-width:180px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Package</label>
+            <select data-field="packageId" style="${inputStyle}">
+              <option value="">— Select Package —</option>
+              ${packageOptions.replace(new RegExp(`value="${contract.packageId}"`), `value="${contract.packageId}" selected`)}
+            </select>
+          </div>
+          <div style="min-width:140px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Start Date</label>
+            <input type="date" data-field="startDate" value="${contract.startDate || ''}" style="${inputStyle}">
+          </div>
+          <div style="min-width:140px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">End Date</label>
+            <input type="date" data-field="endDate" value="${contract.endDate || ''}" style="${inputStyle}">
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; margin-top:12px;">
+          <div style="min-width:120px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Monthly Amount</label>
+            <input type="number" data-field="monthlyAmount" value="${contract.monthlyAmount || ''}" placeholder="99" style="${inputStyle}">
+          </div>
+          <div style="min-width:140px;">
+            <label style="display:block; font-size:0.8rem; color:#a8a5a0; margin-bottom:4px;">Status</label>
+            <select data-field="status" style="${inputStyle}">
+              <option value="draft"${contract.status === 'draft' ? ' selected' : ''}>Draft</option>
+              <option value="sent"${contract.status === 'sent' ? ' selected' : ''}>Sent</option>
+              <option value="signed"${contract.status === 'signed' ? ' selected' : ''}>Signed</option>
+              <option value="active"${contract.status === 'active' ? ' selected' : ''}>Active</option>
+              <option value="expired"${contract.status === 'expired' ? ' selected' : ''}>Expired</option>
+              <option value="cancelled"${contract.status === 'cancelled' ? ' selected' : ''}>Cancelled</option>
+            </select>
+          </div>
+          <div style="display:flex; align-items:flex-end; gap:8px; padding-bottom:2px;">
+            <span style="padding:8px 0;">${signatureStatus}</span>
+          </div>
+          <div style="display:flex; align-items:flex-end; gap:8px; padding-bottom:2px; margin-left:auto;">
+            <button data-action="send-signature" class="btn btn-sm" style="background:rgba(72,187,120,0.1); color:#48BB78; border:1px solid rgba(72,187,120,0.2); border-radius:8px; padding:8px 14px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem;">Send for Signature</button>
+            <button data-action="mark-signed" class="btn btn-sm" style="background:rgba(72,187,120,0.1); color:#48BB78; border:1px solid rgba(72,187,120,0.2); border-radius:8px; padding:8px 14px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem;">Mark as Signed</button>
+            <button data-action="delete-contract" data-id="${contract.id}" class="btn btn-sm" style="background:rgba(255,0,0,0.1); color:#ff6b6b; border:1px solid rgba(255,0,0,0.2); border-radius:8px; padding:8px 14px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem;">Delete</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  /** Add a new customer. */
+  function addCustomer() {
+    customersData.push({
+      id: generateId('cust'),
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+      packageId: '',
+      status: 'active',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    renderCustomers();
+  }
+
+  /** Add a new package. */
+  function addPackage() {
+    packagesData.push({
+      id: generateId('pkg'),
+      name: '',
+      description: '',
+      monthlyPrice: null,
+      frequency: 'biweekly',
+      servicesIncluded: '',
+      contractLength: 'month-to-month',
+      status: 'active',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    renderPackages();
+  }
+
+  /** Add a new contract. */
+  function addContract() {
+    contractsData.push({
+      id: generateId('contract'),
+      customerId: '',
+      packageId: '',
+      startDate: '',
+      endDate: '',
+      monthlyAmount: null,
+      status: 'draft',
+      signedAt: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    renderContracts();
+  }
+
+  /** Save customers to the API. */
+  async function saveCustomers() {
+    try {
+      const collected = collectFromCards('.customer-card', ['name', 'email', 'phone', 'address', 'packageId', 'status']);
+      customersData = customersData.map((cust) => {
+        const updated = collected.find((c) => c.id === cust.id);
+        if (updated) {
+          return { ...cust, ...updated, updatedAt: new Date().toISOString() };
+        }
+        return cust;
+      });
+
+      const invalid = customersData.find((c) => !c.name || !c.name.trim());
+      if (invalid) {
+        showToast('Each customer must have a name', 'error');
+        return;
+      }
+
+      const res = await fetch(API.UPDATE_SETTINGS, {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify({ customers: customersData }),
+      });
+      if (!res.ok) throw new Error('Failed to save customers');
+      showToast('Customers saved successfully', 'success');
+    } catch (err) {
+      showToast(err.message || 'Failed to save customers', 'error');
+    }
+  }
+
+  /** Save packages to the API. */
+  async function savePackages() {
+    try {
+      const collected = collectFromCards('.package-card', ['name', 'description', 'monthlyPrice', 'frequency', 'servicesIncluded', 'contractLength', 'status']);
+      packagesData = packagesData.map((pkg) => {
+        const updated = collected.find((c) => c.id === pkg.id);
+        if (updated) {
+          return {
+            ...pkg,
+            ...updated,
+            monthlyPrice: updated.monthlyPrice ? Number(updated.monthlyPrice) : null,
+            updatedAt: new Date().toISOString(),
+          };
+        }
+        return pkg;
+      });
+
+      const invalid = packagesData.find((p) => !p.name || !p.name.trim());
+      if (invalid) {
+        showToast('Each package must have a name', 'error');
+        return;
+      }
+
+      const res = await fetch(API.UPDATE_SETTINGS, {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify({ packages: packagesData }),
+      });
+      if (!res.ok) throw new Error('Failed to save packages');
+      showToast('Packages saved successfully', 'success');
+    } catch (err) {
+      showToast(err.message || 'Failed to save packages', 'error');
+    }
+  }
+
+  /** Save contracts to the API. */
+  async function saveContracts() {
+    try {
+      const collected = collectFromCards('.contract-card', ['customerId', 'packageId', 'startDate', 'endDate', 'monthlyAmount', 'status']);
+      contractsData = contractsData.map((contract) => {
+        const updated = collected.find((c) => c.id === contract.id);
+        if (updated) {
+          return {
+            ...contract,
+            ...updated,
+            monthlyAmount: updated.monthlyAmount ? Number(updated.monthlyAmount) : null,
+            updatedAt: new Date().toISOString(),
+          };
+        }
+        return contract;
+      });
+
+      const res = await fetch(API.UPDATE_SETTINGS, {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify({ contracts: contractsData }),
+      });
+      if (!res.ok) throw new Error('Failed to save contracts');
+      showToast('Contracts saved successfully', 'success');
+    } catch (err) {
+      showToast(err.message || 'Failed to save contracts', 'error');
     }
   }
 
