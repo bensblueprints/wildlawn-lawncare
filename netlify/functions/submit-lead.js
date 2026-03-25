@@ -7,7 +7,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-exports.handler = async function (event) {
+exports.handler = async function (event, context) {
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers, body: "" };
   }
@@ -33,10 +33,7 @@ exports.handler = async function (event) {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({
-          success: false,
-          error: "Name, email, and phone are required",
-        }),
+        body: JSON.stringify({ success: false, error: "Name, email, and phone are required" }),
       };
     }
 
@@ -47,15 +44,34 @@ exports.handler = async function (event) {
       email: body.email,
       phone: body.phone,
       service: body.service || "",
-      preferredDate: body.preferredDate || "",
+      preferredDate: body.preferredDate || body.preferred_date || "",
       message: body.message || "",
       status: "new",
       notes: [],
       createdAt: new Date().toISOString(),
     };
 
-    const store = getStore("leads");
-    await store.setJSON(id, lead);
+    // Try Netlify Blobs first, fall back to logging
+    try {
+      const store = getStore("leads");
+      await store.setJSON(id, lead);
+      console.log("Lead saved to Blobs:", id);
+    } catch (blobErr) {
+      console.error("Blobs error (saving to log instead):", blobErr.message);
+      // Even if Blobs fails, we don't want to lose the lead
+      console.log("LEAD_DATA:", JSON.stringify(lead));
+    }
+
+    // Send notification
+    try {
+      const notifBody = JSON.stringify({ type: "new-lead", lead });
+      // Fire and forget - don't block response
+      fetch(`https://${event.headers.host}/.netlify/functions/send-notification`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: notifBody,
+      }).catch(() => {});
+    } catch (e) {}
 
     return {
       statusCode: 200,
@@ -67,7 +83,7 @@ exports.handler = async function (event) {
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ success: false, error: "Internal server error" }),
+      body: JSON.stringify({ success: false, error: err.message || "Internal server error" }),
     };
   }
 };
