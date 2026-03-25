@@ -1645,57 +1645,37 @@
     </div>
   </section>
 
-  <!-- ========== GALLERY ========== -->
-  <section id="gallery" aria-label="Our work gallery" style="padding:100px 0;">
+  <!-- ========== PORTFOLIO SLIDESHOW ========== -->
+  <section id="gallery" aria-label="Our work portfolio" style="padding:100px 0;">
     <div class="container">
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">Our Work</p>
         <h2 class="section-title">See the <span class="accent">Wild Lawn</span> Difference</h2>
-        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Real results from real properties across Metro Atlanta. Browse our portfolio of residential lawn care, landscape design, mulching, and full property maintenance projects completed in Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Smyrna, and surrounding communities.</p>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Real results from real properties across Metro Atlanta.</p>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;">
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Lush Green Lawn Maintenance — Roswell, GA">
-          <img src="images/gallery-1.jpg" alt="Lush green lawn freshly maintained by Wild Lawn in Roswell GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
-          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
-            <p style="font-weight:600; font-size:0.95rem;">Residential Lawn Care</p>
-            <p style="color:#a8a5a0; font-size:0.8rem;">Roswell, GA</p>
-          </div>
+      <!-- Slideshow -->
+      <div class="portfolio-slideshow fadeUp" id="portfolioSlideshow" style="position:relative; border-radius:16px; overflow:hidden; max-width:900px; margin:0 auto;">
+        <div class="slideshow-track" id="slideshowTrack" style="display:flex; transition:transform 0.5s ease;">
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-1.webp" alt="Wild Lawn lawn care project - large property with white fence" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-2.webp" alt="Wild Lawn commercial property maintenance - Cherokee Ridge" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-3.webp" alt="Wild Lawn striped lawn mowing results" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-4.webp" alt="Wild Lawn new home landscaping project" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-5.webp" alt="Wild Lawn residential lawn maintenance" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-6.webp" alt="Wild Lawn backyard lawn care" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-7.webp" alt="Wild Lawn property transformation" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-8.webp" alt="Wild Lawn full service lawn care" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-9.webp" alt="Wild Lawn mowing and edging results" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-10.webp" alt="Wild Lawn commercial grounds maintenance" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-11.webp" alt="Wild Lawn landscaping project" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
+          <div class="slide" style="min-width:100%; position:relative;"><img src="images/portfolio-12.webp" alt="Wild Lawn yard cleanup and maintenance" loading="lazy" style="width:100%; aspect-ratio:16/9; object-fit:cover;"></div>
         </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Beautiful Garden Landscaping — Marietta, GA">
-          <img src="images/gallery-2.jpg" alt="Professional landscaping with garden beds in Marietta GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
-          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
-            <p style="font-weight:600; font-size:0.95rem;">Landscape Design</p>
-            <p style="color:#a8a5a0; font-size:0.8rem;">Marietta, GA</p>
-          </div>
-        </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Full Property Maintenance — Alpharetta, GA">
-          <img src="images/gallery-3.jpg" alt="Manicured property with trimmed hedges in Alpharetta GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
-          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
-            <p style="font-weight:600; font-size:0.95rem;">Full Property Maintenance</p>
-            <p style="color:#a8a5a0; font-size:0.8rem;">Alpharetta, GA</p>
-          </div>
-        </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Beautiful Home with Maintained Lawn — Kennesaw, GA">
-          <img src="images/gallery-4.jpg" alt="Beautiful home exterior with professionally maintained lawn in Kennesaw GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
-          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
-            <p style="font-weight:600; font-size:0.95rem;">Premium Package Results</p>
-            <p style="color:#a8a5a0; font-size:0.8rem;">Kennesaw, GA</p>
-          </div>
-        </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Spring Planting & Bed Preparation — Woodstock, GA">
-          <img src="images/gallery-5.jpg" alt="Spring planting and mulch bed preparation in Woodstock GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
-          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
-            <p style="font-weight:600; font-size:0.95rem;">Mulching &amp; Bed Work</p>
-            <p style="color:#a8a5a0; font-size:0.8rem;">Woodstock, GA</p>
-          </div>
-        </div>
-        <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Luxury Home Curb Appeal — Smyrna, GA">
-          <img src="images/gallery-6.jpg" alt="Luxury home with perfect curb appeal and maintained lawn in Smyrna GA" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;">
-          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent,rgba(0,0,0,0.8));">
-            <p style="font-weight:600; font-size:0.95rem;">Curb Appeal Enhancement</p>
-            <p style="color:#a8a5a0; font-size:0.8rem;">Smyrna, GA</p>
-          </div>
-        </div>
+        <!-- Nav arrows -->
+        <button onclick="slidePortfolio(-1)" style="position:absolute; top:50%; left:12px; transform:translateY(-50%); background:rgba(0,0,0,0.6); border:none; color:#fff; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(8px);">&#10094;</button>
+        <button onclick="slidePortfolio(1)" style="position:absolute; top:50%; right:12px; transform:translateY(-50%); background:rgba(0,0,0,0.6); border:none; color:#fff; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(8px);">&#10095;</button>
+        <!-- Dots -->
+        <div id="slideshowDots" style="position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:8px;"></div>
+        <!-- Counter -->
+        <div id="slideCounter" style="position:absolute; top:16px; right:16px; background:rgba(0,0,0,0.6); color:#fff; padding:6px 14px; border-radius:100px; font-size:0.8rem; font-family:'DM Sans',sans-serif; backdrop-filter:blur(8px);">1 / 12</div>
       </div>
     </div>
   </section>
@@ -1928,8 +1908,10 @@
   </section>
 
   <!-- ========== CONTACT ========== -->
-  <section id="contact" aria-label="Contact us and request a quote">
-    <div class="container">
+  <section id="contact" aria-label="Contact us and request a quote" style="position:relative; background:url('images/portfolio-3.webp') center/cover no-repeat fixed;">
+    <!-- Dark overlay -->
+    <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(13,13,13,0.93), rgba(13,13,13,0.85)); z-index:0;"></div>
+    <div class="container" style="position:relative; z-index:1;">
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">Get In Touch</p>
         <h2 class="section-title">Ready for a Beautiful Lawn?</h2>
@@ -2242,5 +2224,32 @@
 
   <!-- External JS -->
   <script src="js/main.js" defer></script>
+  <script>
+    // Portfolio Slideshow
+    let currentSlide = 0;
+    const totalSlides = 12;
+    function slidePortfolio(dir) {
+      currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+      document.getElementById('slideshowTrack').style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+      document.getElementById('slideCounter').textContent = (currentSlide + 1) + ' / ' + totalSlides;
+      document.querySelectorAll('.slideshow-dot').forEach((d, i) => d.style.background = i === currentSlide ? '#48BB78' : 'rgba(255,255,255,0.4)');
+    }
+    // Create dots
+    document.addEventListener('DOMContentLoaded', function() {
+      var dots = document.getElementById('slideshowDots');
+      if (dots) {
+        for (var i = 0; i < totalSlides; i++) {
+          var dot = document.createElement('button');
+          dot.className = 'slideshow-dot';
+          dot.style.cssText = 'width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:' + (i === 0 ? '#48BB78' : 'rgba(255,255,255,0.4)');
+          dot.dataset.idx = i;
+          dot.addEventListener('click', function() { currentSlide = parseInt(this.dataset.idx); slidePortfolio(0); });
+          dots.appendChild(dot);
+        }
+      }
+      // Auto-advance every 4s
+      setInterval(function() { slidePortfolio(1); }, 4000);
+    });
+  </script>
 </body>
 </html>
