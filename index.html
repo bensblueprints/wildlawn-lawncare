@@ -259,7 +259,16 @@
       padding-top: 80px;
       position: relative;
       overflow: hidden;
-      background: url('images/hero-bg.jpg') center/cover no-repeat;
+      background: #0d0d0d;
+    }
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
     }
     #hero::after {
       content: '';
@@ -917,6 +926,28 @@
     .back-to-top:hover svg { stroke: #0d0d0d; }
     .back-to-top svg { width: 18px; height: 18px; stroke: #a8a5a0; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
+    /* ---- SERVICE DETAIL EXPAND ---- */
+    .service-detail { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+    .service-detail.active { max-height: 1000px; }
+    .service-detail p { color: #a8a5a0; font-size: 0.88rem; line-height: 1.7; margin-top: 12px; }
+    .service-read-more { background: none; border: none; color: #48BB78; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0; margin-top: 8px; }
+
+    /* ---- SERVICE AREAS ---- */
+    .areas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .area-card {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 32px 24px;
+      transition: all 0.3s ease;
+    }
+    .area-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(72,187,120,0.2);
+    }
+    .area-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .area-card p { color: #a8a5a0; font-size: 0.88rem; line-height: 1.7; }
+
     /* ---- ANIMATIONS ---- */
     .fadeUp {
       opacity: 0;
@@ -980,6 +1011,7 @@
       .faq-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
+      .areas-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
       .nav-links { display: none; }
@@ -989,6 +1021,7 @@
       .form-row { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .areas-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1007,6 +1040,7 @@
         <a href="#testimonials">Reviews</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
+        <a href="blog.html">Blog</a>
         <a href="#contact" class="nav-cta">Get Free Quote</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -1027,17 +1061,22 @@
     <a href="#testimonials" class="mobile-link">Reviews</a>
     <a href="#pricing" class="mobile-link">Pricing</a>
     <a href="#faq" class="mobile-link">FAQ</a>
+    <a href="blog.html" class="mobile-link">Blog</a>
     <a href="#contact" class="btn btn-primary mobile-link">Get Free Quote</a>
   </div>
 
   <!-- ========== HERO ========== -->
   <section id="hero" aria-label="Hero">
+    <!-- Background Video -->
+    <video class="hero-video" autoplay muted loop playsinline poster="images/hero-bg.jpg">
+      <source src="images/hero-video.mp4" type="video/mp4">
+    </video>
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content fadeUp">
           <p class="section-label">Licensed | Insured | Reliable</p>
           <h1>Your Lawn Deserves the <span class="accent">Best Care</span> in Atlanta</h1>
-          <p>WildLawn Lawncare delivers professional lawn care and landscaping services across Metro Atlanta. Quality care for every budget — guaranteed.</p>
+          <p>Wild Lawn Lawncare LLC delivers professional lawn care, landscaping, and property maintenance services across Metro Atlanta, Georgia. From weekly lawn mowing and fertilization to mulching, shrub trimming, seasonal cleanups, landscape design, and pressure washing, we provide quality care for every budget. Serving Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings — your satisfaction is guaranteed.</p>
           <div class="hero-buttons">
             <a href="#contact" class="btn btn-primary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
@@ -1076,6 +1115,7 @@
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">Sound Familiar?</p>
         <h2 class="section-title">Tired of These Lawn Care Headaches?</h2>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Homeowners across Metro Atlanta deal with these common frustrations when it comes to finding reliable, professional lawn care. If any of these problems sound familiar, Wild Lawn Lawncare LLC is the solution you have been looking for.</p>
       </div>
       <div class="pain-grid">
         <div class="pain-card fadeUp">
@@ -1083,28 +1123,28 @@
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           </div>
           <h3>Unreliable Lawn Services</h3>
-          <p>No-shows, late arrivals, and inconsistent results leave your yard looking neglected.</p>
+          <p>No-shows, late arrivals, and inconsistent results leave your yard looking neglected week after week. Many Atlanta homeowners have experienced the frustration of hiring a lawn care company that promises great service but fails to deliver — skipping scheduled visits without notice, showing up hours late, or rushing through the job with poor-quality results. With Wild Lawn Lawncare LLC, reliability is our cornerstone. We show up on time, every time, and deliver consistent, professional results on every visit.</p>
         </div>
         <div class="pain-card fadeUp">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2" stroke-dasharray="2 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
           </div>
           <h3>Overgrown &amp; Neglected Yards</h3>
-          <p>Weeds taking over, grass too tall, and your curb appeal suffers week after week.</p>
+          <p>Weeds taking over, grass growing too tall between visits, and your curb appeal suffering week after week. In Metro Atlanta's warm, humid climate, lawns can go from manicured to overgrown in just two weeks during peak growing season. Bermuda grass and other warm-season varieties grow aggressively from May through September, and without consistent professional maintenance, your property quickly looks abandoned. Wild Lawn keeps your yard looking pristine with reliable weekly and bi-weekly service plans.</p>
         </div>
         <div class="pain-card fadeUp">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
           <h3>Expensive Hidden Fees</h3>
-          <p>Surprise charges and unclear pricing make budgeting for lawn care impossible.</p>
+          <p>Surprise charges, unclear pricing, and unexpected add-on fees make budgeting for lawn care impossible. Too many lawn care companies in the Atlanta area lure homeowners in with a low initial quote only to tack on extra charges for edging, trimming, blowing, or other services that should be included as standard. At Wild Lawn Lawncare LLC, our pricing is transparent and all-inclusive. The price we quote is the price you pay — no hidden fees, no surprise line items, and no bait-and-switch tactics.</p>
         </div>
         <div class="pain-card fadeUp">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
           </div>
           <h3>One-Size-Fits-All Approach</h3>
-          <p>Cookie-cutter services that don't address your lawn's unique needs and conditions.</p>
+          <p>Cookie-cutter service programs that ignore your lawn's unique needs, grass type, soil conditions, and property layout. Every Metro Atlanta lawn is different — a shady Fescue yard in Roswell has completely different requirements than a sun-drenched Bermuda lawn in Kennesaw. Generic lawn care companies often apply the same mowing height, fertilizer blend, and treatment schedule to every property regardless of its specific conditions. Wild Lawn creates customized care plans based on a thorough assessment of your individual property, ensuring optimal results every time.</p>
         </div>
       </div>
     </div>
@@ -1115,8 +1155,8 @@
     <div class="container">
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">What We Do</p>
-        <h2 class="section-title">Professional Services Tailored to Your Lawn</h2>
-        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">From routine maintenance to full landscape transformations, we have you covered.</p>
+        <h2 class="section-title">Professional Lawn Care &amp; Landscaping Services Tailored to Your Property</h2>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">From routine lawn maintenance and mowing to full landscape transformations, mulching, pressure washing, fertilization, and seasonal cleanups, Wild Lawn Lawncare LLC has you covered. Each service is tailored to Metro Atlanta's unique climate, soil conditions, and growing season to ensure optimal results for your property.</p>
       </div>
       <div class="services-grid">
         <!-- Lawn Maintenance -->
@@ -1127,6 +1167,10 @@
           <div class="service-card-body">
             <h3>Lawn Maintenance</h3>
             <p>Professional mowing, trimming, edging, and blowing to keep your lawn pristine all season long.</p>
+            <button class="service-read-more" onclick="this.parentElement.querySelector('.service-detail').classList.toggle('active'); this.textContent = this.textContent === 'Read More' ? 'Read Less' : 'Read More';">Read More</button>
+            <div class="service-detail">
+              <p>Atlanta lawns feature a variety of warm-season and cool-season grass types, and each one demands a specific approach to mowing and maintenance. At Wild Lawn Lawncare LLC, we work with Bermuda grass, Zoysia grass, and Tall Fescue — the three most common turf varieties found across Metro Atlanta properties. Bermuda grass thrives in full sun and should be mowed at 1 to 1.5 inches during the peak Georgia summer heat, while Zoysia performs best at 1.5 to 2 inches. Fescue, a cool-season grass popular in shaded North Georgia yards, requires a higher cut of 3 to 3.5 inches to survive the summer stress. Our growing season runs from March through October, which means your lawn needs consistent weekly attention for roughly eight months of the year. We use commercial-grade zero-turn mowers, professional string trimmers, and precision edgers to deliver a clean, striped finish on every visit. Each service includes mowing at the proper height for your grass type, line trimming around obstacles, sidewalk and driveway edging, and a thorough blowing of all hard surfaces to leave your property looking immaculate.</p>
+            </div>
             <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
           </div>
         </div>
@@ -1138,6 +1182,10 @@
           <div class="service-card-body">
             <h3>Mulching &amp; Bed Maintenance</h3>
             <p>Fresh mulch installation, bed edging, and weed removal to enhance your landscape beds.</p>
+            <button class="service-read-more" onclick="this.parentElement.querySelector('.service-detail').classList.toggle('active'); this.textContent = this.textContent === 'Read More' ? 'Read Less' : 'Read More';">Read More</button>
+            <div class="service-detail">
+              <p>Proper mulching is one of the most effective ways to protect your landscape beds, retain soil moisture, and suppress weed growth throughout Metro Atlanta's long growing season. Wild Lawn Lawncare LLC offers a full range of mulch options including natural hardwood mulch, pine straw, and dyed mulch in brown, black, and red varieties. We install mulch at the recommended depth of 2 to 3 inches, which provides optimal insulation for plant roots without suffocating them. Georgia's heavy red clay soil presents unique drainage challenges, and a well-maintained mulch layer helps regulate soil temperature and prevent erosion during our frequent summer thunderstorms. Our mulching service includes removing old, decomposed mulch when necessary, re-defining clean bed edges with a professional bed edger, pulling existing weeds by hand, and applying a fresh layer of your chosen mulch material. We recommend a seasonal refresh in early spring and again in late fall to keep beds looking sharp and functioning properly year-round. Whether you have a few small beds or an entire property perimeter, our crew delivers fast, clean, and professional mulch installation every time.</p>
+            </div>
             <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
           </div>
         </div>
@@ -1149,6 +1197,10 @@
           <div class="service-card-body">
             <h3>Bush &amp; Shrub Care</h3>
             <p>Expert trimming, shaping, and health care for your bushes and shrubs year-round.</p>
+            <button class="service-read-more" onclick="this.parentElement.querySelector('.service-detail').classList.toggle('active'); this.textContent = this.textContent === 'Read More' ? 'Read Less' : 'Read More';">Read More</button>
+            <div class="service-detail">
+              <p>Metro Atlanta landscapes are filled with beautiful shrubs and ornamental plants that require expert care to maintain their shape, health, and visual appeal. Wild Lawn Lawncare LLC specializes in pruning and shaping common Georgia shrubs including azaleas, boxwood, holly, ligustrum, loropetalum, and Indian hawthorn. Timing is critical when it comes to pruning — azaleas and other spring-blooming shrubs should be trimmed immediately after flowering to avoid cutting off next year's buds, while evergreens like boxwood and holly can be shaped in late spring and again in early fall. Our crew understands the bloom cycles of every common Metro Atlanta shrub species and schedules pruning accordingly. Beyond shaping, we inspect your shrubs for signs of common Georgia plant diseases such as leaf spot, powdery mildew, and root rot, which are especially prevalent in our humid subtropical climate. We also check for pest infestations including scale, spider mites, and lace bugs. Regular professional shrub care not only keeps your property looking manicured but also promotes dense, healthy growth and extends the lifespan of your landscape investment.</p>
+            </div>
             <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
           </div>
         </div>
@@ -1160,6 +1212,10 @@
           <div class="service-card-body">
             <h3>Seasonal Cleanups</h3>
             <p>Complete leaf removal, debris hauling, and property cleanup for fall, winter, and spring transitions.</p>
+            <button class="service-read-more" onclick="this.parentElement.querySelector('.service-detail').classList.toggle('active'); this.textContent = this.textContent === 'Read More' ? 'Read Less' : 'Read More';">Read More</button>
+            <div class="service-detail">
+              <p>Atlanta's tree canopy is one of the most beautiful in the Southeast, but it also means homeowners deal with significant leaf and debris accumulation throughout the year. Our seasonal cleanup service addresses fall leaf removal from heavy-shedding species like oaks, maples, and sweetgum trees that dominate Metro Atlanta neighborhoods. Sweetgum seed pods and oak acorns can be particularly troublesome, creating slippery surfaces and clogging drainage areas if not properly cleared. In spring, we remove winter storm debris, fallen branches, dead foliage, and accumulated pine straw that has blown out of beds and onto lawns and walkways. Pine straw management is an ongoing concern in North Georgia, where loblolly and shortleaf pines drop needles year-round. Our cleanup crews use commercial-grade backpack blowers, truck-mounted vacuum systems, and tarps to efficiently clear your entire property. We also address gutter-adjacent areas where leaves and debris tend to accumulate against foundations and along fence lines. Each seasonal cleanup prepares your lawn and landscape for the coming season, ensuring proper air circulation, sunlight penetration, and a clean slate for healthy turf growth.</p>
+            </div>
             <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
           </div>
         </div>
@@ -1171,6 +1227,10 @@
           <div class="service-card-body">
             <h3>Fertilization &amp; Weed Control</h3>
             <p>Science-based fertilization programs and targeted weed control for a thick, healthy lawn.</p>
+            <button class="service-read-more" onclick="this.parentElement.querySelector('.service-detail').classList.toggle('active'); this.textContent = this.textContent === 'Read More' ? 'Read Less' : 'Read More';">Read More</button>
+            <div class="service-detail">
+              <p>A healthy, weed-free lawn in Metro Atlanta requires a carefully timed fertilization and weed control program tailored to Georgia's unique climate and soil conditions. Wild Lawn Lawncare LLC offers a comprehensive 5 to 7 step annual program designed specifically for Atlanta-area lawns. The program begins in February or early March with a pre-emergent herbicide application to prevent crabgrass and other annual weeds from germinating before they take hold in your turf. Subsequent applications throughout the growing season include balanced granular fertilizer treatments, post-emergent weed control for broadleaf weeds like clover and dandelions, and targeted treatments for stubborn invaders like nutsedge and dallisgrass. Georgia's native clay soil is naturally acidic, often with a pH below 6.0, which can limit nutrient uptake and stunt grass growth. We recommend professional soil testing to determine your lawn's exact pH and nutrient levels, and we apply agricultural lime as needed to raise the pH to the optimal range for your turf type. Our fertilization blends are selected based on your grass species and soil test results, ensuring the right balance of nitrogen, phosphorus, and potassium for vigorous root development and a deep green color all season long.</p>
+            </div>
             <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
           </div>
         </div>
@@ -1182,6 +1242,10 @@
           <div class="service-card-body">
             <h3>Landscape Design</h3>
             <p>Custom landscape design and installation to transform your outdoor spaces into stunning retreats.</p>
+            <button class="service-read-more" onclick="this.parentElement.querySelector('.service-detail').classList.toggle('active'); this.textContent = this.textContent === 'Read More' ? 'Read Less' : 'Read More';">Read More</button>
+            <div class="service-detail">
+              <p>Wild Lawn Lawncare LLC provides custom landscape design services tailored to Metro Atlanta's growing conditions and your personal aesthetic vision. Our design process begins with an on-site consultation where we assess your property's sun exposure, existing vegetation, drainage patterns, and soil composition. Atlanta falls within USDA hardiness zones 7b and 8a, which gives us access to an incredible range of plant material including native Georgia species like oakleaf hydrangea, Carolina jessamine, and coreopsis, as well as popular ornamentals like crepe myrtles, knockout roses, and ornamental grasses. Georgia's heavy clay soil presents unique drainage challenges that must be addressed in any landscape design — we incorporate French drains, dry creek beds, grading solutions, and permeable hardscape materials to manage water flow and prevent erosion. Our designs seamlessly integrate softscape plantings with hardscape elements such as natural stone walkways, retaining walls, paver patios, and fire pit areas. We work with you from initial concept through final installation, providing detailed design drawings and plant schedules so you know exactly what your finished landscape will look like before any work begins.</p>
+            </div>
             <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
           </div>
         </div>
@@ -1193,6 +1257,10 @@
           <div class="service-card-body">
             <h3>Pressure Washing</h3>
             <p>Professional pressure washing for houses, driveways, patios, and fences to restore their original shine.</p>
+            <button class="service-read-more" onclick="this.parentElement.querySelector('.service-detail').classList.toggle('active'); this.textContent = this.textContent === 'Read More' ? 'Read Less' : 'Read More';">Read More</button>
+            <div class="service-detail">
+              <p>Atlanta homeowners know that pollen season is no joke — every spring, a thick yellow-green coating of pine and oak pollen blankets driveways, siding, porches, and outdoor furniture across Metro Atlanta. Wild Lawn Lawncare LLC offers professional pressure washing and soft washing services to restore your home's exterior surfaces to like-new condition. We use two distinct cleaning methods depending on the surface: traditional high-pressure washing for concrete driveways, sidewalks, and patios, and a gentler soft wash technique for vinyl siding, painted surfaces, roofs, and wood decks and fences. Soft washing uses low-pressure water combined with specialized biodegradable cleaning solutions to safely remove algae, mold, mildew, and pollen without damaging delicate surfaces. Our pressure washing services are especially popular in spring after pollen season peaks and in fall before holiday gatherings. We clean driveways, garage floors, house exteriors, screened porches, pool decks, wooden fences, brick and stone walkways, and retaining walls. Regular pressure washing not only improves your property's curb appeal but also prevents long-term damage from organic growth that can deteriorate surfaces over time.</p>
+            </div>
             <a href="#contact" class="service-link">Get Quote <span>&rarr;</span></a>
           </div>
         </div>
@@ -1206,56 +1274,56 @@
       <div class="why-grid">
         <div class="fadeUp">
           <p class="section-label">Why Choose Us</p>
-          <h2 class="section-title">Atlanta Trusts WildLawn for a Reason</h2>
-          <p class="section-subtitle">We combine professional expertise with a personal touch to deliver results that exceed expectations.</p>
+          <h2 class="section-title">Atlanta Trusts Wild Lawn Lawncare for a Reason</h2>
+          <p class="section-subtitle">We combine professional expertise with a personal touch to deliver lawn care results that consistently exceed expectations. As a locally owned and operated Metro Atlanta business, Wild Lawn Lawncare LLC understands the specific challenges that Georgia homeowners face — from acidic clay soil and aggressive weed pressure to humid summers that promote fungal disease. Here is why hundreds of homeowners across Marietta, Kennesaw, Roswell, Alpharetta, and beyond trust us with their properties.</p>
           <div class="why-features">
             <div class="why-feature">
               <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <h4>Licensed &amp; Insured</h4>
-                <p>Full liability coverage and proper licensing for your complete peace of mind.</p>
+                <p>Full liability coverage and proper licensing for your complete peace of mind. Wild Lawn Lawncare LLC carries comprehensive general liability insurance that protects your property and our crew members on every job. We maintain all required Georgia business licenses and can provide proof of insurance documentation upon request, giving you confidence that you are working with a legitimate, professional operation.</p>
               </div>
             </div>
             <div class="why-feature">
               <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <h4>Locally Owned</h4>
-                <p>Proud Metro Atlanta business that understands local soil, climate, and grass types.</p>
+                <p>Proud Metro Atlanta business that understands local soil, climate, and grass types. Being locally owned means we know the unique challenges of Georgia's red clay soil, humid subtropical summers, and the specific turf varieties that thrive in zones 7b and 8a. We live and work in the same communities we serve, from Marietta and Kennesaw to Roswell, Alpharetta, and beyond.</p>
               </div>
             </div>
             <div class="why-feature">
               <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <h4>Professional-Grade Equipment</h4>
-                <p>Commercial-quality tools and machinery for a superior, consistent cut every time.</p>
+                <p>Commercial-quality tools and machinery for a superior, consistent cut every time. Our fleet includes commercial-grade zero-turn mowers, professional string trimmers, precision bed edgers, and truck-mounted blower systems. We maintain and sharpen all blades regularly to ensure a clean cut that promotes healthy grass growth rather than tearing that can lead to disease.</p>
               </div>
             </div>
             <div class="why-feature">
               <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <h4>Eco-Friendly Products</h4>
-                <p>Environmentally responsible fertilizers and treatments safe for kids and pets.</p>
+                <p>Environmentally responsible fertilizers and treatments safe for kids and pets. We use EPA-approved, low-toxicity products that deliver outstanding results without harming the environment or posing risks to your family and animals. Our targeted application methods minimize product waste and runoff, protecting Atlanta's waterways and the Chattahoochee River watershed.</p>
               </div>
             </div>
             <div class="why-feature">
               <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <h4>Flexible Scheduling</h4>
-                <p>Weekly, bi-weekly, or custom schedules that fit your lifestyle and budget.</p>
+                <p>Weekly, bi-weekly, or custom schedules that fit your lifestyle and budget. We understand that every homeowner has different needs, which is why we offer completely flexible scheduling options. Whether you need weekly service during the peak growing season or bi-weekly maintenance during cooler months, we will build a schedule that works for you and your property.</p>
               </div>
             </div>
             <div class="why-feature">
               <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <h4>Free Estimates</h4>
-                <p>No-obligation quotes with transparent, upfront pricing. No hidden fees, ever.</p>
+                <p>No-obligation quotes with transparent, upfront pricing. No hidden fees, ever. We provide detailed written estimates that break down every service included so you know exactly what you are paying for. Our pricing is competitive within the Metro Atlanta market, and we never surprise you with add-on charges or unexplained line items after the work is complete.</p>
               </div>
             </div>
             <div class="why-feature">
               <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <h4>Satisfaction Guaranteed</h4>
-                <p>If you're not happy, we'll make it right. Your satisfaction is our top priority.</p>
+                <p>If you're not happy, we'll make it right. Your satisfaction is our top priority. We stand behind every service we perform with a 100% satisfaction guarantee. If any aspect of our work does not meet your expectations, simply contact us within 24 hours and we will return to address the issue at no additional cost. That is the Wild Lawn promise.</p>
               </div>
             </div>
           </div>
@@ -1264,7 +1332,7 @@
           <img src="images/about-team.jpg" alt="Wild Lawn professional lawn care team" loading="lazy" style="width:100%; border-radius:12px; margin-bottom:24px; object-fit:cover; max-height:280px;">
           <div style="margin-bottom:32px;">
             <h3 style="font-size:1.5rem; margin-bottom:8px;">Quality Lawn Care<br>for <span class="accent">Every Budget</span></h3>
-            <p style="color:#a8a5a0; font-size:0.9rem;">Serving Metro Atlanta with pride since day one.</p>
+            <p style="color:#a8a5a0; font-size:0.9rem;">Serving Metro Atlanta with pride since day one. Wild Lawn Lawncare LLC has built its reputation on honest pricing, reliable scheduling, and delivering professional results that transform residential properties across Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings. Our locally owned team treats every property as if it were our own.</p>
           </div>
           <div class="why-badges">
             <div class="why-badge">
@@ -1291,7 +1359,7 @@
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">Testimonials</p>
         <h2 class="section-title">What Our Customers Say</h2>
-        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Don't just take our word for it. Here's what homeowners across Metro Atlanta have to say.</p>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Don't just take our word for it. Here is what homeowners across Metro Atlanta have to say about their experience with Wild Lawn Lawncare LLC. With a 4.9-star average rating across hundreds of reviews, our commitment to quality, reliability, and customer satisfaction speaks for itself.</p>
       </div>
       <div class="testimonials-grid">
         <!-- Testimonial 1 -->
@@ -1303,7 +1371,7 @@
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <blockquote>"WildLawn transformed our backyard completely. The attention to detail is unmatched. Our neighbors keep asking who does our lawn!"</blockquote>
+          <blockquote>"Wild Lawn transformed our backyard completely. The attention to detail is absolutely unmatched — from the perfectly straight mowing lines to the crisp bed edges. Our neighbors constantly ask who does our lawn, and we are always happy to refer them. The crew shows up on time every single week, and our Bermuda grass has never looked this thick and green. After trying three other lawn care companies in Roswell that were unreliable and inconsistent, we finally found the team that treats our yard like their own."</blockquote>
           <div class="testimonial-author">
             <div class="author-avatar">MJ</div>
             <div>
@@ -1321,7 +1389,7 @@
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <blockquote>"Finally found a lawn care company that actually shows up on time and does incredible work. The premium package is worth every penny."</blockquote>
+          <blockquote>"Finally found a lawn care company that actually shows up on time and does incredible work every single visit. The premium package is worth every penny — they handle our mowing, shrub trimming, fertilization, and seasonal cleanups so we never have to worry about a thing. Our Marietta home has the best-looking yard on the street now, and the team is always polite and professional. I love that they text me before they arrive and send a photo when the job is done. Truly a five-star operation."</blockquote>
           <div class="testimonial-author">
             <div class="author-avatar">SM</div>
             <div>
@@ -1339,12 +1407,66 @@
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <blockquote>"We've used WildLawn for two years now. Consistent, professional, and our property has never looked better. Highly recommend!"</blockquote>
+          <blockquote>"We have used Wild Lawn for two years now and the consistency is what sets them apart from everyone else. Every visit, our Alpharetta property looks like a model home with perfectly maintained turf, manicured shrubs, and fresh mulch in every bed. They even adjusted our fertilization schedule after doing a soil test and the results speak for themselves. Our Zoysia lawn has filled in beautifully and the weed problem we had before is completely gone. We recommend Wild Lawn to all of our friends and family without hesitation."</blockquote>
           <div class="testimonial-author">
             <div class="author-avatar">DC</div>
             <div>
               <div class="author-name">David &amp; Lisa Chen</div>
               <div class="author-location">Alpharetta, GA</div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 4 -->
+        <div class="testimonial-card fadeUp">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <blockquote>"Wild Lawn has been maintaining our Kennesaw property for over a year now and the difference in our home's curb appeal is remarkable. Our real estate agent told us the lawn care alone has added noticeable value to our property. The crew keeps our Bermuda grass at the perfect height, the edging is always crisp, and they even pointed out a drainage issue we did not know we had. I truly believe investing in professional lawn care with Wild Lawn has been one of the best decisions we have made as homeowners."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">RW</div>
+            <div>
+              <div class="author-name">Robert Williams</div>
+              <div class="author-location">Kennesaw, GA</div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 5 -->
+        <div class="testimonial-card fadeUp">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <blockquote>"I hired Wild Lawn to pressure wash our entire Woodstock home exterior, driveway, and back patio, and I am still amazed at the transformation. Years of Georgia pollen buildup, algae stains, and grime were completely eliminated in just one afternoon. Our white vinyl siding looks brand new, and the concrete driveway went from dark gray and stained back to its original light color. The soft wash technique they used on the siding was gentle but incredibly effective. I have already booked them for a spring cleaning every year going forward."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">JA</div>
+            <div>
+              <div class="author-name">Jennifer Adams</div>
+              <div class="author-location">Woodstock, GA</div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 6 -->
+        <div class="testimonial-card fadeUp">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <blockquote>"As busy professionals, we needed a company that could handle everything for our Acworth property — lawn maintenance, seasonal cleanups, mulching, and shrub care. Wild Lawn has been that one-stop solution for us. Their fall cleanup service is outstanding — they cleared every last oak leaf and sweetgum ball from our half-acre lot and had the entire property looking pristine before the holidays. The spring cleanup was equally thorough, and our landscape beds look incredible with fresh mulch and perfectly trimmed boxwoods."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">MH</div>
+            <div>
+              <div class="author-name">Michael &amp; Patricia Hayes</div>
+              <div class="author-location">Acworth, GA</div>
             </div>
           </div>
         </div>
@@ -1358,27 +1480,28 @@
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">How It Works</p>
         <h2 class="section-title">Beautiful Results in 4 Simple Steps</h2>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Getting started with Wild Lawn Lawncare LLC is simple, fast, and hassle-free. Our streamlined process takes you from initial inquiry to a beautifully maintained lawn in just four easy steps. We handle everything so you can enjoy your outdoor space without lifting a finger.</p>
       </div>
       <div class="process-grid">
         <div class="process-step fadeUp">
           <div class="step-number">1</div>
           <h3>Request a Quote</h3>
-          <p>Fill out our simple form or give us a call. We'll get back to you within 24 hours.</p>
+          <p>Getting started with Wild Lawn Lawncare LLC is easy. Simply fill out our online contact form with your name, address, and the services you are interested in, or give us a call at (770) 490-2542. Our team responds to every inquiry within 24 hours, and we will schedule a convenient time to visit your property for a free, no-obligation assessment. We serve homeowners across Metro Atlanta including Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings.</p>
         </div>
         <div class="process-step fadeUp">
           <div class="step-number">2</div>
           <h3>Custom Plan</h3>
-          <p>We assess your property and create a tailored plan that fits your needs and budget.</p>
+          <p>During our property visit, we walk your entire yard and assess the grass type, soil condition, sun and shade exposure, existing landscape features, and any problem areas like bare spots, drainage issues, or weed infestations. Based on this assessment, we create a fully customized lawn care plan tailored to your specific property and budget. Whether you need basic weekly mowing or a comprehensive premium package that includes fertilization, shrub care, and seasonal cleanups, your plan is designed around your property's unique needs.</p>
         </div>
         <div class="process-step fadeUp">
           <div class="step-number">3</div>
           <h3>Scheduled Service</h3>
-          <p>Our professional crew arrives on time with the right equipment, every scheduled visit.</p>
+          <p>Once your plan is approved, we assign a dedicated crew to your property and lock in your preferred service day. Our professional team arrives on time with the right commercial-grade equipment for the job, every single visit. We send a notification before we arrive so you always know when to expect us. If weather forces a reschedule, we proactively communicate the change and get your service completed within 24 to 48 hours. Consistency and reliability are the foundation of the Wild Lawn experience.</p>
         </div>
         <div class="process-step fadeUp">
           <div class="step-number">4</div>
           <h3>Beautiful Results</h3>
-          <p>Sit back and enjoy a stunning, healthy lawn that's the envy of the neighborhood.</p>
+          <p>Sit back, relax, and enjoy a stunning, healthy lawn that becomes the envy of your entire neighborhood. With regular professional care from Wild Lawn Lawncare LLC, your turf grows thicker and greener, your landscape beds stay clean and defined, and your overall property value increases. Many of our Metro Atlanta clients report receiving compliments from neighbors and guests within just a few weeks of starting service. We take pride in delivering visible, lasting results that make your outdoor space a place you love to spend time in.</p>
         </div>
       </div>
     </div>
@@ -1390,7 +1513,7 @@
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">Our Work</p>
         <h2 class="section-title">See the <span class="accent">Wild Lawn</span> Difference</h2>
-        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Real results from real properties across Metro Atlanta.</p>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Real results from real properties across Metro Atlanta. Browse our portfolio of residential lawn care, landscape design, mulching, and full property maintenance projects completed in Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Smyrna, and surrounding communities.</p>
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;">
         <div class="fadeUp" style="position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer;" title="Lush Green Lawn Maintenance — Roswell, GA">
@@ -1439,19 +1562,70 @@
     </div>
   </section>
 
+  <!-- ========== SERVICE AREAS ========== -->
+  <section id="service-areas" aria-label="Service areas" style="padding:100px 0;">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
+        <p class="section-label">Where We Serve</p>
+        <h2 class="section-title">Serving Metro Atlanta's <span class="accent">Finest Neighborhoods</span></h2>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Wild Lawn Lawncare LLC provides professional lawn care, landscaping, and property maintenance services across Metro Atlanta's most beautiful communities. Our service area spans Cobb County, Cherokee County, and North Fulton County, covering nine primary cities and their surrounding neighborhoods. Each community we serve has its own unique character, landscape challenges, and lawn care needs, and our team brings local expertise to every property we maintain.</p>
+      </div>
+      <p class="fadeUp" style="color:#a8a5a0; font-size:0.92rem; line-height:1.7; max-width:900px; margin:0 auto 48px; text-align:center;">Whether you own a home in a quiet established neighborhood, a growing suburban subdivision, or a prestigious estate community, Wild Lawn Lawncare LLC has the experience, equipment, and local knowledge to keep your property looking its absolute best. We understand that each city and neighborhood in Metro Atlanta has its own character, landscape style, and unique lawn care challenges. Below, learn more about the specific communities we serve and how our services are tailored to meet the needs of homeowners in each area.</p>
+      <div class="areas-grid">
+        <div class="area-card fadeUp">
+          <h3>Marietta, GA</h3>
+          <p>Wild Lawn Lawncare LLC proudly serves homeowners throughout Marietta, from the charming neighborhoods surrounding the historic Marietta Square to the established communities near Kennesaw Mountain National Battlefield Park. Marietta's mature tree canopy of oaks, maples, and pines creates beautiful shaded yards but also demands regular leaf removal and careful turf management for shade-tolerant grass varieties. Our Marietta lawn care clients enjoy consistent weekly service, professional mulching for their landscape beds, and expert shrub trimming that keeps their properties looking immaculate in one of Metro Atlanta's most desirable cities. Whether you live near the East Side Trail, the West Side neighborhoods, or the growing areas along the 120 Loop, Wild Lawn delivers reliable, high-quality lawn care you can count on.</p>
+        </div>
+        <div class="area-card fadeUp">
+          <h3>Kennesaw, GA</h3>
+          <p>Kennesaw is one of the fastest-growing cities in Cobb County, blending historic downtown charm with modern suburban development. Wild Lawn Lawncare LLC serves residential properties across Kennesaw, from the established homes near downtown and the Civil War museum to the newer subdivisions along Barrett Parkway and Chastain Road. Kennesaw homeowners face unique lawn care challenges including heavy red clay soil, steep lot grading that requires careful mowing technique, and the transition zones where warm-season and cool-season grasses overlap. Our team provides customized lawn care plans that address these specific challenges, including proper fertilization for Kennesaw's clay-heavy soil, targeted weed control for the varieties most common in Cobb County, and professional mowing at the correct height for your specific turf type.</p>
+        </div>
+        <div class="area-card fadeUp">
+          <h3>Roswell, GA</h3>
+          <p>Roswell's beautiful neighborhoods along Canton Street, the historic district, and the communities bordering the Chattahoochee River deserve exceptional lawn care, and Wild Lawn Lawncare LLC delivers exactly that. Roswell properties often feature larger lots with mature landscaping, established trees, and significant garden beds that require comprehensive maintenance programs. The proximity to the Chattahoochee River means many Roswell yards deal with moisture-rich soil conditions and shade from riparian tree cover, creating ideal conditions for fungal diseases if lawns are not properly maintained. Our Roswell lawn care services include weekly mowing tailored to your grass type, professional fertilization and fungicide treatments, expert shrub pruning, and thorough seasonal cleanups that keep your property looking pristine year-round.</p>
+        </div>
+        <div class="area-card fadeUp">
+          <h3>Alpharetta, GA</h3>
+          <p>From the upscale shopping destination of Avalon to the growing tech corridor along GA-400, Alpharetta is home to some of Metro Atlanta's most beautiful residential properties. Wild Lawn Lawncare LLC provides premium lawn care services to homeowners throughout Alpharetta who demand the highest standards for their outdoor spaces. Alpharetta's well-maintained HOA communities and estate-style homes require meticulous attention to detail, from perfectly striped mowing patterns to immaculate bed edges and precisely shaped ornamental shrubs. Our crew understands the elevated expectations of Alpharetta residents and delivers a level of service that matches the caliber of these outstanding neighborhoods. We offer comprehensive property care plans that include everything from basic lawn maintenance to full landscape management.</p>
+        </div>
+        <div class="area-card fadeUp">
+          <h3>Woodstock, GA</h3>
+          <p>Woodstock has experienced tremendous growth and downtown revitalization in recent years, making it one of Cherokee County's most sought-after communities. Wild Lawn Lawncare LLC serves homeowners throughout Woodstock, from the charming renovated downtown area to the popular neighborhoods around Towne Lake and the surrounding subdivisions. Woodstock properties often feature newer construction with freshly established lawns that need proper care during their critical establishment period, as well as mature properties with well-developed landscapes requiring ongoing maintenance. Our Woodstock lawn care services are tailored to the specific conditions of Cherokee County, including soil amendments for the area's heavy clay, proper irrigation scheduling guidance, and a fertilization program designed for the grass types most commonly installed in Woodstock developments.</p>
+        </div>
+        <div class="area-card fadeUp">
+          <h3>Acworth, GA</h3>
+          <p>Nestled along the shores of Lake Acworth and Lake Allatoona, the city of Acworth combines small-town historic charm with modern suburban living. Wild Lawn Lawncare LLC provides reliable professional lawn care to homeowners across Acworth, from the historic downtown district to the lakeside communities and newer subdivisions throughout the area. Acworth's lakeside properties often deal with unique challenges including sandy soil pockets near the water, wildlife traffic from deer and geese that can damage turf, and increased moisture levels that promote weed and fungal growth. Our team understands these local conditions and develops customized treatment plans that keep Acworth lawns healthy and beautiful through every season. We offer weekly mowing, mulching, shrub care, seasonal cleanups, and full fertilization programs.</p>
+        </div>
+        <div class="area-card fadeUp">
+          <h3>Canton, GA</h3>
+          <p>Canton sits along the Etowah River in Cherokee County and has become one of North Georgia's fastest-growing communities with a wonderful blend of rural charm and suburban amenities. Wild Lawn Lawncare LLC serves residential properties throughout Canton, from the revitalized downtown riverfront area to the expanding subdivisions along Highway 20 and Riverstone Parkway. Canton's slightly higher elevation compared to cities closer to Atlanta can mean slightly different growing season timing, with spring greenup arriving a week or two later and fall dormancy beginning earlier. Our Canton lawn care plans account for these micro-climate differences, ensuring your fertilization timing, pre-emergent applications, and mowing schedules are optimized for Canton's specific growing conditions and soil composition.</p>
+        </div>
+        <div class="area-card fadeUp">
+          <h3>Smyrna, GA</h3>
+          <p>Smyrna's vibrant Market Village, thriving restaurant scene, and walkable neighborhoods make it one of the most popular communities inside the Perimeter-adjacent area. Wild Lawn Lawncare LLC provides professional lawn care to Smyrna homeowners who want their properties to reflect the pride and energy of this outstanding city. Smyrna lots tend to be more compact than those in outer suburbs, which means every square foot of your lawn and landscape is highly visible and needs to look its best. Our crews are experienced with smaller urban lots where precision edging, tight-space mowing, and detailed trimming around hardscape features are essential. We also serve the nearby Vinings-adjacent areas of Smyrna where larger estate-style properties require comprehensive full-service lawn and landscape management.</p>
+        </div>
+        <div class="area-card fadeUp">
+          <h3>Vinings, GA</h3>
+          <p>Vinings is one of Metro Atlanta's most prestigious communities, known for its upscale estates, wooded lots, and proximity to the Paces Mill area along the Chattahoochee River. Wild Lawn Lawncare LLC serves discerning Vinings homeowners who expect nothing less than exceptional quality for their outdoor spaces. Vinings properties often feature expansive lawns, mature hardwood trees, elaborate landscape installations, and significant hardscape elements including stone walls, outdoor living areas, and pool surrounds. Our premium lawn care and landscape management services are perfectly suited to the elevated standards of Vinings, where attention to detail and consistent, reliable service are non-negotiable. We provide weekly maintenance, expert shrub and ornamental pruning, custom fertilization programs, seasonal color installations, and comprehensive property cleanups.</p>
+        </div>
+      </div>
+      <p class="fadeUp" style="color:#a8a5a0; font-size:0.92rem; line-height:1.7; max-width:900px; margin:48px auto 0; text-align:center;">Do not see your specific city or neighborhood listed above? Wild Lawn Lawncare LLC is continuously expanding our service area to reach more Metro Atlanta homeowners. If you live in a nearby community such as Powder Springs, Dallas, Holly Springs, Sandy Springs, Dunwoody, or any other North Metro Atlanta location, please contact us at (770) 490-2542 to discuss your lawn care needs. We may already serve your area or be able to add your neighborhood to our service routes. Our goal is to provide the highest quality professional lawn care to as many Metro Atlanta homeowners as possible, and we welcome the opportunity to earn your business.</p>
+    </div>
+  </section>
+
   <!-- ========== PRICING ========== -->
   <section id="pricing" aria-label="Service packages and pricing">
     <div class="container">
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">Pricing</p>
         <h2 class="section-title">Service Packages for Every Lawn</h2>
-        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Transparent pricing with no hidden fees. Choose the plan that fits your needs.</p>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Transparent pricing with no hidden fees. Choose the plan that fits your needs and budget. All packages include professional mowing, trimming, edging, and blowing. Upgrade to our Standard or Premium packages for additional services including bed maintenance, weed control, shrub trimming, and seasonal fertilization treatments.</p>
       </div>
       <div class="pricing-grid">
         <!-- Basic -->
         <div class="pricing-card fadeUp">
           <h3>Basic</h3>
-          <p class="price-desc">Small Residential</p>
+          <p class="price-desc">Small Residential — Perfect for homeowners who need reliable, professional lawn mowing and maintenance at an affordable price. Ideal for small to medium-sized yards across Metro Atlanta.</p>
           <ul class="pricing-features">
             <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Professional mowing</li>
             <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Line trimming</li>
@@ -1464,7 +1638,7 @@
         <div class="pricing-card featured fadeUp">
           <span class="pricing-badge">Best Value</span>
           <h3>Standard</h3>
-          <p class="price-desc">Most Popular</p>
+          <p class="price-desc">Most Popular — Our best-selling package includes everything in Basic plus bed edge maintenance, weed control, and lawn health monitoring. The perfect balance of comprehensive care and value for Atlanta homeowners.</p>
           <ul class="pricing-features">
             <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Everything in Basic</li>
             <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Bed edge maintenance</li>
@@ -1476,7 +1650,7 @@
         <!-- Premium -->
         <div class="pricing-card fadeUp">
           <h3>Premium</h3>
-          <p class="price-desc">Full Property Care</p>
+          <p class="price-desc">Full Property Care — Our all-inclusive package for homeowners who want complete property management. Includes everything in Standard plus professional shrub trimming, seasonal fertilization treatments, and priority scheduling for the ultimate hands-off lawn care experience.</p>
           <ul class="pricing-features">
             <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Everything in Standard</li>
             <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Shrub trimming &amp; shaping</li>
@@ -1489,7 +1663,7 @@
       <!-- Promo Banner -->
       <div class="promo-banner fadeUp">
         <h3><span class="accent">15% OFF</span> Weekly Service</h3>
-        <p>Book your weekly lawn care plan by April 1st and save 15% on every visit. <a href="#contact" style="color:#48BB78; font-weight:600;">Claim your discount &rarr;</a></p>
+        <p>Book your weekly lawn care plan by April 1st and save 15% on every visit for the entire growing season. This is our most popular promotion and is available to new clients in Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings. Weekly service delivers the best results for your lawn and the best value for your budget. <a href="#contact" style="color:#48BB78; font-weight:600;">Claim your discount &rarr;</a></p>
       </div>
     </div>
   </section>
@@ -1500,6 +1674,7 @@
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">FAQ</p>
         <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Have questions about our lawn care services, pricing, scheduling, or service areas? We have compiled answers to the most common questions our Metro Atlanta clients ask about working with Wild Lawn Lawncare LLC. If you do not see your question answered below, please call us at (770) 490-2542 or fill out our contact form.</p>
       </div>
       <div class="faq-grid">
         <div class="faq-item fadeUp">
@@ -1508,7 +1683,7 @@
             <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <p>During the growing season in Atlanta (March through October), we recommend weekly mowing for the best results. Bi-weekly service is also available, but weekly mowing promotes denser, healthier grass and better weed resistance.</p>
+            <p>During the growing season in Atlanta, which runs from March through October, we recommend weekly mowing for the best results. The warm-season grasses common in Metro Atlanta — Bermuda, Zoysia, and St. Augustine — grow rapidly during the hot summer months and can quickly become overgrown if left unattended for two weeks. Weekly mowing promotes denser, healthier grass growth, better weed resistance, and a more uniform appearance across your entire lawn. Bi-weekly service is also available and works well during the shoulder seasons in early spring and late fall when growth slows down. During peak summer months from June through August, warm-season grasses in Atlanta can grow an inch or more per week, so weekly mowing prevents you from cutting more than one-third of the blade height at any single mowing, which is the industry standard for healthy turf management. Mowing too infrequently leads to scalping, which stresses the grass, creates brown patches, and opens the door for weeds and disease. Our team monitors growth rates throughout the season and adjusts mowing frequency recommendations as needed to keep your lawn in peak condition. We also adjust mowing heights seasonally — cutting slightly higher during the hottest weeks to reduce heat stress on your turf.</p>
           </div>
         </div>
         <div class="faq-item fadeUp">
@@ -1517,7 +1692,7 @@
             <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <p>Absolutely! We provide free, no-obligation estimates for all of our services. Simply fill out our contact form or give us a call at (770) 490-2542, and we'll schedule a time to assess your property and provide a detailed quote.</p>
+            <p>Absolutely! Wild Lawn Lawncare LLC provides free, no-obligation estimates for all of our services across Metro Atlanta. Simply fill out our online contact form or give us a call at (770) 490-2542, and we will schedule a convenient time to visit your property and provide a detailed written quote. During our estimate visit, we walk your entire property to measure the lawn area, assess the turf type and condition, evaluate landscape beds and shrubs, and identify any special considerations like slopes, obstacles, or drainage issues. This thorough assessment allows us to provide an accurate quote that covers exactly what your property needs — no surprises and no hidden fees. Our estimates typically include a breakdown of each service with individual pricing so you can choose the level of care that fits your budget. We serve Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings, and most estimates can be scheduled within a few business days of your initial inquiry. There is never any pressure to commit, and our quotes remain valid for 30 days.</p>
           </div>
         </div>
         <div class="faq-item fadeUp">
@@ -1526,7 +1701,7 @@
             <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <p>We proudly serve the Metro Atlanta area including Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings. If you're not sure if we cover your area, just give us a call!</p>
+            <p>Wild Lawn Lawncare LLC proudly serves a wide area across Metro Atlanta, focusing on the communities north and northwest of the city. Our primary service areas include Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings, covering large portions of Cobb County, Cherokee County, North Fulton County, and the surrounding areas. Within each of these cities, we serve all neighborhoods and subdivisions, from historic downtown communities to the newest suburban developments. Our crews are strategically routed each day to efficiently serve clients within geographic zones, which allows us to maintain reliable scheduling and reduce drive time between properties. If you live in a nearby community that is not listed above — such as Powder Springs, Dallas, Holly Springs, or Sandy Springs — please give us a call at (770) 490-2542, as we may still be able to accommodate your property depending on your location and the services you need. We are always evaluating opportunities to expand our service area to reach more Metro Atlanta homeowners who deserve professional, reliable lawn care at a fair price.</p>
           </div>
         </div>
         <div class="faq-item fadeUp">
@@ -1535,7 +1710,7 @@
             <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <p>Yes! WildLawn Lawncare LLC is fully licensed and insured. We carry general liability insurance to protect your property and our workers. You can request proof of insurance at any time.</p>
+            <p>Yes! Wild Lawn Lawncare LLC is fully licensed and insured, which is something every homeowner should verify before hiring any lawn care or landscaping company. We carry comprehensive general liability insurance that protects your property against any accidental damage that might occur during our work, including window breakage from flying debris, irrigation system damage, and any other unforeseen incidents. Our insurance policy also covers our crew members while they are working on your property, so you are never held liable for on-the-job injuries. We maintain all required State of Georgia business licenses and registrations, and we comply fully with local Cobb County and Cherokee County regulations for commercial landscaping operations. You can request a copy of our Certificate of Insurance at any time, and we are happy to provide it to homeowners, HOA management companies, or property managers who require proof of coverage. Many of our competitors, especially individuals operating without a formal business structure, do not carry proper insurance — which puts you, the homeowner, at financial risk. With Wild Lawn, you can rest assured that you are protected on every visit.</p>
           </div>
         </div>
         <div class="faq-item fadeUp">
@@ -1544,7 +1719,7 @@
             <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <p>If weather prevents us from servicing your lawn on the scheduled day, we'll automatically reschedule to the next available day, typically within 24-48 hours. We'll notify you of any schedule changes in advance.</p>
+            <p>Atlanta weather can be unpredictable, especially during the spring and summer months when afternoon thunderstorms are a near-daily occurrence. If heavy rain, lightning, or severe weather prevents us from safely servicing your lawn on the scheduled day, we automatically reschedule your service to the next available day, typically within 24 to 48 hours. We proactively notify you via text message or phone call whenever a weather delay occurs so you are never left wondering when we will arrive. Our scheduling team monitors weather forecasts daily and adjusts crew routes to minimize disruptions and maximize the number of properties we can serve each week. Light rain generally does not prevent us from working — our commercial equipment handles damp conditions well, and mowing on lightly wet grass does not harm your turf. However, we avoid mowing during heavy downpours, standing water conditions, or when lightning is in the area, as these situations pose safety risks to our crew and can cause ruts and compaction damage to your lawn. During extended periods of rain, we prioritize catching up on all delayed services as quickly as possible to keep your lawn looking its best.</p>
           </div>
         </div>
         <div class="faq-item fadeUp">
@@ -1553,7 +1728,61 @@
             <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <p>Of course! While our Basic, Standard, and Premium packages cover most needs, we're happy to create a custom plan tailored to your property. Just let us know your specific requirements when you request a quote.</p>
+            <p>Of course! While our Basic, Standard, and Premium packages are designed to cover the most common lawn care needs for Metro Atlanta homeowners, we understand that every property is different and some clients have specific requirements that fall outside our standard offerings. We are happy to create a fully customized service plan tailored to your property's unique characteristics and your personal preferences. For example, some clients want weekly mowing but only monthly shrub trimming. Others need bi-weekly maintenance with quarterly fertilization treatments and an annual mulch refresh. Some homeowners want us to manage their entire outdoor property including pressure washing, gutter-adjacent cleanup, and landscape design consultations on top of regular lawn maintenance. Whatever combination of services you need, our team will put together a custom proposal with clear, transparent pricing for each component. We have also worked with several HOA management companies in Marietta, Kennesaw, and Alpharetta to develop community-wide maintenance plans for common areas, entrance features, and clubhouse grounds. Just tell us what you need when you request your free estimate and we will design a plan that works perfectly for your situation and your budget.</p>
+          </div>
+        </div>
+        <div class="faq-item fadeUp">
+          <button class="faq-question" aria-expanded="false">
+            What type of grass do I have and how should it be maintained?
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Identifying your grass type is the first step toward a healthy, beautiful lawn, and Metro Atlanta yards typically feature one of three main grass varieties. Bermuda grass is the most common warm-season turf in the Atlanta area, recognized by its fine texture, dense growth habit, and bright green color during summer. Bermuda thrives in full sun and should be mowed at 1 to 1.5 inches during the growing season for a tight, golf-course-like appearance. It goes dormant and turns brown in winter but greens up quickly when temperatures rise in spring. Zoysia grass is another popular warm-season choice that offers a thicker, carpet-like feel and better shade tolerance than Bermuda. Zoysia should be mowed at 1.5 to 2 inches and is prized for its slow growth rate, which means less frequent mowing once established. Tall Fescue is the primary cool-season grass used in Metro Atlanta, especially in yards with significant shade from mature trees. Fescue maintains its green color through the cooler months when warm-season grasses are dormant, but it requires a higher mowing height of 3 to 3.5 inches and regular overseeding each fall to maintain density. Our team can identify your grass type during a free property assessment and recommend the exact maintenance program to keep it healthy and thriving throughout the year.</p>
+          </div>
+        </div>
+        <div class="faq-item fadeUp">
+          <button class="faq-question" aria-expanded="false">
+            When is the best time to fertilize my lawn in Georgia?
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>The best time to fertilize your lawn in Georgia depends entirely on your grass type, which is why working with a professional lawn care company like Wild Lawn Lawncare LLC is so valuable. For warm-season grasses like Bermuda and Zoysia, the first fertilizer application should be timed for late April to early May, after the grass has fully emerged from winter dormancy and soil temperatures have consistently reached 65 degrees Fahrenheit. Fertilizing too early can actually promote weed growth before your grass is ready to compete. Subsequent applications should be made every 6 to 8 weeks throughout the growing season, with the last application no later than early September to allow the grass to harden off before winter. For Tall Fescue lawns, the schedule is different — the most important fertilization window is in the fall from September through November, when cool-season grasses are actively growing and building root reserves. A light spring application in March can help Fescue maintain color, but heavy summer fertilization should be avoided as it stresses the grass during hot weather. Regardless of grass type, we recommend starting with a professional soil test to determine your lawn's pH and nutrient levels. Georgia's native clay soil is typically acidic and may require lime applications to raise the pH to the optimal range for nutrient absorption and healthy turf growth.</p>
+          </div>
+        </div>
+        <div class="faq-item fadeUp">
+          <button class="faq-question" aria-expanded="false">
+            How do I prepare my lawn for winter in Atlanta?
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Preparing your lawn for winter in Atlanta involves several important steps that set the stage for a strong spring greenup. For warm-season grasses like Bermuda and Zoysia, the winterization process begins in late September or early October. First, we recommend a final mowing at a slightly lower height than summer to reduce the amount of brown dormant material visible during winter. Apply a potassium-rich winterizer fertilizer in early October to strengthen root systems and improve cold tolerance — avoid nitrogen-heavy fertilizers at this time as they encourage top growth that will be killed by frost. Aeration in early fall helps relieve soil compaction from summer foot traffic and allows water, air, and nutrients to reach the root zone more effectively. For Fescue lawns, fall is actually the most critical time of year — overseed thin or bare areas in September, apply a starter fertilizer to promote germination, and keep newly seeded areas consistently moist until the grass establishes. Regardless of grass type, complete a thorough fall cleanup to remove fallen leaves from oaks, maples, and sweetgum trees that can smother your turf and promote fungal disease if left in place. Clean up landscape beds, apply a fresh layer of mulch, and trim shrubs one final time before winter. Wild Lawn Lawncare LLC offers complete fall winterization packages that handle every step of this process for you.</p>
+          </div>
+        </div>
+        <div class="faq-item fadeUp">
+          <button class="faq-question" aria-expanded="false">
+            Do you offer one-time services or only recurring plans?
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Wild Lawn Lawncare LLC offers both one-time services and recurring maintenance plans to accommodate every homeowner's needs and budget across Metro Atlanta. While our recurring weekly and bi-weekly lawn care plans provide the best value and the most consistent results for your property, we understand that some situations call for a single visit. One-time services are popular for a variety of reasons — perhaps you are preparing your home for sale and need a property cleanup to boost curb appeal, or you are hosting a special event and want your yard to look its absolute best. Some homeowners hire us for a one-time spring or fall cleanup, a single mulch installation, a pressure washing session, or an overgrown lawn rescue when a property has been neglected for several weeks. We also provide one-time services for real estate agents, property managers, and landlords who need a property brought up to standard between tenants or before listing photos. Our one-time service pricing is transparent and provided upfront before any work begins. That said, many of our one-time clients end up converting to recurring plans once they experience the quality of our work and the convenience of never having to worry about their lawn again. We never pressure anyone into a long-term commitment — our quality speaks for itself.</p>
+          </div>
+        </div>
+        <div class="faq-item fadeUp">
+          <button class="faq-question" aria-expanded="false">
+            What sets Wild Lawn apart from other lawn care companies in Atlanta?
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Several key factors set Wild Lawn Lawncare LLC apart from the many other lawn care companies operating in the Metro Atlanta market. First and foremost, we combine the personalized attention of a locally owned business with the professional capabilities and equipment of a large commercial operation. You will never be treated as just another number on a route — we know our clients by name, we know their properties intimately, and we proactively communicate about scheduling, weather delays, and recommended treatments. Second, our team has deep expertise in Georgia-specific turf management, including knowledge of local grass varieties, soil conditions, pest pressures, and the optimal timing for every seasonal treatment. We do not apply generic one-size-fits-all programs — every plan is customized based on your property's actual conditions and your personal goals. Third, reliability is our hallmark. When we say we will be there, we show up — on time, every time. Our client retention rate speaks volumes about the consistency and quality of our service. Finally, we offer transparent, honest pricing with no hidden fees, no surprise charges, and no high-pressure sales tactics. We believe in earning your business through exceptional results, not through contracts or commitments. Our 4.9-star rating across hundreds of reviews reflects the standard we hold ourselves to on every single property visit.</p>
+          </div>
+        </div>
+        <div class="faq-item fadeUp">
+          <button class="faq-question" aria-expanded="false">
+            How soon can you start service after I request a quote?
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>At Wild Lawn Lawncare LLC, we pride ourselves on fast response times and quick service activation. In most cases, we can schedule your free property estimate within 2 to 3 business days of your initial inquiry, and once you approve the quote, we can begin service within one week. During our busiest periods — typically early spring from March through April when everyone is looking to get their lawns back in shape after winter, and early fall when cleanup season kicks off — wait times may be slightly longer, but we always communicate realistic timelines upfront so you know exactly when to expect us. For urgent situations like overgrown property rescues, pre-sale property cleanups, or time-sensitive HOA violation corrections, we offer expedited scheduling and can often get a crew to your property within just a few days. We recommend reaching out as early as possible if you know you want to start service for the upcoming season, as our spring schedule fills up quickly each year. To get started, simply fill out our online contact form with your address, preferred services, and any time constraints, or call us directly at (770) 490-2542. Our team will respond within 24 hours and work with you to find the earliest available start date for your Metro Atlanta property.</p>
           </div>
         </div>
       </div>
@@ -1566,7 +1795,7 @@
       <div style="text-align:center; margin-bottom:48px;" class="fadeUp">
         <p class="section-label">Get In Touch</p>
         <h2 class="section-title">Ready for a Beautiful Lawn?</h2>
-        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Request your free quote today and let us transform your outdoor space.</p>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">Request your free quote today and let Wild Lawn Lawncare LLC transform your outdoor space. Whether you need weekly lawn maintenance, a one-time seasonal cleanup, mulch installation, pressure washing, or a complete landscape design, our team is ready to help. Fill out the form below or call us directly at (770) 490-2542 to get started.</p>
       </div>
       <div class="contact-grid">
         <!-- Contact Info -->
@@ -1690,7 +1919,7 @@
             <img src="images/logo.jpg" alt="Wild Lawn Lawncare LLC logo" width="56" height="56" style="border-radius:8px;">
             <span style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700;">Wild <span class="accent">Lawn</span></span>
           </a>
-          <p>Quality Lawn Care for Every Budget. Proudly serving Metro Atlanta with professional lawn care and landscaping services.</p>
+          <p>Quality Lawn Care for Every Budget. Wild Lawn Lawncare LLC proudly serves Metro Atlanta with professional lawn care, landscaping, mulching, pressure washing, and property maintenance services. Licensed, insured, and locally owned, we are committed to delivering exceptional results for homeowners across Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings.</p>
         </div>
         <div class="footer-col">
           <h4>Quick Links</h4>
@@ -1702,6 +1931,7 @@
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="blog.html">Blog</a></li>
             <li><a href="/admin" style="color:#6b6965; font-size:0.78rem;">Admin Login</a></li>
           </ul>
         </div>

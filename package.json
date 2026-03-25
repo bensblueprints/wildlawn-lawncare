@@ -4,5 +4,8 @@
   "description": "WildLawn Lawncare LLC - Professional lawn care and landscaping website",
   "dependencies": {
     "@netlify/blobs": "^8.0.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.58.2"
   }
 }
