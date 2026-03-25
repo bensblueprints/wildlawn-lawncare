@@ -1175,7 +1175,7 @@
             <div class="color-options">
               <button class="color-swatch active" data-theme="green" title="Green (Default)" style="background:#48BB78;"></button>
               <button class="color-swatch" data-theme="orange" title="Orange" style="background:#E07C3E;"></button>
-              <button class="color-swatch" data-theme="black" title="Black & White" style="background:#ffffff; border:2px solid #333;"></button>
+              <button class="color-swatch" data-theme="white" title="Light Mode" style="background:#f5f5f0; border:2px solid #2E8B57;"></button>
               <button class="color-swatch" data-theme="blue" title="Blue" style="background:#4A90D9;"></button>
             </div>
           </div>
@@ -1466,24 +1466,31 @@
             </div>
           </div>
         </div>
-        <div class="why-image-wrap fadeUp">
-          <img src="images/about-team.jpg" alt="Wild Lawn professional lawn care team" loading="lazy" style="width:100%; border-radius:12px; margin-bottom:24px; object-fit:cover; max-height:280px;">
-          <div style="margin-bottom:32px;">
-            <h3 style="font-size:1.5rem; margin-bottom:8px;">Quality Lawn Care<br>for <span class="accent">Every Budget</span></h3>
-            <p style="color:#a8a5a0; font-size:0.9rem;">Serving Metro Atlanta with pride since day one. Wild Lawn Lawncare LLC has built its reputation on honest pricing, reliable scheduling, and delivering professional results that transform residential properties across Marietta, Kennesaw, Roswell, Alpharetta, Woodstock, Acworth, Canton, Smyrna, and Vinings. Our locally owned team treats every property as if it were our own.</p>
-          </div>
-          <div class="why-badges">
-            <div class="why-badge">
-              <div class="badge-value">500+</div>
-              <div class="badge-label">Clients Served</div>
+        <div class="why-image-wrap fadeUp" style="padding:0; overflow:hidden;">
+          <!-- Mini portfolio slideshow -->
+          <div id="whySlideshow" style="position:relative; border-radius:12px; overflow:hidden;">
+            <div id="whySlideTrack" style="display:flex; transition:transform 0.5s ease;">
+              <img src="images/portfolio-3.webp" alt="Wild Lawn work - striped lawn" style="min-width:100%; height:320px; object-fit:cover;">
+              <img src="images/portfolio-4.webp" alt="Wild Lawn work - new home" style="min-width:100%; height:320px; object-fit:cover;">
+              <img src="images/portfolio-1.webp" alt="Wild Lawn work - property" style="min-width:100%; height:320px; object-fit:cover;">
+              <img src="images/portfolio-6.webp" alt="Wild Lawn work - backyard" style="min-width:100%; height:320px; object-fit:cover;">
+              <img src="images/portfolio-8.webp" alt="Wild Lawn work - maintained" style="min-width:100%; height:320px; object-fit:cover;">
             </div>
-            <div class="why-badge">
-              <div class="badge-value">10+</div>
-              <div class="badge-label">Years Experience</div>
-            </div>
-            <div class="why-badge">
-              <div class="badge-value">4.9</div>
-              <div class="badge-label">Avg Rating</div>
+            <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(transparent, rgba(0,0,0,0.85));">
+              <div class="why-badges" style="margin:0;">
+                <div class="why-badge" style="background:rgba(0,0,0,0.4); backdrop-filter:blur(8px);">
+                  <div class="badge-value">500+</div>
+                  <div class="badge-label">Clients Served</div>
+                </div>
+                <div class="why-badge" style="background:rgba(0,0,0,0.4); backdrop-filter:blur(8px);">
+                  <div class="badge-value">10+</div>
+                  <div class="badge-label">Years Experience</div>
+                </div>
+                <div class="why-badge" style="background:rgba(0,0,0,0.4); backdrop-filter:blur(8px);">
+                  <div class="badge-value">4.9</div>
+                  <div class="badge-label">Avg Rating</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2249,6 +2256,12 @@
       }
       // Auto-advance every 4s
       setInterval(function() { slidePortfolio(1); }, 4000);
+      // Why Us mini slideshow
+      var whyIdx = 0;
+      var whyTrack = document.getElementById('whySlideTrack');
+      if (whyTrack) {
+        setInterval(function() { whyIdx = (whyIdx + 1) % 5; whyTrack.style.transform = 'translateX(-' + (whyIdx * 100) + '%)'; }, 3000);
+      }
     });
   </script>
 </body>

@@ -367,10 +367,10 @@ document.addEventListener('DOMContentLoaded', () => {
   //     4 themes: green (default), orange, black/white, blue
   // ============================================================
   const themes = {
-    green:  { accent: '#48BB78', light: '#68D391', dark: '#38A169', glow: 'rgba(72,187,120,0.15)', glowStrong: 'rgba(72,187,120,0.35)' },
-    orange: { accent: '#E07C3E', light: '#F0A060', dark: '#C06830', glow: 'rgba(224,124,62,0.15)', glowStrong: 'rgba(224,124,62,0.35)' },
-    black:  { accent: '#FFFFFF', light: '#E0E0E0', dark: '#CCCCCC', glow: 'rgba(255,255,255,0.1)', glowStrong: 'rgba(255,255,255,0.2)' },
-    blue:   { accent: '#4A90D9', light: '#6DAAEE', dark: '#3A78BF', glow: 'rgba(74,144,217,0.15)', glowStrong: 'rgba(74,144,217,0.35)' },
+    green:  { accent: '#48BB78', light: '#68D391', dark: '#38A169', glow: 'rgba(72,187,120,0.15)', glowStrong: 'rgba(72,187,120,0.35)', mode: 'dark' },
+    orange: { accent: '#E07C3E', light: '#F0A060', dark: '#C06830', glow: 'rgba(224,124,62,0.15)', glowStrong: 'rgba(224,124,62,0.35)', mode: 'dark' },
+    white:  { accent: '#2E8B57', light: '#3DA06A', dark: '#247048', glow: 'rgba(46,139,87,0.12)', glowStrong: 'rgba(46,139,87,0.25)', mode: 'light' },
+    blue:   { accent: '#4A90D9', light: '#6DAAEE', dark: '#3A78BF', glow: 'rgba(74,144,217,0.15)', glowStrong: 'rgba(74,144,217,0.35)', mode: 'dark' },
   };
 
   function applyTheme(name) {
@@ -383,7 +383,46 @@ document.addEventListener('DOMContentLoaded', () => {
     root.style.setProperty('--accent-glow', t.glow);
     root.style.setProperty('--accent-glow-strong', t.glowStrong);
 
-    // Update all hardcoded accent colors in inline styles
+    // Light/dark mode
+    if (t.mode === 'light') {
+      document.body.style.background = '#f5f5f0';
+      document.body.style.color = '#1a1a1a';
+      root.style.setProperty('--bg-primary', '#f5f5f0');
+      root.style.setProperty('--bg-secondary', '#ffffff');
+      root.style.setProperty('--bg-elevated', '#f0f0eb');
+      root.style.setProperty('--text-primary', '#1a1a1a');
+      root.style.setProperty('--text-secondary', '#555');
+      root.style.setProperty('--text-muted', '#888');
+      root.style.setProperty('--border-color', 'rgba(0,0,0,0.08)');
+      // Update sections
+      document.querySelectorAll('section, .pain-card, .service-card, .testimonial-card, .pricing-card, .faq-item, .contact-form-wrap, .why-image-wrap, .area-card').forEach(el => {
+        if (el.style.background === '#141414' || el.style.background === 'rgb(20, 20, 20)') el.style.background = '#ffffff';
+        if (el.style.background === '#1a1a1a' || el.style.background === 'rgb(26, 26, 26)') el.style.background = '#f0f0eb';
+      });
+      document.querySelectorAll('[style*="background:#141414"], [style*="background: #141414"]').forEach(el => el.style.background = '#ffffff');
+      document.querySelectorAll('[style*="background:#1a1a1a"], [style*="background: #1a1a1a"]').forEach(el => el.style.background = '#f0f0eb');
+      document.querySelectorAll('footer').forEach(el => el.style.background = '#e8e8e3');
+      document.querySelectorAll('.navbar').forEach(el => { el.style.background = 'rgba(245,245,240,0.95)'; });
+      document.querySelectorAll('.section-subtitle, .pain-card p, .service-card-body p, .testimonial-card blockquote, .faq-answer p, .contact-item p, .contact-item a, .footer-col a, .footer-brand p').forEach(el => el.style.color = '#555');
+      document.querySelectorAll('.nav-links a').forEach(el => el.style.color = '#555');
+      document.querySelectorAll('h1,h2,h3,h4,.section-title,.hero-content h1,.author-name').forEach(el => el.style.color = '#1a1a1a');
+      document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(el => {
+        el.style.background = '#f0f0eb'; el.style.color = '#1a1a1a'; el.style.borderColor = 'rgba(0,0,0,0.1)';
+      });
+    } else {
+      document.body.style.background = '#0d0d0d';
+      document.body.style.color = '#f7f5f2';
+      document.querySelectorAll('.navbar').forEach(el => el.style.background = '');
+      document.querySelectorAll('footer').forEach(el => el.style.background = '#0a0a0a');
+      document.querySelectorAll('h1,h2,h3,h4,.section-title,.hero-content h1,.author-name').forEach(el => el.style.color = '');
+      document.querySelectorAll('.nav-links a').forEach(el => el.style.color = '');
+      document.querySelectorAll('.section-subtitle, .pain-card p, .service-card-body p, .testimonial-card blockquote, .faq-answer p, .contact-item p, .contact-item a, .footer-col a, .footer-brand p').forEach(el => el.style.color = '');
+      document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(el => {
+        el.style.background = ''; el.style.color = ''; el.style.borderColor = '';
+      });
+    }
+
+    // Update accent colors on elements
     document.querySelectorAll('.accent').forEach(el => el.style.color = t.accent);
     document.querySelectorAll('.nav-cta').forEach(el => {
       el.style.background = t.accent;
