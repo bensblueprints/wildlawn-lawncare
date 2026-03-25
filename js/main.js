@@ -362,4 +362,87 @@ document.addEventListener('DOMContentLoaded', () => {
     statNumbers.forEach(el => statsObserver.observe(el));
   }
 
+  // ============================================================
+  // 14. Floating Schedule Service Widget
+  //     Toggle menu on click, close on outside click
+  // ============================================================
+  const floatingBtn = document.getElementById('floatingCtaBtn');
+  const floatingMenu = document.getElementById('floatingCtaMenu');
+
+  if (floatingBtn && floatingMenu) {
+    floatingBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      floatingMenu.classList.toggle('active');
+      // Rotate icon when open
+      floatingBtn.style.transform = floatingMenu.classList.contains('active') ? 'rotate(135deg)' : '';
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.floating-cta-wrap')) {
+        floatingMenu.classList.remove('active');
+        floatingBtn.style.transform = '';
+      }
+    });
+
+    // Close menu after clicking an option
+    floatingMenu.querySelectorAll('.floating-cta-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        setTimeout(() => {
+          floatingMenu.classList.remove('active');
+          floatingBtn.style.transform = '';
+        }, 300);
+      });
+    });
+  }
+
+  // ============================================================
+  // 15. AI Receptionist (11 Labs Integration)
+  //     Only enabled when ELEVENLABS_AGENT_ID is configured
+  //     Check localStorage for admin-set config
+  // ============================================================
+  const aiConfig = JSON.parse(localStorage.getItem('wildlawn_ai_config') || '{}');
+  const aiOption = document.getElementById('aiReceptionistOption');
+
+  if (aiConfig.enabled && aiConfig.agentId && aiOption) {
+    aiOption.classList.add('enabled');
+  }
+
 });
+
+/**
+ * Start AI Receptionist via ElevenLabs Conversational AI
+ * Only called when AI option is enabled via admin panel
+ */
+function startAIReceptionist() {
+  const config = JSON.parse(localStorage.getItem('wildlawn_ai_config') || '{}');
+  if (!config.enabled || !config.agentId) {
+    alert('AI Receptionist is not configured. Please enable it in the admin panel.');
+    return;
+  }
+
+  // Check if ElevenLabs widget script is loaded
+  if (!document.getElementById('elevenlabs-script')) {
+    const script = document.createElement('script');
+    script.id = 'elevenlabs-script';
+    script.src = 'https://elevenlabs.io/convai-widget/index.js';
+    script.async = true;
+    script.onload = () => launchElevenLabsWidget(config.agentId);
+    document.head.appendChild(script);
+  } else {
+    launchElevenLabsWidget(config.agentId);
+  }
+}
+
+function launchElevenLabsWidget(agentId) {
+  // Create or show the ElevenLabs convai widget
+  let widget = document.getElementById('elevenlabs-widget');
+  if (!widget) {
+    widget = document.createElement('elevenlabs-convai');
+    widget.id = 'elevenlabs-widget';
+    widget.setAttribute('agent-id', agentId);
+    document.body.appendChild(widget);
+  } else {
+    widget.style.display = '';
+  }
+}

@@ -875,27 +875,92 @@
     }
 
     /* ---- FLOATING CALL BUTTON ---- */
-    .floating-call {
+    /* ---- FLOATING SCHEDULE WIDGET ---- */
+    .floating-cta-wrap {
       position: fixed;
       bottom: 28px;
       right: 28px;
-      width: 56px;
-      height: 56px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+    .floating-cta-menu {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      animation: fadeUpMenu 0.25s ease forwards;
+    }
+    .floating-cta-menu.active { display: flex; }
+    @keyframes fadeUpMenu {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .floating-cta-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 12px 20px;
+      color: #f7f5f2;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .floating-cta-option:hover {
+      background: #48BB78;
+      color: #0d0d0d;
+      border-color: #48BB78;
+      transform: translateY(-2px);
+    }
+    .floating-cta-option:hover svg { stroke: #0d0d0d; }
+    .floating-cta-option svg { width: 18px; height: 18px; stroke: #48BB78; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .floating-cta-option.ai-option { display: none; }
+    .floating-cta-option.ai-option.enabled { display: flex; }
+    .floating-cta-btn {
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       background: #48BB78;
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
       box-shadow: 0 8px 30px rgba(72,187,120,0.35);
-      z-index: 999;
       transition: all 0.3s ease;
       animation: pulse-ring 2s infinite;
+      position: relative;
     }
-    .floating-call:hover {
-      background: #38A169;
-      transform: scale(1.1);
+    .floating-cta-btn:hover { background: #38A169; transform: scale(1.08); }
+    .floating-cta-btn svg { width: 24px; height: 24px; stroke: #0d0d0d; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .floating-cta-label {
+      position: absolute;
+      right: 72px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #f7f5f2;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
-    .floating-call svg { width: 24px; height: 24px; stroke: #0d0d0d; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .floating-cta-btn:hover .floating-cta-label { opacity: 1; }
     @keyframes pulse-ring {
       0% { box-shadow: 0 0 0 0 rgba(72,187,120,0.4); }
       70% { box-shadow: 0 0 0 15px rgba(72,187,120,0); }
@@ -1966,9 +2031,25 @@
   </footer>
 
   <!-- ========== FLOATING CALL BUTTON ========== -->
-  <a href="tel:7704902542" class="floating-call" aria-label="Call WildLawn Lawncare at (770) 490-2542">
-    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-  </a>
+  <!-- ========== FLOATING SCHEDULE SERVICE WIDGET ========== -->
+  <div class="floating-cta-wrap" id="floatingCta">
+    <!-- Options menu (hidden until button clicked) -->
+    <div class="floating-cta-menu" id="floatingCtaMenu">
+      <a href="tel:7704902542" class="floating-cta-option" id="callOption">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call (770) 490-2542
+      </a>
+      <button class="floating-cta-option ai-option" id="aiReceptionistOption" onclick="startAIReceptionist()">
+        <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        Talk to AI Receptionist
+      </button>
+    </div>
+    <!-- Main toggle button -->
+    <button class="floating-cta-btn" id="floatingCtaBtn" aria-label="Schedule Service">
+      <span class="floating-cta-label">Schedule Service</span>
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </button>
+  </div>
 
   <!-- ========== BACK TO TOP ========== -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">

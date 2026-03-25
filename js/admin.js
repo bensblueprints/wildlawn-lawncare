@@ -703,11 +703,82 @@
   }
 
   // ---------------------------------------------------------------------------
+  // 11. AI RECEPTIONIST SETTINGS
+  // ---------------------------------------------------------------------------
+
+  function initAISettings() {
+    const toggle = $('#aiToggle');
+    const knob = $('#aiToggleKnob');
+    const statusLabel = $('#aiStatusLabel');
+    const fields = $('#aiSettingsFields');
+    const saveBtn = $('#saveAiSettings');
+    const agentIdInput = $('#aiAgentId');
+    const greetingInput = $('#aiGreeting');
+
+    if (!toggle) return;
+
+    // Load existing config
+    const config = JSON.parse(localStorage.getItem('wildlawn_ai_config') || '{}');
+    if (config.enabled) {
+      toggle.checked = true;
+      knob.style.transform = 'translateX(22px)';
+      knob.style.background = '#48BB78';
+      statusLabel.textContent = 'Enabled';
+      statusLabel.style.color = '#48BB78';
+      fields.style.display = 'block';
+    }
+    if (config.agentId && agentIdInput) agentIdInput.value = config.agentId;
+    if (config.greeting && greetingInput) greetingInput.value = config.greeting;
+
+    // Toggle handler
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        knob.style.transform = 'translateX(22px)';
+        knob.style.background = '#48BB78';
+        statusLabel.textContent = 'Enabled';
+        statusLabel.style.color = '#48BB78';
+        fields.style.display = 'block';
+      } else {
+        knob.style.transform = 'translateX(0)';
+        knob.style.background = '#6b6965';
+        statusLabel.textContent = 'Disabled';
+        statusLabel.style.color = '#6b6965';
+        fields.style.display = 'none';
+        // Disable AI when toggled off
+        localStorage.setItem('wildlawn_ai_config', JSON.stringify({ enabled: false }));
+        showToast('AI Receptionist disabled', 'info');
+      }
+    });
+
+    // Save handler
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        const agentId = agentIdInput ? agentIdInput.value.trim() : '';
+        const greeting = greetingInput ? greetingInput.value.trim() : '';
+
+        if (!agentId) {
+          showToast('Please enter an ElevenLabs Agent ID', 'error');
+          return;
+        }
+
+        const newConfig = {
+          enabled: true,
+          agentId,
+          greeting: greeting || 'Hi! Thanks for calling Wild Lawn Lawncare. How can I help you today?',
+        };
+        localStorage.setItem('wildlawn_ai_config', JSON.stringify(newConfig));
+        showToast('AI Receptionist settings saved! The option will now appear on the website.', 'success');
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
   // INIT
   // ---------------------------------------------------------------------------
 
   function init() {
     bindEvents();
+    initAISettings();
     tryAutoLogin();
   }
 

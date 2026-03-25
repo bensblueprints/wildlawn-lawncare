@@ -177,6 +177,37 @@
                 </div>
             </section>
 
+            <!-- ========== AI RECEPTIONIST SETTINGS ========== -->
+            <section class="settings-section" style="margin-top:32px; padding:32px; background:#141414; border:1px solid rgba(255,255,255,0.06); border-radius:12px;">
+                <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#48BB78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                    AI Receptionist (ElevenLabs)
+                </h3>
+                <p style="color:#6b6965; font-size:0.85rem; margin-bottom:20px;">Enable AI-powered phone receptionist for after-hours calls and overflow. Requires an ElevenLabs Conversational AI agent.</p>
+
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                    <label class="toggle-switch" style="position:relative; display:inline-block; width:48px; height:26px;">
+                        <input type="checkbox" id="aiToggle" style="opacity:0; width:0; height:0;">
+                        <span style="position:absolute; cursor:pointer; inset:0; background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:26px; transition:0.3s;"></span>
+                        <span id="aiToggleKnob" style="position:absolute; content:''; height:20px; width:20px; left:3px; bottom:3px; background:#6b6965; border-radius:50%; transition:0.3s;"></span>
+                    </label>
+                    <span id="aiStatusLabel" style="font-size:0.9rem; color:#6b6965;">Disabled</span>
+                </div>
+
+                <div id="aiSettingsFields" style="display:none;">
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label for="aiAgentId" style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:6px; color:#a8a5a0;">ElevenLabs Agent ID</label>
+                        <input type="text" id="aiAgentId" placeholder="e.g. abc123xyz" style="width:100%; max-width:400px; background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px 14px; color:#f7f5f2; font-family:'DM Sans',sans-serif; font-size:0.9rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label for="aiGreeting" style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:6px; color:#a8a5a0;">Greeting Message (optional)</label>
+                        <input type="text" id="aiGreeting" placeholder="Hi! Thanks for calling Wild Lawn Lawncare. How can I help you today?" value="Hi! Thanks for calling Wild Lawn Lawncare. How can I help you today?" style="width:100%; max-width:400px; background:#1a1a1a; border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px 14px; color:#f7f5f2; font-family:'DM Sans',sans-serif; font-size:0.9rem;">
+                    </div>
+                    <button id="saveAiSettings" class="btn btn-primary btn-sm" style="padding:10px 24px;">Save AI Settings</button>
+                    <p style="color:#6b6965; font-size:0.78rem; margin-top:12px;">When enabled, a "Talk to AI Receptionist" option appears alongside the "Call" button on the website.</p>
+                </div>
+            </section>
+
         </main>
     </div>
 
