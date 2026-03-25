@@ -3,220 +3,548 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landscape Design in Metro Atlanta | Wild Lawn Lawncare LLC</title>
-  <meta name="description" content="Custom landscape design services in Metro Atlanta. From concept to installation, Wild Lawn Lawncare LLC creates beautiful outdoor spaces tailored to your vision.">
+  <title>Landscape Design in Metro Atlanta | Wild Lawn Lawncare</title>
+  <meta name="description" content="Custom landscape design for Metro Atlanta homes. Plant selection for GA zone 7b/8a, hardscape, drainage solutions, and outdoor living spaces. Free consultations.">
+  <meta property="og:title" content="Landscape Design in Metro Atlanta | Wild Lawn Lawncare">
+  <meta property="og:description" content="Transform your outdoor space with Wild Lawn's custom landscape design services. Expert plant selection, hardscape, and installation for Georgia properties.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../images/service-landscape-design.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Landscape Design",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Wild Lawn Lawncare LLC",
+      "telephone": "(770) 490-2542",
+      "email": "wildlawncare43@gmail.com",
+      "areaServed": ["Marietta","Kennesaw","Roswell","Alpharetta","Woodstock","Acworth","Canton","Smyrna","Vinings"]
+    },
+    "areaServed": { "@type": "Place", "name": "Metro Atlanta, Georgia" },
+    "description": "Custom landscape design including plant selection for Georgia zone 7b/8a, drainage solutions for clay soil, hardscape design, and outdoor living spaces."
+  }
+  </script>
   <style>
+    :root {
+      --primary-bg: #0d0d0d;
+      --secondary-bg: #141414;
+      --elevated: #1a1a1a;
+      --accent: #48BB78;
+      --accent-glow: rgba(72,187,120,0.15);
+      --text-primary: #f7f5f2;
+      --text-secondary: #a8a5a0;
+      --text-muted: #6b6965;
+      --radius-card: 12px;
+      --radius-btn: 8px;
+    }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #e0e0e0; line-height: 1.6; }
-    h1, h2, h3 { font-family: 'Playfair Display', serif; color: #fff; }
-    a { color: #48BB78; text-decoration: none; }
-    .accent { color: #48BB78; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a1a1a; }
-    nav .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; font-weight: 700; }
-    nav .logo span { color: #48BB78; }
-    nav .nav-links { display: flex; gap: 24px; align-items: center; }
-    nav .nav-links a { color: #ccc; font-size: 0.95rem; transition: color 0.3s; }
-    nav .nav-links a:hover { color: #48BB78; }
-    .btn { display: inline-block; background: #48BB78; color: #0d0d0d; padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer; transition: background 0.3s, transform 0.2s; }
-    .btn:hover { background: #38a169; transform: translateY(-1px); }
-    .hero { position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 80px; background: url('../images/service-landscape-design.jpg') center/cover no-repeat; }
-    .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(13,13,13,0.8), rgba(13,13,13,0.95)); }
-    .hero-content { position: relative; z-index: 2; max-width: 700px; }
-    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 16px; }
-    .hero p { font-size: 1.15rem; color: #b0b0b0; margin-bottom: 28px; }
-    section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
-    .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 32px; counter-reset: step; }
-    .process-card { background: #141414; border-radius: 12px; padding: 28px; border: 1px solid #1a1a1a; position: relative; counter-increment: step; }
-    .process-card::before { content: counter(step); position: absolute; top: -12px; left: 24px; background: #48BB78; color: #0d0d0d; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; }
-    .process-card h3 { font-size: 1.05rem; margin-bottom: 8px; margin-top: 4px; }
-    .process-card p { color: #999; font-size: 0.9rem; }
-    .services-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 32px; }
-    .service-item { background: #141414; border-radius: 12px; padding: 28px; border: 1px solid #1a1a1a; }
-    .service-item h3 { font-size: 1.1rem; margin-bottom: 10px; }
-    .service-item p { color: #999; font-size: 0.9rem; }
-    .service-item ul { list-style: none; margin-top: 12px; }
-    .service-item ul li { padding: 6px 0; color: #bbb; font-size: 0.88rem; }
-    .service-item ul li::before { content: '\2713'; color: #48BB78; margin-right: 8px; font-weight: 700; }
-    .form-section { background: #141414; border-radius: 12px; padding: 40px; border: 1px solid #1a1a1a; margin-top: 40px; }
-    .form-section h2 { margin-bottom: 24px; text-align: center; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-    .form-group { display: flex; flex-direction: column; margin-bottom: 16px; }
-    .form-group label { font-size: 0.85rem; color: #aaa; margin-bottom: 6px; }
-    .form-group input, .form-group select, .form-group textarea { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 12px 16px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.3s; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #48BB78; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--primary-bg); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
+    .accent { color: var(--accent); }
+    a { color: var(--accent); text-decoration: none; transition: opacity 0.3s; }
+    a:hover { opacity: 0.85; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    .fadeUp { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fadeUp.visible { opacity: 1; transform: translateY(0); }
+
+    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 18px 0; transition: background 0.3s, padding 0.3s, box-shadow 0.3s; }
+    nav.scrolled { background: rgba(13,13,13,0.97); padding: 12px 0; box-shadow: 0 2px 24px rgba(0,0,0,0.5); backdrop-filter: blur(12px); }
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { display: flex; align-items: center; gap: 10px; }
+    nav .logo img { height: 38px; border-radius: 6px; }
+    nav .logo span { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--text-primary); }
+    nav ul { list-style: none; display: flex; gap: 28px; align-items: center; }
+    nav ul li a { color: var(--text-secondary); font-size: 0.95rem; font-weight: 500; }
+    nav ul li a:hover { color: var(--text-primary); }
+    .nav-cta { background: var(--accent); color: var(--primary-bg) !important; padding: 10px 22px; border-radius: var(--radius-btn); font-weight: 700 !important; }
+
+    .hero { position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 140px 24px 80px; background: url('../images/service-landscape-design.jpg') center/cover no-repeat; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,13,13,0.9) 0%, rgba(13,13,13,0.65) 50%, rgba(13,13,13,0.9) 100%); }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-badge { display: inline-block; background: var(--accent-glow); border: 1px solid rgba(72,187,120,0.3); color: var(--accent); padding: 6px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 18px; line-height: 1.15; }
+    .hero p { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 32px; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .btn-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 14px 32px; border-radius: var(--radius-btn); font-weight: 700; font-size: 1rem; cursor: pointer; border: none; transition: transform 0.2s, box-shadow 0.2s; font-family: 'DM Sans', sans-serif; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(72,187,120,0.3); }
+    .btn-primary { background: var(--accent); color: var(--primary-bg); }
+    .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+
+    .stats-row { display: flex; justify-content: center; gap: 48px; margin-top: 40px; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+
+    .trust-bar { background: var(--secondary-bg); padding: 24px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .trust-bar .container { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .trust-bar span { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+    .city-pill { background: var(--elevated); color: var(--text-secondary); padding: 6px 16px; border-radius: 50px; font-size: 0.82rem; border: 1px solid rgba(255,255,255,0.06); }
+
+    section { padding: 80px 0; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 16px; }
+    .section-subtitle { color: var(--text-secondary); margin-bottom: 40px; font-size: 1.05rem; }
+
+    .included-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .included-card { background: var(--elevated); border-radius: var(--radius-card); padding: 32px 28px; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s, transform 0.3s; }
+    .included-card:hover { border-color: rgba(72,187,120,0.25); transform: translateY(-4px); }
+    .included-icon { width: 48px; height: 48px; background: var(--accent-glow); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .included-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .included-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .included-card p { color: var(--text-secondary); font-size: 0.92rem; }
+
+    /* PROCESS STEPS */
+    .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; counter-reset: step; }
+    .process-step { background: var(--elevated); border-radius: var(--radius-card); padding: 32px 28px; border: 1px solid rgba(255,255,255,0.05); position: relative; counter-increment: step; }
+    .process-step::before { content: counter(step); font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: rgba(72,187,120,0.2); position: absolute; top: 16px; right: 20px; }
+    .process-step h3 { color: var(--accent); font-size: 1.1rem; margin-bottom: 8px; }
+    .process-step p { color: var(--text-secondary); font-size: 0.92rem; }
+
+    .portfolio-strip { padding: 60px 0; background: var(--secondary-bg); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .portfolio-img { border-radius: var(--radius-card); overflow: hidden; aspect-ratio: 4/3; }
+    .portfolio-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .portfolio-img:hover img { transform: scale(1.05); }
+
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .why-card { background: var(--elevated); border-radius: var(--radius-card); padding: 32px; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s; }
+    .why-card:hover { border-color: rgba(72,187,120,0.2); }
+    .why-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+    .why-card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+    .testimonial-section { background: var(--secondary-bg); }
+    .testimonial-card { max-width: 650px; margin: 0 auto; text-align: center; padding: 48px 40px; background: var(--elevated); border-radius: var(--radius-card); border: 1px solid rgba(72,187,120,0.1); }
+    .stars { color: #f6c23e; font-size: 1.3rem; margin-bottom: 16px; letter-spacing: 4px; }
+    .testimonial-card blockquote { font-size: 1.1rem; font-style: italic; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.7; }
+    .testimonial-card cite { color: var(--accent); font-style: normal; font-weight: 600; }
+
+    .pricing-section { background: var(--secondary-bg); }
+    .pricing-card { background: var(--elevated); border-radius: var(--radius-card); padding: 44px; text-align: center; max-width: 580px; margin: 0 auto; border: 1px solid rgba(72,187,120,0.15); position: relative; overflow: hidden; }
+    .pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), transparent); }
+    .pricing-card .price { font-size: 2.5rem; font-family: 'Playfair Display', serif; color: var(--accent); margin: 16px 0; }
+    .pricing-card > p { color: var(--text-secondary); margin-bottom: 24px; }
+    .pricing-factors { list-style: none; text-align: left; margin: 20px 0 30px; }
+    .pricing-factors li { padding: 10px 0; color: var(--text-secondary); border-bottom: 1px solid rgba(255,255,255,0.05); padding-left: 24px; position: relative; }
+    .pricing-factors li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+    .form-section { background: var(--secondary-bg); }
+    .form-wrapper { max-width: 650px; margin: 0 auto; background: var(--elevated); border-radius: var(--radius-card); padding: 48px 40px; position: relative; }
+    .form-wrapper::before { content: ''; position: absolute; inset: -2px; border-radius: 14px; background: linear-gradient(135deg, var(--accent), transparent 50%, var(--accent)); z-index: -1; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+    .form-group input, .form-group select, .form-group textarea { background: var(--primary-bg); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-btn); padding: 12px 16px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; transition: border-color 0.3s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
     .hp-field { position: absolute; left: -9999px; }
-    .form-msg { text-align: center; margin-top: 16px; padding: 12px; border-radius: 12px; display: none; }
-    .form-msg.success { display: block; background: rgba(72,187,120,0.15); color: #48BB78; }
-    .form-msg.error { display: block; background: rgba(245,101,101,0.15); color: #f56565; }
-    .btn-loading { opacity: 0.7; pointer-events: none; }
-    .faqs { margin-top: 40px; }
-    .faq { background: #141414; border-radius: 12px; padding: 24px; border: 1px solid #1a1a1a; margin-bottom: 12px; }
-    .faq h3 { font-size: 1rem; margin-bottom: 8px; }
-    .faq p { color: #999; font-size: 0.92rem; }
-    .cta-section { text-align: center; padding: 60px 20px; background: #141414; border-radius: 12px; margin: 40px auto; max-width: 1000px; border: 1px solid #1a1a1a; }
-    .cta-section h2 { margin-bottom: 12px; }
-    .cta-section p { color: #999; margin-bottom: 24px; }
-    footer { text-align: center; padding: 40px 20px; border-top: 1px solid #1a1a1a; color: #666; font-size: 0.85rem; }
-    footer a { color: #48BB78; }
-    @media (max-width: 640px) {
-      nav { padding: 12px 20px; } .nav-links { display: none; } .form-row { grid-template-columns: 1fr; } .hero { min-height: 50vh; }
+    .form-btn { grid-column: 1 / -1; margin-top: 8px; }
+    .form-btn .btn { width: 100%; font-size: 1.05rem; padding: 16px; }
+    .form-btn .btn.loading { opacity: 0.7; pointer-events: none; }
+    .form-status { text-align: center; margin-top: 16px; padding: 12px; border-radius: var(--radius-btn); display: none; }
+    .form-status.success { display: block; background: rgba(72,187,120,0.15); color: var(--accent); }
+    .form-status.error { display: block; background: rgba(220,60,60,0.15); color: #e85555; }
+
+    .faq-list { max-width: 700px; }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .faq-q { padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.05rem; }
+    .faq-q::after { content: '+'; font-size: 1.4rem; color: var(--accent); transition: transform 0.3s; }
+    .faq-q.active::after { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-a p { padding-bottom: 20px; color: var(--text-secondary); }
+
+    .cta-banner { background: linear-gradient(135deg, rgba(72,187,120,0.12), rgba(72,187,120,0.04)); border-top: 1px solid rgba(72,187,120,0.2); border-bottom: 1px solid rgba(72,187,120,0.2); text-align: center; padding: 60px 24px; }
+    .cta-banner h2 { font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 12px; }
+    .cta-banner p { color: var(--text-secondary); margin-bottom: 24px; font-size: 1.1rem; }
+
+    footer { background: var(--secondary-bg); padding: 40px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    footer p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; }
+    footer a { color: var(--text-secondary); }
+
+    .floating-call { position: fixed; bottom: 24px; right: 24px; z-index: 99; width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(72,187,120,0.4); transition: transform 0.3s; }
+    .floating-call:hover { transform: scale(1.1); }
+    .floating-call svg { width: 26px; height: 26px; fill: var(--primary-bg); }
+
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .hero { min-height: 60vh; padding: 120px 20px 60px; }
+      .stats-row { gap: 24px; }
+      .included-grid, .process-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-wrapper { padding: 32px 20px; }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="../index.html" class="logo">Wild <span>Lawn</span></a>
-    <div class="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="../index.html#services">Services</a>
-      <a href="../index.html#contact">Contact</a>
-      <a href="tel:7704902542" class="btn">Call (770) 490-2542</a>
+
+  <nav id="navbar">
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <img src="../images/logo.jpg" alt="Wild Lawn Logo">
+        <span>Wild Lawn</span>
+      </a>
+      <ul>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a href="tel:7704902542" class="nav-cta">Call Now</a></li>
+      </ul>
     </div>
   </nav>
 
   <section class="hero">
     <div class="hero-content">
-      <h1>Landscape <span class="accent">Design</span></h1>
-      <p>From blank canvas to breathtaking outdoor spaces. We design and install custom landscapes that enhance your Metro Atlanta property's beauty and value.</p>
-      <a href="#booking" class="btn">Start Your Project</a>
-    </div>
-  </section>
-
-  <section>
-    <h2 style="text-align:center;">Our Design Process</h2>
-    <div class="process-steps">
-      <div class="process-card">
-        <h3>Consultation</h3>
-        <p>We visit your property, listen to your vision, assess the space, and discuss your budget and timeline. This initial consultation is completely free.</p>
+      <div class="hero-badge">Custom Landscape Design</div>
+      <h1>Transform Your Yard with <span class="accent">Landscape Design</span></h1>
+      <p>From concept to completion, we create stunning outdoor spaces tailored to Georgia's climate, your lifestyle, and your property's unique character.</p>
+      <div class="btn-group">
+        <a href="#booking" class="btn btn-primary">Schedule Consultation</a>
+        <a href="tel:7704902542" class="btn btn-outline">Call (770) 490-2542</a>
       </div>
-      <div class="process-card">
-        <h3>Design Concept</h3>
-        <p>Our team creates a detailed design plan with plant selections, hardscape layouts, and visual mockups so you can see your new landscape before we begin.</p>
-      </div>
-      <div class="process-card">
-        <h3>Proposal & Approval</h3>
-        <p>We present a detailed proposal with itemized pricing. You review, we revise as needed, and once approved, we schedule your installation.</p>
-      </div>
-      <div class="process-card">
-        <h3>Installation</h3>
-        <p>Our experienced crew brings the design to life. We handle everything from site prep to planting, hardscape installation, and final cleanup.</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2 style="text-align:center;">What We Design & Install</h2>
-    <div class="services-list">
-      <div class="service-item">
-        <h3>Planting Design</h3>
-        <p>Curated plant selections suited to Georgia's climate and your property's unique conditions.</p>
-        <ul>
-          <li>Native and adapted plants</li>
-          <li>Flowering shrubs and perennials</li>
-          <li>Ornamental trees</li>
-          <li>Seasonal color rotations</li>
-        </ul>
-      </div>
-      <div class="service-item">
-        <h3>Hardscape Features</h3>
-        <p>Functional and beautiful hardscape elements that define your outdoor living space.</p>
-        <ul>
-          <li>Walkways and pathways</li>
-          <li>Retaining walls</li>
-          <li>Patio areas</li>
-          <li>Decorative borders and edging</li>
-        </ul>
-      </div>
-      <div class="service-item">
-        <h3>Outdoor Living</h3>
-        <p>Transform your backyard into an extension of your home with custom outdoor features.</p>
-        <ul>
-          <li>Fire pit areas</li>
-          <li>Garden focal points</li>
-          <li>Privacy screening</li>
-          <li>Landscape lighting plans</li>
-        </ul>
-      </div>
-      <div class="service-item">
-        <h3>Drainage Solutions</h3>
-        <p>Address water issues while maintaining aesthetic appeal with smart drainage integration.</p>
-        <ul>
-          <li>French drains</li>
-          <li>Dry creek beds</li>
-          <li>Grading and resloping</li>
-          <li>Rain gardens</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="booking">
-    <div class="form-section">
-      <h2>Start Your <span class="accent">Design Project</span></h2>
-      <form id="leadForm">
-        <div class="hp-field"><label>Leave blank<input type="text" name="honeypot" tabindex="-1" autocomplete="off"></label></div>
-        <div class="form-row">
-          <div class="form-group"><label for="name">Full Name *</label><input type="text" id="name" name="name" required></div>
-          <div class="form-group"><label for="email">Email *</label><input type="email" id="email" name="email" required></div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Designs Completed</div>
         </div>
-        <div class="form-row">
-          <div class="form-group"><label for="phone">Phone *</label><input type="tel" id="phone" name="phone" required></div>
-          <div class="form-group"><label for="address">Property Address</label><input type="text" id="address" name="address"></div>
+        <div class="stat-item">
+          <div class="stat-number">7b/8a</div>
+          <div class="stat-label">Zone Expertise</div>
         </div>
-        <div class="form-group">
-          <label for="service">Project Type</label>
-          <select id="service" name="service">
-            <option value="Landscape Design - Full Redesign" selected>Full Landscape Redesign</option>
-            <option value="Landscape Design - Front Yard">Front Yard Makeover</option>
-            <option value="Landscape Design - Backyard">Backyard Transformation</option>
-            <option value="Landscape Design - Hardscape">Hardscape Project</option>
-            <option value="Landscape Design - Planting Only">Planting Design Only</option>
-          </select>
+        <div class="stat-item">
+          <div class="stat-number">4.9★</div>
+          <div class="stat-label">Customer Rating</div>
         </div>
-        <div class="form-group"><label for="message">Tell Us About Your Vision</label><textarea id="message" name="message" rows="4" placeholder="Describe your ideal outdoor space, budget range, timeline, inspiration ideas..."></textarea></div>
-        <button type="submit" class="btn" id="submitBtn" style="width:100%;text-align:center;padding:16px;">Request Free Consultation</button>
-        <div id="formMsg" class="form-msg"></div>
-      </form>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Licensed & Insured</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="faqs">
-    <h2 style="text-align:center;margin-bottom:24px;">Frequently Asked Questions</h2>
-    <div class="faq"><h3>How much does landscape design cost?</h3><p>Projects range widely based on scope. Small bed renovations can start around $500, while full property redesigns typically range from $3,000-$15,000+. We work with your budget to maximize impact.</p></div>
-    <div class="faq"><h3>How long does a typical project take?</h3><p>Design phase is usually 1-2 weeks. Installation depends on scope: small projects take 1-3 days, while larger designs can take 1-2 weeks. We give you a clear timeline before starting.</p></div>
-    <div class="faq"><h3>Do you offer a warranty on plants?</h3><p>Yes. We provide a 1-year warranty on all plant material installed by our team, provided the recommended care instructions are followed.</p></div>
-    <div class="faq"><h3>Can you work with my existing landscape?</h3><p>Absolutely. Many clients want to enhance rather than replace. We'll assess what's working, what can stay, and how to integrate new elements seamlessly.</p></div>
-  </section>
-
-  <div class="cta-section">
-    <h2>Bring Your <span class="accent">Vision to Life</span></h2>
-    <p>Schedule your free design consultation today. Let's create the outdoor space you've always wanted.</p>
-    <a href="tel:7704902542" class="btn">Call (770) 490-2542</a>
+  <div class="trust-bar">
+    <div class="container">
+      <span>Serving:</span>
+      <span class="city-pill">Marietta</span>
+      <span class="city-pill">Kennesaw</span>
+      <span class="city-pill">Roswell</span>
+      <span class="city-pill">Alpharetta</span>
+      <span class="city-pill">Acworth</span>
+      <span class="city-pill">Woodstock</span>
+      <span class="city-pill">Smyrna</span>
+      <span class="city-pill">Canton</span>
+      <span class="city-pill">Vinings</span>
+    </div>
   </div>
 
+  <!-- WHAT'S INCLUDED -->
+  <section>
+    <div class="container">
+      <h2 class="section-title fadeUp">What's <span class="accent">Included</span> in Our Design Service</h2>
+      <p class="section-subtitle fadeUp">A complete landscape transformation from consultation to installation.</p>
+      <div class="included-grid">
+        <div class="included-card fadeUp">
+          <div class="included-icon">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>On-Site Consultation</h3>
+          <p>We walk your property to assess soil conditions, drainage, sun exposure, and existing features. We discuss your vision, budget, and how you use your outdoor space.</p>
+        </div>
+        <div class="included-card fadeUp">
+          <div class="included-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+          </div>
+          <h3>Custom Design Plan</h3>
+          <p>Detailed landscape plan with plant placement, hardscape layout, drainage solutions, and material selections — all chosen for Georgia zone 7b/8a success.</p>
+        </div>
+        <div class="included-card fadeUp">
+          <div class="included-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Professional Installation</h3>
+          <p>Our experienced crews handle every aspect of installation — from grading and drainage to planting, mulching, hardscape, and final cleanup.</p>
+        </div>
+        <div class="included-card fadeUp">
+          <div class="included-icon">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <h3>Enjoy &amp; Maintain</h3>
+          <p>We provide a care guide for every plant and feature. Optional ongoing maintenance plans keep your landscape looking stunning year after year.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN PROCESS -->
+  <section style="background: var(--secondary-bg);">
+    <div class="container">
+      <h2 class="section-title fadeUp" style="text-align:center;">Our <span class="accent">Design Process</span></h2>
+      <p class="section-subtitle fadeUp" style="text-align:center;">Four simple steps from vision to reality.</p>
+      <div class="process-grid">
+        <div class="process-step fadeUp">
+          <h3>Consult</h3>
+          <p>We meet at your property to understand your goals, lifestyle, and budget. We assess soil, drainage, sun patterns, and existing features.</p>
+        </div>
+        <div class="process-step fadeUp">
+          <h3>Design</h3>
+          <p>Our team creates a custom landscape plan with plant selections optimized for Georgia's zone 7b/8a climate, including drainage solutions for clay soil.</p>
+        </div>
+        <div class="process-step fadeUp">
+          <h3>Install</h3>
+          <p>Professional crews bring the design to life — hardscape, plantings, irrigation, lighting, and every detail executed to plan.</p>
+        </div>
+        <div class="process-step fadeUp">
+          <h3>Enjoy</h3>
+          <p>Step into your transformed outdoor space. We provide a complete care guide and offer ongoing maintenance to protect your investment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio-strip">
+    <div class="container">
+      <h2 class="section-title fadeUp" style="text-align:center;">Our <span class="accent">Design Portfolio</span></h2>
+      <p class="section-subtitle fadeUp" style="text-align:center;">Custom landscape transformations across Metro Atlanta.</p>
+      <div class="portfolio-grid fadeUp">
+        <div class="portfolio-img"><img src="../images/portfolio-1.webp" alt="Landscape design project in Metro Atlanta" loading="lazy"></div>
+        <div class="portfolio-img"><img src="../images/portfolio-4.webp" alt="Custom garden installation" loading="lazy"></div>
+        <div class="portfolio-img"><img src="../images/portfolio-8.webp" alt="Hardscape and planting design" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section>
+    <div class="container">
+      <h2 class="section-title fadeUp">Why Choose <span class="accent">Wild Lawn</span> for Design</h2>
+      <p class="section-subtitle fadeUp">Local expertise meets creative vision for landscapes that last.</p>
+      <div class="why-grid">
+        <div class="why-card fadeUp">
+          <h3>Georgia Plant Experts</h3>
+          <p>We select plants proven to thrive in zone 7b/8a — native azaleas, loropetalum, knock-out roses, crepe myrtles, and ornamental grasses that handle Georgia summers.</p>
+        </div>
+        <div class="why-card fadeUp">
+          <h3>Clay Soil &amp; Drainage</h3>
+          <p>Atlanta's heavy clay soil causes drainage nightmares. We engineer proper grading, French drains, and dry creek beds to protect your home and landscape.</p>
+        </div>
+        <div class="why-card fadeUp">
+          <h3>Hardscape &amp; Outdoor Living</h3>
+          <p>Patios, retaining walls, fire pits, walkways, and outdoor kitchens — we design and build outdoor living spaces that extend your home into the yard.</p>
+        </div>
+        <div class="why-card fadeUp">
+          <h3>Full-Service Execution</h3>
+          <p>From the first sketch to the final mulch layer, one team handles everything. No juggling contractors, no communication gaps, no surprises.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testimonial-section">
+    <div class="container">
+      <div class="testimonial-card fadeUp">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Wild Lawn completely reimagined our backyard. The drainage issues we'd battled for years are gone, and the new plantings and patio area have turned our yard into an outdoor living room. The design process was smooth and the installation crew was incredible."</blockquote>
+        <cite>— Lisa &amp; Michael Hayes, Acworth GA</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="container">
+      <div class="pricing-card fadeUp">
+        <h2 class="section-title">Landscape Design <span class="accent">Pricing</span></h2>
+        <div class="price">Design starts at $500</div>
+        <p>Every project is unique. We provide custom quotes based on scope, materials, and property size. Design fees are credited toward installation.</p>
+        <ul class="pricing-factors">
+          <li>On-site consultation and property assessment</li>
+          <li>Custom design plan with plant and material selections</li>
+          <li>Drainage engineering for clay soil properties</li>
+          <li>Professional installation by experienced crews</li>
+          <li>Hardscape: patios, walls, walkways, fire features</li>
+          <li>Post-installation care guide and maintenance options</li>
+        </ul>
+        <a href="#booking" class="btn btn-primary">Request Your Custom Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING FORM -->
+  <section class="form-section" id="booking">
+    <div class="container">
+      <h2 class="section-title fadeUp" style="text-align:center;">Schedule Your <span class="accent">Design</span> Consultation</h2>
+      <p class="section-subtitle fadeUp" style="text-align:center;">Tell us about your project and we'll reach out within 24 hours to schedule your on-site visit.</p>
+      <div class="form-wrapper fadeUp">
+        <form id="leadForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" required placeholder="John Smith">
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="(770) 555-1234">
+            </div>
+            <div class="form-group">
+              <label for="service">Service</label>
+              <select id="service" name="service">
+                <option value="Landscape Design" selected>Landscape Design</option>
+                <option value="Lawn Maintenance">Lawn Maintenance</option>
+                <option value="Mulching">Mulching</option>
+                <option value="Bush & Shrub Care">Bush &amp; Shrub Care</option>
+                <option value="Fertilization">Fertilization</option>
+                <option value="Pressure Washing">Pressure Washing</option>
+                <option value="Seasonal Cleanup">Seasonal Cleanup</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="date">Preferred Date</label>
+              <input type="date" id="date" name="date">
+            </div>
+            <div class="form-group">
+              <label for="time">Preferred Time</label>
+              <select id="time" name="time">
+                <option value="">Select a time</option>
+                <option value="Morning (8am-12pm)">Morning (8am-12pm)</option>
+                <option value="Afternoon (12pm-4pm)">Afternoon (12pm-4pm)</option>
+                <option value="Evening (4pm-7pm)">Evening (4pm-7pm)</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="address">Property Address</label>
+              <input type="text" id="address" name="address" placeholder="123 Main St, Acworth, GA 30101">
+            </div>
+            <div class="form-group full">
+              <label for="message">Tell Us About Your Project</label>
+              <textarea id="message" name="message" placeholder="Describe your vision — what areas need work, features you'd like, budget range, etc."></textarea>
+            </div>
+            <div class="hp-field">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="form-btn">
+              <button type="submit" class="btn btn-primary" id="submitBtn">Request Consultation</button>
+            </div>
+          </div>
+        </form>
+        <div id="formStatus" class="form-status"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title fadeUp">Frequently Asked <span class="accent">Questions</span></h2>
+      <div class="faq-list fadeUp">
+        <div class="faq-item">
+          <div class="faq-q">How long does the design process take from start to finish?</div>
+          <div class="faq-a"><p>The timeline depends on project scope. A typical residential landscape design takes 2-3 weeks from consultation to final plan. Installation can range from a few days for simple plantings to 2-4 weeks for large projects with hardscape, drainage, and extensive planting. We'll provide a detailed timeline during your consultation.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What plants work best in the Metro Atlanta area?</div>
+          <div class="faq-a"><p>Metro Atlanta sits in USDA zones 7b and 8a, giving us a wide range of options. We love native azaleas, loropetalum, boxwood, knock-out roses, hydrangeas, crepe myrtles, and ornamental grasses like muhly grass. We select plants based on your specific sun/shade conditions, soil type, and desired maintenance level.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you handle permits for hardscape and construction?</div>
+          <div class="faq-a"><p>Yes. For projects that require permits — such as retaining walls over a certain height, significant grading, or structures — we handle the permitting process with your local municipality. We're familiar with requirements in Cobb, Cherokee, and Fulton counties.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you offer maintenance after the installation is complete?</div>
+          <div class="faq-a"><p>Absolutely. We offer ongoing maintenance plans that include seasonal pruning, mulch refresh, fertilization, weed control, and irrigation management. We also provide a detailed care guide at project completion so you know exactly what your new landscape needs to thrive.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2 class="fadeUp">Ready to <span class="accent">Transform Your Landscape</span>?</h2>
+      <p class="fadeUp">Call (770) 490-2542 or fill out the form above to schedule your free on-site consultation.</p>
+      <div class="btn-group fadeUp">
+        <a href="#booking" class="btn btn-primary">Schedule Consultation</a>
+        <a href="tel:7704902542" class="btn btn-outline">Call Us Today</a>
+      </div>
+    </div>
+  </section>
+
   <footer>
-    <p>&copy; 2026 Wild Lawn Lawncare LLC. All rights reserved. Metro Atlanta, GA</p>
-    <p style="margin-top:8px;"><a href="mailto:wildlawncare43@gmail.com">wildlawncare43@gmail.com</a> | <a href="tel:7704902542">(770) 490-2542</a></p>
+    <div class="container">
+      <p><strong>Wild Lawn Lawncare LLC</strong></p>
+      <p>Serving Metro Atlanta — Marietta, Kennesaw, Roswell, Alpharetta &amp; beyond</p>
+      <p>Phone: <a href="tel:7704902542">(770) 490-2542</a> | Email: <a href="mailto:wildlawncare43@gmail.com">wildlawncare43@gmail.com</a></p>
+      <p style="margin-top:16px;"><a href="../index.html">← Back to Main Site</a></p>
+      <p style="margin-top:12px; color:var(--text-muted);">&copy; 2026 Wild Lawn Lawncare LLC. All rights reserved.</p>
+    </div>
   </footer>
 
+  <a href="tel:7704902542" class="floating-call" aria-label="Call Wild Lawn">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+  </a>
+
   <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fadeUp').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const answer = q.nextElementSibling;
+        const isOpen = q.classList.contains('active');
+        document.querySelectorAll('.faq-q').forEach(item => { item.classList.remove('active'); item.nextElementSibling.style.maxHeight = null; });
+        if (!isOpen) { q.classList.add('active'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
+      });
+    });
+
     document.getElementById('leadForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const btn = document.getElementById('submitBtn'), msg = document.getElementById('formMsg');
-      if (this.honeypot && this.honeypot.value) return;
-      const name = this.name.value.trim(), email = this.email.value.trim(), phone = this.phone.value.trim();
-      if (!name || !email || !phone) { msg.className = 'form-msg error'; msg.textContent = 'Please fill in all required fields.'; return; }
-      btn.classList.add('btn-loading'); btn.textContent = 'Sending...'; msg.className = 'form-msg'; msg.style.display = 'none';
+      const statusEl = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('submitBtn');
+      statusEl.className = 'form-status'; statusEl.style.display = 'none';
+      if (document.getElementById('website').value) return;
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      if (!name || !email || !phone) { statusEl.className = 'form-status error'; statusEl.textContent = 'Please fill in all required fields.'; return; }
+
+      submitBtn.classList.add('loading'); submitBtn.textContent = 'Submitting...';
+
+      const formData = { name, email, phone, service: document.getElementById('service').value, date: document.getElementById('date').value, time: document.getElementById('time').value, address: document.getElementById('address').value, message: document.getElementById('message').value };
+
       try {
-        const res = await fetch('/.netlify/functions/submit-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, phone, address: this.address.value, service: this.service.value, message: this.message.value, source: 'landscape-design' }) });
-        if (!res.ok) throw new Error('Server error');
-        msg.className = 'form-msg success'; msg.textContent = 'Thanks! We\'ll reach out to schedule your free consultation.'; this.reset();
-      } catch (err) { msg.className = 'form-msg error'; msg.textContent = 'Something went wrong. Please call us at (770) 490-2542.'; }
-      finally { btn.classList.remove('btn-loading'); btn.textContent = 'Request Free Consultation'; }
+        const response = await fetch('/.netlify/functions/submit-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
+        if (response.ok) { statusEl.className = 'form-status success'; statusEl.textContent = 'Thank you! We\'ll contact you within 24 hours to schedule your consultation.'; this.reset(); document.getElementById('service').value = 'Landscape Design'; }
+        else throw new Error('Server error');
+      } catch (err) { statusEl.className = 'form-status error'; statusEl.textContent = 'Something went wrong. Please call us at (770) 490-2542.'; }
+      finally { submitBtn.classList.remove('loading'); submitBtn.textContent = 'Request Consultation'; }
     });
   </script>
+
 </body>
 </html>
