@@ -218,6 +218,28 @@
     <div class="hero-content">
       <div class="hero-badge">Limited Time Offer</div>
       <h1>Your First Service is <span class="free">FREE</span></h1>
+      <div id="countdown-timer" style="display:flex; justify-content:center; gap:20px; margin:20px 0 8px; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--urgency); line-height:1;" id="cd-days">--</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Days</div>
+        </div>
+        <div style="font-size:2rem; color:var(--text-muted); line-height:1; padding-top:4px;">:</div>
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--urgency); line-height:1;" id="cd-hours">--</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Hours</div>
+        </div>
+        <div style="font-size:2rem; color:var(--text-muted); line-height:1; padding-top:4px;">:</div>
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--urgency); line-height:1;" id="cd-mins">--</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Minutes</div>
+        </div>
+        <div style="font-size:2rem; color:var(--text-muted); line-height:1; padding-top:4px;">:</div>
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--urgency); line-height:1;" id="cd-secs">--</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Seconds</div>
+        </div>
+      </div>
+      <p style="color:var(--urgency); font-weight:600; font-size:0.95rem; margin-bottom:12px;">Offer resets at the end of every month — claim yours before time runs out!</p>
       <p>Sign a 1-year annual agreement and get your first lawn care service completely free. Lock in today's pricing, enjoy priority scheduling, and save up to 15% all year.</p>
       <div class="btn-group">
         <a href="#booking" class="btn btn-primary btn-large">Claim Your Free Service</a>
@@ -593,6 +615,29 @@
       } catch (err) { statusEl.className = 'form-status error'; statusEl.textContent = 'Something went wrong. Please call us at (770) 490-2542.'; }
       finally { submitBtn.classList.remove('loading'); submitBtn.textContent = 'Claim Your Free Service'; }
     });
+  </script>
+
+  <script>
+  (function() {
+    function updateCountdown() {
+      // Get current time in Atlanta (America/New_York)
+      const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+      // End of current month in Atlanta time
+      const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0, 0);
+      const diff = endOfMonth - now;
+      if (diff <= 0) { updateCountdown(); return; }
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      const secs = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
   </script>
 
 </body>
