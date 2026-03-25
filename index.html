@@ -110,14 +110,73 @@
     img { max-width: 100%; height: auto; display: block; }
     ul { list-style: none; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    .accent { color: #48BB78; }
+    :root {
+      --accent: #48BB78;
+      --accent-light: #68D391;
+      --accent-dark: #38A169;
+      --accent-glow: var(--accent-glow);
+      --accent-glow-strong: rgba(72,187,120,0.35);
+    }
+    .accent { color: var(--accent); }
+
+    /* ---- COLOR PICKER ---- */
+    .color-picker-wrap { position: relative; }
+    .color-picker-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #a8a5a0;
+      transition: all 0.3s ease;
+    }
+    .color-picker-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .color-picker-dropdown {
+      display: none;
+      position: absolute;
+      top: 44px;
+      right: 0;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px;
+      min-width: 160px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      z-index: 1001;
+    }
+    .color-picker-dropdown.active { display: block; }
+    .color-options { display: flex; gap: 10px; }
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .color-swatch:hover { transform: scale(1.15); }
+    .color-swatch.active::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid #f7f5f2;
+    }
+    @media (max-width: 768px) {
+      .color-picker-wrap { display: none; }
+    }
     .section-label {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #48BB78;
+      color: var(--accent);
       margin-bottom: 12px;
     }
     .section-title {
@@ -146,13 +205,13 @@
       transition: all 0.3s ease;
     }
     .btn-primary {
-      background: #48BB78;
+      background: var(--accent);
       color: #0d0d0d;
     }
     .btn-primary:hover {
-      background: #38A169;
+      background: var(--accent-dark);
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(72,187,120,0.3);
+      box-shadow: 0 8px 25px var(--accent-glow-strong);
     }
     .btn-secondary {
       background: transparent;
@@ -160,8 +219,8 @@
       border: 1px solid rgba(255,255,255,0.15);
     }
     .btn-secondary:hover {
-      border-color: #48BB78;
-      color: #48BB78;
+      border-color: var(--accent);
+      color: var(--accent);
       transform: translateY(-2px);
     }
 
@@ -214,19 +273,19 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: #48BB78;
+      background: var(--accent);
       transition: width 0.3s ease;
     }
     .nav-links a:hover::after { width: 100%; }
     .nav-cta {
-      background: #48BB78;
+      background: var(--accent);
       color: #0d0d0d !important;
       padding: 10px 22px;
       border-radius: 8px;
       font-weight: 600;
     }
     .nav-cta:hover {
-      background: #38A169;
+      background: var(--accent-dark);
       color: #0d0d0d !important;
     }
     .nav-cta::after { display: none !important; }
@@ -284,7 +343,7 @@
       left: 30%;
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, rgba(72,187,120,0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
       pointer-events: none;
       z-index: 1;
     }
@@ -321,7 +380,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
       font-weight: 700;
-      color: #48BB78;
+      color: var(--accent);
     }
     .hero-stat .stat-label {
       font-size: 0.8rem;
@@ -402,14 +461,14 @@
       left: 0;
       width: 100%;
       height: 3px;
-      background: #48BB78;
+      background: var(--accent);
       transform: scaleX(0);
       transition: transform 0.35s ease;
     }
     .service-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-      border-color: rgba(72,187,120,0.15);
+      border-color: var(--accent-glow);
     }
     .service-card:hover::before { transform: scaleX(1); }
     .service-card-img {
@@ -439,7 +498,7 @@
       margin-bottom: 16px;
     }
     .service-link {
-      color: #48BB78;
+      color: var(--accent);
       font-size: 0.85rem;
       font-weight: 600;
       display: inline-flex;
@@ -458,7 +517,7 @@
       justify-content: center;
       margin-bottom: 20px;
     }
-    .service-icon svg { width: 24px; height: 24px; stroke: #48BB78; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .service-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .service-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
     .service-card p { color: #a8a5a0; font-size: 0.9rem; }
 
@@ -480,13 +539,13 @@
       min-width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(72,187,120,0.15);
+      background: var(--accent-glow);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-top: 2px;
     }
-    .why-check svg { width: 14px; height: 14px; stroke: #48BB78; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .why-check svg { width: 14px; height: 14px; stroke: var(--accent); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
     .why-feature h4 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
     .why-feature p { color: #a8a5a0; font-size: 0.88rem; }
     .why-image-wrap {
@@ -514,7 +573,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       font-weight: 700;
-      color: #48BB78;
+      color: var(--accent);
     }
     .why-badge .badge-label {
       font-size: 0.78rem;
@@ -538,10 +597,10 @@
     }
     .testimonial-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(72,187,120,0.15);
+      border-color: var(--accent-glow);
     }
     .stars { display: flex; gap: 4px; margin-bottom: 16px; }
-    .stars svg { width: 18px; height: 18px; fill: #48BB78; }
+    .stars svg { width: 18px; height: 18px; fill: var(--accent); }
     .testimonial-card blockquote {
       color: #a8a5a0;
       font-size: 0.95rem;
@@ -554,12 +613,12 @@
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      background: rgba(72,187,120,0.15);
+      background: var(--accent-glow);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      color: #48BB78;
+      color: var(--accent);
       font-size: 0.85rem;
     }
     .author-name { font-weight: 600; font-size: 0.9rem; }
@@ -583,7 +642,7 @@
       right: -16px;
       width: 32px;
       height: 2px;
-      background: rgba(72,187,120,0.3);
+      background: var(--accent-glow-strong);
     }
     .step-number {
       width: 64px;
@@ -598,7 +657,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.25rem;
       font-weight: 700;
-      color: #48BB78;
+      color: var(--accent);
     }
     .process-step h3 { font-size: 1.1rem; margin-bottom: 8px; }
     .process-step p { color: #a8a5a0; font-size: 0.88rem; }
@@ -624,7 +683,7 @@
       transform: translateY(-4px);
     }
     .pricing-card.featured {
-      border-color: #48BB78;
+      border-color: var(--accent);
       background: #1a1a1a;
       transform: scale(1.03);
       box-shadow: 0 20px 60px rgba(72,187,120,0.1);
@@ -637,7 +696,7 @@
       top: -14px;
       left: 50%;
       transform: translateX(-50%);
-      background: #48BB78;
+      background: var(--accent);
       color: #0d0d0d;
       font-size: 0.75rem;
       font-weight: 700;
@@ -669,7 +728,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .pricing-features li:last-child { border-bottom: none; }
-    .pricing-features li svg { min-width: 16px; height: 16px; stroke: #48BB78; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .pricing-features li svg { min-width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
     .pricing-card .btn { width: 100%; justify-content: center; }
 
     /* ---- PROMO BANNER ---- */
@@ -722,7 +781,7 @@
       stroke-width: 2;
       transition: transform 0.3s ease;
     }
-    .faq-item.active .faq-question svg { transform: rotate(180deg); stroke: #48BB78; }
+    .faq-item.active .faq-question svg { transform: rotate(180deg); stroke: var(--accent); }
     .faq-answer {
       max-height: 0;
       overflow: hidden;
@@ -761,7 +820,7 @@
       align-items: center;
       justify-content: center;
     }
-    .contact-item-icon svg { width: 20px; height: 20px; stroke: #48BB78; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .contact-item-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .contact-item h4 {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.9rem;
@@ -769,7 +828,7 @@
       margin-bottom: 4px;
     }
     .contact-item p, .contact-item a { color: #a8a5a0; font-size: 0.88rem; }
-    .contact-item a:hover { color: #48BB78; }
+    .contact-item a:hover { color: var(--accent); }
     .service-area-tags {
       display: flex;
       flex-wrap: wrap;
@@ -821,7 +880,7 @@
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #48BB78;
+      border-color: var(--accent);
     }
     .form-group textarea { resize: vertical; min-height: 100px; }
     .form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6965' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
@@ -861,7 +920,7 @@
       font-size: 0.88rem;
       transition: color 0.3s ease;
     }
-    .footer-col a:hover { color: #48BB78; }
+    .footer-col a:hover { color: var(--accent); }
     .footer-bottom {
       border-top: 1px solid rgba(255,255,255,0.06);
       padding: 24px 0;
@@ -917,20 +976,20 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
     .floating-cta-option:hover {
-      background: #48BB78;
+      background: var(--accent);
       color: #0d0d0d;
-      border-color: #48BB78;
+      border-color: var(--accent);
       transform: translateY(-2px);
     }
     .floating-cta-option:hover svg { stroke: #0d0d0d; }
-    .floating-cta-option svg { width: 18px; height: 18px; stroke: #48BB78; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .floating-cta-option svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
     .floating-cta-option.ai-option { display: none; }
     .floating-cta-option.ai-option.enabled { display: flex; }
     .floating-cta-btn {
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      background: #48BB78;
+      background: var(--accent);
       border: none;
       display: flex;
       align-items: center;
@@ -941,7 +1000,7 @@
       animation: pulse-ring 2s infinite;
       position: relative;
     }
-    .floating-cta-btn:hover { background: #38A169; transform: scale(1.08); }
+    .floating-cta-btn:hover { background: var(--accent-dark); transform: scale(1.08); }
     .floating-cta-btn svg { width: 24px; height: 24px; stroke: #0d0d0d; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .floating-cta-label {
       position: absolute;
@@ -987,7 +1046,7 @@
       cursor: pointer;
     }
     .back-to-top.visible { opacity: 1; visibility: visible; }
-    .back-to-top:hover { background: #48BB78; border-color: #48BB78; }
+    .back-to-top:hover { background: var(--accent); border-color: var(--accent); }
     .back-to-top:hover svg { stroke: #0d0d0d; }
     .back-to-top svg { width: 18px; height: 18px; stroke: #a8a5a0; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -995,7 +1054,7 @@
     .service-detail { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
     .service-detail.active { max-height: 1000px; }
     .service-detail p { color: #a8a5a0; font-size: 0.88rem; line-height: 1.7; margin-top: 12px; }
-    .service-read-more { background: none; border: none; color: #48BB78; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0; margin-top: 8px; }
+    .service-read-more { background: none; border: none; color: var(--accent); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0; margin-top: 8px; }
 
     /* ---- SERVICE AREAS ---- */
     .areas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -1107,6 +1166,20 @@
         <a href="#faq">FAQ</a>
         <a href="blog.html">Blog</a>
         <a href="#contact" class="nav-cta">Get Free Quote</a>
+        <div class="color-picker-wrap" id="colorPickerWrap">
+          <button class="color-picker-btn" id="colorPickerBtn" aria-label="Change color theme" title="Change color theme">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+          </button>
+          <div class="color-picker-dropdown" id="colorPickerDropdown">
+            <p style="font-size:0.75rem; color:#6b6965; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Theme</p>
+            <div class="color-options">
+              <button class="color-swatch active" data-theme="green" title="Green (Default)" style="background:#48BB78;"></button>
+              <button class="color-swatch" data-theme="orange" title="Orange" style="background:#E07C3E;"></button>
+              <button class="color-swatch" data-theme="black" title="Black & White" style="background:#ffffff; border:2px solid #333;"></button>
+              <button class="color-swatch" data-theme="blue" title="Blue" style="background:#4A90D9;"></button>
+            </div>
+          </div>
+        </div>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span>

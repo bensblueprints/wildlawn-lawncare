@@ -363,7 +363,76 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // 14. Floating Schedule Service Widget
+  // 14. Color Theme Picker
+  //     4 themes: green (default), orange, black/white, blue
+  // ============================================================
+  const themes = {
+    green:  { accent: '#48BB78', light: '#68D391', dark: '#38A169', glow: 'rgba(72,187,120,0.15)', glowStrong: 'rgba(72,187,120,0.35)' },
+    orange: { accent: '#E07C3E', light: '#F0A060', dark: '#C06830', glow: 'rgba(224,124,62,0.15)', glowStrong: 'rgba(224,124,62,0.35)' },
+    black:  { accent: '#FFFFFF', light: '#E0E0E0', dark: '#CCCCCC', glow: 'rgba(255,255,255,0.1)', glowStrong: 'rgba(255,255,255,0.2)' },
+    blue:   { accent: '#4A90D9', light: '#6DAAEE', dark: '#3A78BF', glow: 'rgba(74,144,217,0.15)', glowStrong: 'rgba(74,144,217,0.35)' },
+  };
+
+  function applyTheme(name) {
+    const t = themes[name];
+    if (!t) return;
+    const root = document.documentElement;
+    root.style.setProperty('--accent', t.accent);
+    root.style.setProperty('--accent-light', t.light);
+    root.style.setProperty('--accent-dark', t.dark);
+    root.style.setProperty('--accent-glow', t.glow);
+    root.style.setProperty('--accent-glow-strong', t.glowStrong);
+
+    // Update all hardcoded accent colors in inline styles
+    document.querySelectorAll('.accent').forEach(el => el.style.color = t.accent);
+    document.querySelectorAll('.nav-cta').forEach(el => {
+      el.style.background = t.accent;
+    });
+    document.querySelectorAll('.btn-primary').forEach(el => {
+      el.style.background = t.accent;
+    });
+    document.querySelectorAll('.floating-cta-btn').forEach(el => {
+      el.style.background = t.accent;
+    });
+
+    // Update active swatch
+    document.querySelectorAll('.color-swatch').forEach(s => {
+      s.classList.toggle('active', s.dataset.theme === name);
+    });
+
+    // Save preference
+    localStorage.setItem('wildlawn_theme', name);
+  }
+
+  // Color picker toggle
+  const pickerBtn = document.getElementById('colorPickerBtn');
+  const pickerDropdown = document.getElementById('colorPickerDropdown');
+  if (pickerBtn && pickerDropdown) {
+    pickerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      pickerDropdown.classList.toggle('active');
+    });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.color-picker-wrap')) {
+        pickerDropdown.classList.remove('active');
+      }
+    });
+    document.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        applyTheme(swatch.dataset.theme);
+        pickerDropdown.classList.remove('active');
+      });
+    });
+  }
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('wildlawn_theme');
+  if (savedTheme && themes[savedTheme]) {
+    applyTheme(savedTheme);
+  }
+
+  // ============================================================
+  // 15. Floating Schedule Service Widget
   //     Toggle menu on click, close on outside click
   // ============================================================
   const floatingBtn = document.getElementById('floatingCtaBtn');
